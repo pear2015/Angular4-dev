@@ -1,0 +1,281 @@
+<h1 class="title">{{'applyBasicInfo'|translate}}</h1>
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="photoImg dx-icon" [ngClass]="{'dx-icon-user':applyBasicInfo.registrationPhoto==null}">
+            <img src="data:image/jpg;base64,{{applyBasicInfo.registrationPhoto}}" alt="" width="150" height="210">
+        </div>
+    </div>
+
+    <div class="col-sm-8 ">
+
+        <div class="row">
+
+            <div class="col-sm-6 inputBox">
+                <label>{{'certificateType'| translate}}</label>
+                <div class="dxInput">
+                    <span class="readInfo">{{applyBasicInfo.certificateName | translate}}</span>
+                </div>
+            </div>
+
+            <div class="col-sm-6 inputBox">
+                <label>{{'certificateNumber'| translate}}</label>
+                <div class="dxInput">
+                    <span class="readInfo">{{applyBasicInfo.certificateNumber}}</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-sm-6 inputBox">
+                <label>{{'firstName'| translate}}</label>
+                <div class="dxInput">
+                    <span class="readInfo">{{applyBasicInfo.firstName}}</span>
+                </div>
+            </div>
+            <div class="col-sm-6 inputBox">
+                <label>{{'lastName'| translate}}</label>
+                <div class="dxInput">
+                    <span class="readInfo">{{applyBasicInfo.lastName}}</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 inputBox">
+                <label>{{'sexName'| translate}}</label>
+                <div class="dxInput">
+                    <span class="readInfo">{{applyBasicInfo.sexName| translate}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'dateOfBirth'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.dateOfBirth | I18nDate}}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 inputBox">
+        <label>{{'age'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.age}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'nation'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.nation}}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 inputBox">
+        <label>{{'marriageName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.marriageName| translate}}</span>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'credentialsIssueDate'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.credentialsIssueDate | I18nDate}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'certificateValidity'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.certificateValidity}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="textarea-p">
+        <label>{{'credentialsIssuePlace'| translate}}</label>
+        <div class="textAreaDiv">
+            <span class="readInfo">{{applyBasicInfo.credentialsIssuePlace}}</span>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<h1 class="title">{{'parentInfo'|translate}}</h1>
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'fatherCertificateNumber'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.fatherCertificateNumber}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'motherCertificateNumber'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.motherCertificateNumber}}</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'fatherFirstName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.fatherFirstName}}</span>
+
+        </div>
+    </div>
+    <div class="col-sm-6 inputBox">
+        <label>{{'fatherLastName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.fatherLastName}}</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'motherFirstName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.motherFirstName}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'motherLastName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.motherLastName}}</span>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<h1 class="title">{{'countryOfCitizenship'|translate}}</h1>
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'countryOfCitizenship'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.countryOfCitizenship}}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 inputBox">
+        <label>{{'provinceName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.provinceName}}</span>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'cityName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.cityName}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'communityName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.communityName}}</span>
+        </div>
+
+    </div>
+</div>
+
+<h1 class="title">{{'livingDetailAddress'| translate}}</h1>
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'livingCountryName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.livingCountryName}}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 inputBox">
+        <label>{{'livingProvinceName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.livingProvinceName}}</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'livingCityName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.livingCityName}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'livingCommunityName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.livingCommunityName}}</span>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="textarea-p">
+        <label>{{'detailAddress'| translate}}</label>
+        <div class="textAreaDiv">
+            <span class="readInfo">{{applyBasicInfo.detailAddress}}</span> </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+<h1 class="title ">{{'otherFeature'| translate}}</h1>
+
+<div class="row">
+    <div class="col-sm-12 inputBox">
+        <label>{{'profession'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.profession}}</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'career'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.careerName}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'contractPhone'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyBasicInfo.contractPhone}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="textarea-p">
+        <label>{{'otherFeature'| translate}}</label>
+
+        <div class="textAreaDiv">
+            <span class="readInfo">{{applyBasicInfo.otherFeature}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="textarea-p">
+        <label>{{'applyBasicInfoDescription'| translate}}</label>
+
+        <div class="textAreaDiv">
+            <span class="readInfo">{{applyBasicInfo.description}}</span>
+        </div>
+    </div>
+</div>

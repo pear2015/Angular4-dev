@@ -1,0 +1,163 @@
+<!-- 用于打印 -->
+<carousel [activeSlide]="0" [interval]="0" *ngIf="isPrint">
+    <slide>
+        <div class="print-content" style="margin: 0 auto;  width: 600px; height: 1100px; padding: 0 60px;position:relative;">
+            <div class="print-title" style="text-align:center;padding-top: 125px;">{{'Ministry of Justice and Human Rights'| translate}}</div>
+            <div class="center" style="text-align:center">
+                <span>{{'Civil and criminal identification documents from national departments'|translate}}</span>
+            </div>
+            <div style="text-align:center">*</div>
+            <div style="text-align:center;">{{'Criminal records prove'|translate}}</div>
+            <div class="print-certificatenumber" style=" padding-top: 30px;">{{'CertificateNumber'| translate}}:{{certificateId}}</div>
+            <div style="text-align:left;padding-top: 30px;" class="print-certificatePurpose">{{'Este certificado destina-se a' | translate}}
+                <span>{{certificatePrintInfo?.applyPurposeName}}</span>
+            </div>
+            <div style="text-align:left; padding-top: 20px; line-height:30px;" class="content-word">　　{{'Certifico que da base de dados desta Direcção' | translate}}
+                <span>{{'nada consta' | translate}}</span>
+                {{'a respeito de' | translate}}
+                <span>{{certificatePrintInfo?.applyResultName}}</span>, {{'titular do' | translate}}
+                <span>{{certificatePrintInfo?.certificateName}}</span>{{certificatePrintInfo?.certificateNumber}}
+                <span *ngIf="certificatePrintInfo?.credentialsIssuePlace">, {{'emitido em'}} {{certificatePrintInfo?.credentialsIssuePlace}}</span>
+                <span *ngIf="applyBasicInfo?.credentialsIssueDate">,{{'aos' | translate}} {{applyBasicInfo?.credentialsIssueDate}}</span>
+                <span *ngIf="certificatePrintInfo?.fatherFirstName"> {{'filho de '}},{{certificatePrintInfo?.fatherFirstName}}</span>
+                <span *ngIf="certificatePrintInfo?.fatherLastName"> {{certificatePrintInfo?.fatherLastName}}</span>
+                <span *ngIf="certificatePrintInfo?.motherFirstName">{{'e de '}} {{certificatePrintInfo?.motherFirstName}} </span>
+                <span *ngIf="certificatePrintInfo?.motherLastName"> {{certificatePrintInfo?.motherLastName}}</span>
+                <span *ngIf="applyBasicInfo?.dateOfBirth">, {{'nascido a'}}{{applyBasicInfo?.dateOfBirth}}</span>
+                <span *ngIf="applyBasicInfo?.marriageName"> , {{'estado civil'}} {{applyBasicInfo?.marriageName}}</span>
+                <span *ngIf="applyBasicInfo?.provinceName">, {{'natural da Provincia de '}} {{applyBasicInfo?.provinceName | translate}}</span>
+                <span *ngIf="applyBasicInfo?.cityName"> , {{'Municipio de'}} {{applyBasicInfo?.cityName | translate}}</span>
+                <span *ngIf="applyBasicInfo?.communityName">, {{'Commune' | translate}} {{applyBasicInfo?.communityName}}</span>, {{'Consta o seguinte: Vide verso, folhas
+                ['}}
+                <span>{{noticeCount}}</span> {{'] anexas'}}
+            </div>
+            <div style="text-align:center; margin-top: 40px;">{{applyInfo?.applyCenterProvince | translate}},{{day}} {{'de'}} {{month | ptMonth }} {{'de'}} {{year}}</div>
+            <div style="text-align:right; margin-top: 20px;">
+                <span>{{'A Directora Nacional' | translate}}</span>
+            </div>
+            <div style="text-align:right; margin-top: 20px;">
+                <img src="{{nationalCenterDirector}}">
+            </div>
+
+            <div class="print-bottom" style="text-align:left; position: absolute;bottom: 100px; width: 100%;overflow: hidden;">
+                <div style="width:280px;float:left;overflow:hidden;">
+                    <p>{{'Este certificado é válido por 90 dias' | translate}}</p>
+                    <p>{{'Código de validação' | translate }} :
+                        <span>{{validateCode| translate}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </slide>
+
+
+    <slide *ngFor="let item of list; let i = index">
+        <div class="print-content" style="margin: 0 auto;  width: 600px; height: 1100px; padding: 0 60px;position:relative;">
+            <div class="print-title" style="text-align:center;padding-top: 125px;">{{'Ministry of Justice and Human Rights'| translate}}</div>
+            <div class="center" style="text-align:center">
+                <span>{{'Civil and criminal identification documents from national departments'|translate}}</span>
+            </div>
+            <div style="text-align:center">*</div>
+            <div style="text-align:center;">{{'Criminal records prove'|translate}}</div>
+            <div class="print-certificatenumber" style="padding-top: 30px;">{{'CertificateNumber'| translate}}:{{certificateId}}</div>
+            <div *ngIf="item.attachmentInfo[0]" style="margin-top:40px;">
+                <img [src]="item.attachmentInfo[0].filePathContent" width="100%" height="680" class="img-responsive" />
+            </div>
+            <div class="print-bottom" style="text-align:left;width: 100%;overflow: hidden;">
+                <div style="width:280px;float:left;overflow:hidden;">
+                    <p>{{'Este certificado é válido por 90 dias' | translate}}</p>
+                    <p>{{'Código de validação' | translate }} :
+                        <span>{{validateCode | translate}}</span>
+                    </p>
+                </div>
+                <div style="width:280px;float:left;overflow:hidden;" *ngIf="item.attachmentInfo[0]">
+                    <p>{{'Nada mais consta' | translate}}</p>
+                    <p>{{applyInfo?.applyCenterProvince | translate}},{{day}} {{'de'}} {{month | ptMonth }} {{'de'}} {{year}}</p>
+                </div>
+            </div>
+        </div>
+    </slide>
+</carousel>
+
+
+
+<!-- 用于展示 -->
+<carousel [activeSlide]="0" [interval]="0" *ngIf="!isPrint">
+    <slide>
+        <div class="print-content" style="margin: 0 auto;  width: 530px; height: 710px; padding: 0 60px;position:relative;">
+            <div class="print-title" style="text-align:center;padding-top: 125px;">{{'Ministry of Justice and Human Rights'| translate}}</div>
+            <div class="center" style="text-align:center">
+                <span>{{'Civil and criminal identification documents from national departments'|translate}}</span>
+            </div>
+            <div style="text-align:center">*</div>
+            <div style="text-align:center;">{{'Criminal records prove'|translate}}</div>
+            <div class="print-certificatenumber" style=" padding-top: 30px;">{{'CertificateNumber'| translate}}:{{certificateId}}</div>
+            <div style="text-align:left;padding-top: 30px;" class="print-certificatePurpose">{{'Este certificado destina-se a' | translate}}
+                <span>{{certificatePrintInfo?.applyPurposeName}}</span>
+            </div>
+            <div style="text-align:left; padding-top: 20px; line-height:30px;" class="content-word">　　{{'Certifico que da base de dados desta Direcção' | translate}}
+                <span>{{'nada consta' | translate}}</span>
+                {{'a respeito de' | translate}}
+                <span>{{certificatePrintInfo?.applyResultName}}</span>, {{'titular do' | translate}}
+                <span>{{certificatePrintInfo?.certificateName}}</span>{{certificatePrintInfo?.certificateNumber}}
+                <span *ngIf="certificatePrintInfo?.credentialsIssuePlace">, {{'emitido em'}} {{certificatePrintInfo?.credentialsIssuePlace}}</span>
+                <span *ngIf="applyBasicInfo?.credentialsIssueDate">,{{'aos' | translate}} {{applyBasicInfo?.credentialsIssueDate}}</span>
+                <span *ngIf="certificatePrintInfo?.fatherFirstName"> {{'filho de '}},{{certificatePrintInfo?.fatherFirstName}}</span>
+                <span *ngIf="certificatePrintInfo?.fatherLastName"> {{certificatePrintInfo?.fatherLastName}}</span>
+                <span *ngIf="certificatePrintInfo?.motherFirstName">{{'e de '}} {{certificatePrintInfo?.motherFirstName}} </span>
+                <span *ngIf="certificatePrintInfo?.motherLastName"> {{certificatePrintInfo?.motherLastName}}</span>
+                <span *ngIf="applyBasicInfo?.dateOfBirth">, {{'nascido a'}}{{applyBasicInfo?.dateOfBirth}}</span>
+                <span *ngIf="applyBasicInfo?.marriageName"> , {{'estado civil'}} {{applyBasicInfo?.marriageName}}</span>
+                <span *ngIf="applyBasicInfo?.provinceName">, {{'natural da Provincia de '}} {{applyBasicInfo?.provinceName | translate}}</span>
+                <span *ngIf="applyBasicInfo?.cityName"> , {{'Municipio de'}} {{applyBasicInfo?.cityName | translate}}</span>
+                <span *ngIf="applyBasicInfo?.communityName">, {{'Commune' | translate}} {{applyBasicInfo?.communityName}}</span>, {{'Consta o seguinte: Vide verso, folhas
+                ['}}
+                <span>{{noticeCount}}</span> {{'] anexas'}}
+            </div>
+            <div style="text-align:center; margin-top: 40px;">{{applyInfo?.applyCenterProvince | translate}},{{day}} {{'de'}} {{month | ptMonth }} {{'de'}} {{year}}</div>
+            <div style="text-align:right; margin-top: 20px;">
+                <span>{{'A Directora Nacional' | translate}}</span>
+            </div>
+            <div style="text-align:right; margin-top: 20px;">
+                <img src="{{nationalCenterDirector}}">
+            </div>
+
+            <div class="print-bottom" style="text-align:left; position: absolute;bottom: 45px; width: 100%;overflow: hidden;">
+                <div style="width:280px;float:left;overflow:hidden;">
+                    <p>{{'Este certificado é válido por 90 dias' | translate}}</p>
+                    <p>{{'Código de validação' | translate }} :
+                        <span>{{validateCode | translate}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </slide>
+
+
+    <slide *ngFor="let item of list; let i = index">
+        <div class="print-content" style="margin: 0 auto;  width: 530px; height: 710px; padding: 0 60px;position:relative;">
+            <div class="print-title" style="text-align:center;padding-top: 125px;">{{'Ministry of Justice and Human Rights'| translate}}</div>
+            <div class="center" style="text-align:center">
+                <span>{{'Civil and criminal identification documents from national departments'|translate}}</span>
+            </div>
+            <div style="text-align:center">*</div>
+            <div style="text-align:center;">{{'Criminal records prove'|translate}}</div>
+            <div class="print-certificatenumber" style=" padding-top: 30px;">{{'CertificateNumber'| translate}}:{{certificateId}}</div>
+            <div *ngIf="item.attachmentInfo[0]" style="margin:40px 0;">
+                <img [src]="item.attachmentInfo[0].filePathContent" width="100%" height="235" class="img-responsive" />
+            </div>
+            <div class="print-bottom" style="text-align:left;width: 100%;overflow: hidden;">
+                <div style="width:280px;float:left;overflow:hidden;">
+                    <p>{{'Este certificado é válido por 90 dias' | translate}}</p>
+                    <p>{{'Código de validação' | translate }} :
+                        <span>{{validateCode | translate}}</span>
+                    </p>
+                </div>
+                <div style="width:280px;float:left;overflow:hidden;" *ngIf="item.attachmentInfo[0]">
+                    <p>{{'Nada mais consta' | translate}}</p>
+                    <p>{{applyInfo?.applyCenterProvince | translate}},{{day}} {{'de'}} {{month | ptMonth }} {{'de'}} {{year}}</p>
+                </div>
+            </div>
+        </div>
+    </slide>
+</carousel>

@@ -1,0 +1,22 @@
+<div class="btn-group">
+    <button class="btn btn-primary c-btn-reset dropdown-toggle" data-toggle="dropdown">
+        <i class="fa fa-globe"></i>
+        {{chooseForDisplay}}
+    </button>
+    <ul class="dropdown-menu c-dropdown-color">
+        <li class="dropdown-item dropdown-item-country c-dropdown-item-txt" *ngIf="needNationDisplay" (click)="selectChanged.emit(default)">
+            {{'ALL' | translate}}
+        </li>
+        <li *ngFor="let data of dataSource">
+            <!--<label class="dropdown-header dropdown-header-display c-dropdown-item-txt">
+                {{data.level}}
+            </label>-->
+            <ul class="dropdown-submenu c-dropdown-color">
+                <!-- *ngFor="let item of data.centers"-->
+                <li class="dropdown-item dropdown-item-horizontal c-dropdown-item-txt" (click)="selectChanged.emit(data)">
+                    {{data.name}}
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

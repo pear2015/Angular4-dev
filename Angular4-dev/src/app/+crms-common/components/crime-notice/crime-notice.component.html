@@ -1,0 +1,93 @@
+<h1 class="title " style="margin-top:0;">{{'crimeNotice'|translate}}
+    <i [hidden]="clearBtnVisible" id="clearNoticeInfo" class="ag02 ag02-empty clearBtn " (click)="clearInfo.emit('noticeInfo')"
+        (mouseenter)="clearPageTolToggle()" (mouseleave)="clearPageTolToggle()"></i>
+</h1>
+<dx-validation-group>
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label class="">{{'noticeNumber'| translate}}
+                <span>*</span>
+            </label>
+            <div class="dxInput">
+                <dx-text-box (onFocusOut)="checkNoticeNumber.emit(noticeInfo.noticeNumber)" [(ngModel)]="noticeInfo.noticeNumber" id="noticeNumber"
+                    name="noticeNumber" maxLength="36" [disabled]="isReadOnly">
+                    <dx-validator>
+                        <dxi-validation-rule type="required" message="{{'noticeNumber is required'| translate}}"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-box>
+            </div>
+        </div>
+
+        <!-- 发布时间 -->
+        <div class="col-sm-6 inputBox">
+            <label class="">{{'noticeCreateTime'| translate}}
+                <span>*</span>
+            </label>
+            <div class="dxInput">
+                <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [min]="crimeInfo.crimeJudgeTime?crimeInfo.crimeJudgeTime:(crimeInfo.crimeTime?crimeInfo.crimeTime:TwoHundredYearsTime)"
+                    [max]="now" [(ngModel)]="noticeInfo.noticeCreateTime" id="noticeCreateTime" name="noticeCreateTime" [disabled]="isReadOnly">
+                    <!--(onValueChanged)="initMaxCrimeJudgeTime($event)"-->
+                    <dx-validator>
+                        <dxi-validation-rule type="required" message="{{'date of noticeCreateTime is required'| translate}}"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-date-box>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12 inputBox">
+            <label class="">{{'courtName'| translate}}
+                <span>*</span>
+            </label>
+            <div class="dxInput">
+                <dx-select-box [(ngModel)]="noticeInfo.courtId" name="courtId" [searchEnabled]="true" valueExpr="courtId" displayExpr="name"
+                    [dataSource]="courtInfoList" [disabled]="isReadOnly">
+                    <!--(onSelectionChanged)="selectIndexOfCourt($event)"-->
+                    <dx-validator>
+                        <dxi-validation-rule type="required" message="{{'courtName is required'| translate}}"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-select-box>
+            </div>
+        </div>
+        <!--<div class="col-sm-6 inputBox">
+        <label class="">{{'priority'| translate}}<span>*</span></label>
+        <div class="dxInput">
+            <dx-select-box [(ngModel)]="noticeInfo.priority" name="priority" valueExpr="applyPriorityId" displayExpr="name" [dataSource]="priorityList"
+                [disabled]="isReadOnly">
+            </dx-select-box>
+        </div>
+    </div>-->
+
+    </div>
+
+    <div class="textarea-p">
+        <label class="">{{'noticeDescription'| translate}}</label>
+
+        <div class="textAreaDiv">
+            <dx-text-area class="textAreaNotice" [(ngModel)]="noticeInfo.noticeDescription" id="noticeDescription" name="noticeDescription"
+                valueChangeEvent="keyup" maxLength="2000" [disabled]="isReadOnly">
+            </dx-text-area>
+            <span class="wordwrap">
+                <var class="word">{{noticeInfo.noticeDescription?noticeInfo.noticeDescription.length:0}}</var>/2000</span>
+        </div>
+    </div>
+
+    <div class="textarea-p">
+        <label class="">{{'noticeNote'| translate}}</label>
+
+        <div class="textAreaDiv">
+            <dx-text-area class="textAreaNotice" [(ngModel)]="noticeInfo.note" id="note" name="note" valueChangeEvent="keyup" maxLength="2000"
+                [disabled]="isReadOnly">
+            </dx-text-area>
+            <span class="wordwrap">
+                <var class="word">{{noticeInfo.note?noticeInfo.note.length:0}}</var>/2000</span>
+        </div>
+    </div>
+</dx-validation-group>
+<dx-tooltip target="#clearNoticeInfo" position="bottom" [(visible)]="clearPageTolVisible">
+    <div *dxTemplate="let data = data of 'content'">
+        {{'clear notice info'|translate}}
+    </div>
+</dx-tooltip>

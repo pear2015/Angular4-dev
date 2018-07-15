@@ -1,0 +1,71 @@
+<div class="list-common-width">
+    <div class="common-title" style="font-size:20px;">{{'ApplyIncompleteRecord' | translate}}</div>
+    <div class="btn-groups">
+        <button type="button" class="btn btn-light" (click)="updateList(0)">
+            <div class="text">{{'analyzing' | translate}}</div>
+            <div class="badge">{{incomleteObject?.unAnalyst}}</div>
+        </button>
+        <button type="button" class="btn btn-light"  (click)="updateList(2)">
+            <div class="text">{{'auditing' | translate}}</div>
+            <div class="badge">{{incomleteObject?.unAudit}}</div>
+        </button>
+        <button type="button" class="btn btn-light"  (click)="updateList(3)">
+            <div class="text">{{'toBePrinted' | translate}}</div>
+            <div class="badge badge-danger">{{incomleteObject?.unPrint}}</div>
+        </button>
+    </div>
+</div>
+
+
+<div class="list-common-content">
+    <div>
+        <!--(mouseenter)="toggleDefault()" (mouseleave)="toggleDefault()" -->
+        <dx-button icon="fa fa-send" class="grey-btn" (click)="watchGovernmentRecord()" text="{{'watch' | translate}}" [(disabled)]="showDetailsBtn"></dx-button>
+        <dx-button icon="fa fa-print" class="grey-btn" (click)="printCertificate()" text="{{'print certificate' | translate}}" [(disabled)]="showPrintCerBtn"></dx-button>
+        <dx-button icon="fa fa-history" class="grey-btn" (click)="watchRecordHistory()" text="{{'record History' | translate}}" [(disabled)]="showDetailsBtn"></dx-button>
+        <dx-button class="refresh-btn grey-btn" icon="fa fa-refresh" (click)="refreshList()" text="{{'refresh' | translate}}"></dx-button>
+    </div>
+    <div style=" margin-top:15px;">
+        <dx-data-grid #govermentRecordGrids id="govermentRecordList" [showBorders]="true" [dataSource]="recordList" (onSelectionChanged)="selectRecordHandle($event)"
+            [loadPanel]={enabled:false}>
+            <dxo-selection mode="single"></dxo-selection>
+            <dxo-paging [pageSize]="10"></dxo-paging>
+            <dxi-column dataField="name" caption="{{'name' | translate}}" cellTemplate="nameCellTemplate" [allowSorting]="false"></dxi-column>
+            <!--<dxi-column dataField="certificateName" caption="{{'certificateType'| translate }}" [allowSorting]="false"></dxi-column>-->
+            <dxi-column dataField="certificateNumber" [width]="150" caption="{{'certificateNumber'| translate }}" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="applyTime" caption="{{'applyTime' | translate}}" cellTemplate="longDateTemplate" [allowSorting]="false"
+                dataType="date"></dxi-column>
+            <dxi-column dataField="applyTypeName" caption="{{'applyTypeName' | translate}}" [allowSorting]="false"></dxi-column>
+            <!--<dxi-column dataField="applyPurposeName" caption="{{'applyPurpose' | translate}}" [allowSorting]="false"></dxi-column>-->
+            <dxi-column dataField="priorityName" caption="{{'priority' | translate}}" [allowSorting]="false"></dxi-column>
+            <!--<dxi-column dataField="applyCenterName" caption="{{'applyCenterName' | translate}}" [allowSorting]="false"></dxi-column>-->
+            <dxi-column dataField="applyStatusName" caption="{{'applyStatusName' | translate}}" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="applyResultName" caption="{{'applyResult' | translate}}" [allowSorting]="false"></dxi-column>
+            <div *dxTemplate="let item of 'nameCellTemplate'">
+                <span *ngIf="item.data?.registrationPhoto==null">
+                    <img src="./themes/images/person.png" alt=""  class="list-person" />
+                </span>
+                <span *ngIf="item.data?.registrationPhoto!=null">
+                    <img src="data:image/jpg;base64,{{item.data?.registrationPhoto}}" class="list-person"
+                    />
+                </span>
+                <span>{{item.data?.firstName}} {{item.data?.lastName}}</span>
+            </div>
+            <div *dxTemplate="let item of 'longDateTemplate'">
+                <span>{{item.data?.applyTime|I18nDate:'long'}}</span>
+            </div>
+        </dx-data-grid>
+        <div class="pull-right pagin-space" [hidden]="pageMenuVisible">
+            <app-pagination [(pageObjEmit)]="govermentRecodePage" [(totalCount)]="dataCount" (pageObjChange)="pageIndexChange($event)"></app-pagination>
+        </div>
+    </div>
+</div>
+
+
+<mf-history [handleHistoryList]="handleHistoryList"></mf-history>
+<mf-print (printOver)="refreshList()" [crimeAndNoticeList]='crimeAndNoticeList' [applyInfo]="certificateInfo"></mf-print>
+<!-- 保存以及查询时的loading starter-->
+<dx-load-panel #submitLoadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{my:'center',at:'center', of: '#govermentRecordList' }"
+    [(visible)]="loadingVisible" [showIndicator]="true" [showPane]="true" [shading]="false" [closeOnOutsideClick]="false">
+</dx-load-panel>
+<!-- 保存以及查询时的loading end-->

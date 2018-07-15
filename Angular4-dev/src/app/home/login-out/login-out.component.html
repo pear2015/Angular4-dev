@@ -1,0 +1,13 @@
+<!-- popup弹窗给出保存提示信息 starter-->
+<dx-popup class="popup confirmPopup" [width]="500" [height]="220" title="{{'pupopinformation'|translate}}" [showTitle]="true"
+    [dragEnabled]="false" [closeOnOutsideClick]="false" [(visible)]="confirmVisible" [showCloseButton]="false">
+    <div *dxTemplate="let data of 'content'">
+        <div class="proInfo" *ngIf="!isHasLogin">{{socketQuitLoginMessage|translate}}
+            <span style="margin-left:15px;">{{timer}}</span>
+        </div>
+        <div class="proInfo" *ngIf="isHasLogin">{{sockeTipeMessage|translate}}{{socketQuitLoginMessage}}</div>
+        <div style="float:right;position:absolute;right:20px;bottom:20px;">
+            <dx-button icon="fa fa-sign-out" text="{{'login-out'| translate}}" type="success" (click)="exitApp()"></dx-button>
+        </div>
+    </div>
+</dx-popup>

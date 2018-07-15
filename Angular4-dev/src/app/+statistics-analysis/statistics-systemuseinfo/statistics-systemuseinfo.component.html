@@ -1,0 +1,31 @@
+<div class="chartsContainer" (window:resize)="onResize($event)">
+    <div class="btnGroup">
+        <crms-statistics-dimension (statisticsByCenterSelectChanged)="null" (statisticsByCustomTimeClicked)="statisticsQuantitByCustomTime($event)"
+            (statisticsByYearClicked)="statisticsQuantityByYear($event)" (statisticsByMonthClicked)="statisticsQuantityByMonth($event)"
+            (statisticsByTodayClicked)="statisticsQuantityByToday($event)"></crms-statistics-dimension>
+    </div>
+    <div class="chartsBox">
+        <div class="chartBox" style="height:110%;">
+            <h1 class="title text-center">{{'systemuseinfo-statistics-table' |translate}}</h1>
+            <dx-pivot-grid id="sales" class="dataList" [allowSortingBySummary]="true" [allowSorting]="false" [allowFiltering]="false" [allowExpandAll]="true" 
+                [showBorders]="true" [dataSource]="dataSource" [showColumnGrandTotals]="true" [showRowGrandTotals]="true"  [height]="370">
+                <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
+                <dxo-export [enabled]="true" fileName="{{'systemuseinfo-statistics-table' |translate}}"></dxo-export>
+                <!--  <dxo-field-panel [showDataFields]="false" [showRowFields]="true" [showColumnFields]="false" [showFilterFields]="false" [allowFieldDragging]="false" [visible]="true">
+                </dxo-field-panel>-->
+                <!--<dxo-scrolling [mode]="virtual"></dxo-scrolling>-->
+                <dxo-texts [total]="totalText" [grandTotal]="grandTotal"></dxo-texts>
+            </dx-pivot-grid>
+            <div class="chartHeight">
+              <div class="chart chartWidth" #SystemUseStatisticsDiv id="c-full"></div>
+           </div>
+        </div>
+        
+    </div>
+</div> 
+
+
+<!--loading-->
+<!--<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{my:'center',at:'center', of: window }" [(visible)]="loadingVisible"
+    [showIndicator]="true" [showPane]="true" [shading]="true" [closeOnOutsideClick]="false">
+</dx-load-panel>-->

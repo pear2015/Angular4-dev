@@ -1,0 +1,283 @@
+<!--申请人员基本信息start-->
+
+<h1 class="title  margin-top0">{{'applyBasicInfo' | translate}}</h1>
+<div class="row">
+    <div class="col-sm-2">
+        <div class="photoImg dx-icon" [ngClass]="{'dx-icon-user':applyBasicInfo.registrationPhoto==null}">
+            <img src="data:image/jpg;base64,{{applyBasicInfo.registrationPhoto}}" alt="" width="150" height="210">
+        </div>
+    </div>
+
+    <div class="col-sm-10 padding-0">
+         <div class="row">
+            <div class="col-sm-6 inputBox">
+                <label>{{'certificateType' | translate}}</label>
+                <div class="dxInput">
+                    <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.certificateName" name="certificateName" disabled="true"></dx-text-box>
+                </div>
+            </div>
+
+            <div class="col-sm-6 inputBox">
+                <label>{{'certificateNumber' | translate}}</label>
+                <div class="dxInput">
+                    <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.certificateNumber" name="certificateNumber" disabled="true"></dx-text-box>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 inputBox">
+                <label>{{'firstName' | translate}}</label>
+                <div class="dxInput">
+                    <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.firstName" name="firstName" disabled="true"></dx-text-box>
+                </div>
+            </div>
+
+            <div class="col-sm-6 inputBox">
+                <label>{{'lastName' | translate}}</label>
+                <div class="dxInput">
+                    <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.lastName" name="lastName" disabled="true"></dx-text-box>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-sm-6 inputBox">
+                <label>{{'sexName' | translate}}</label>
+                <div class="dxInput">
+                    <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.sexName" name="sexName" disabled="true"></dx-text-box>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'dateOfBirth' | translate}}</label>
+        <div class="dxInput">
+            <dx-date-box class="readInfo" [(ngModel)]="applyBasicInfo.dateOfBirth" name="dateOfBirth" disabled="true"></dx-date-box>
+        </div>
+    </div>
+    <div class="col-sm-6 inputBox">
+        <label>{{'age' | translate}}</label>
+        <div class="dxInput">
+            <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.age" name="age" disabled="true"></dx-text-box>
+        </div>
+    </div>
+</div>
+ <div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'nation' | translate}}</label>
+        <div class="dxInput">
+            <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.nation" name="nation" disabled="true"></dx-text-box>
+        </div>
+    </div>
+    <div class="col-sm-6 inputBox">
+        <label>{{'marriageName' | translate}}</label>
+        <div class="dxInput">
+            <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.marriageName" name="marriageName" disabled="true"></dx-text-box>
+        </div>
+    </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'credentialsIssueDate' | translate}}</label>
+            <div class="dxInput">
+                <dx-date-box class="readInfo" [(ngModel)]="applyBasicInfo.credentialsIssueDate" name="credentialsIssueDate" disabled="true"></dx-date-box>
+            </div>
+        </div>
+
+        <div class="col-sm-6 inputBox">
+            <label>{{'certificateValidity' | translate}}</label>
+            <div class="dxInput">
+                <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.certificateValidity" name="certificateValidity" disabled="true"></dx-text-box>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="textarea-p">
+            <label>{{'credentialsIssuePlace' | translate}}</label>
+            <div class="textAreaDiv">
+                <dx-text-area class="readInfo textAreaCrime" [(ngModel)]="applyBasicInfo.credentialsIssuePlace" name="credentialsIssuePlace" [readOnly]="true"></dx-text-area>
+            </div>
+        </div>
+
+    </div>
+    <div class="clearfix"></div>
+    <h1 class="title">{{'parentInfo'|translate}}</h1>
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'fatherCertificateNumber' | translate}}</label>
+            <div class="dxInput">
+                <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.fatherCertificateNumber" name="fatherCertificateNumber" disabled="true"></dx-text-box>
+            </div>
+        </div>
+
+        <div class="col-sm-6 inputBox">
+            <label>{{'motherCertificateNumber' | translate}}</label>
+            <div class="dxInput">
+                <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.motherCertificateNumber" name="motherCertificateNumber" disabled="true"></dx-text-box>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'fatherFirstName' | translate}}</label>
+            <div class="dxInput">
+                <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.fatherFirstName" name="fatherFirstName" disabled="true"></dx-text-box>
+            </div>
+        </div>
+
+        <div class="col-sm-6 inputBox">
+            <label>{{'fatherLastName' | translate}}</label>
+            <div class="dxInput">
+                <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.fatherLastName" name="fatherLastName" disabled="true"></dx-text-box>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'motherFirstName' | translate}}</label>
+            <div class="dxInput">
+                <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.motherFirstName" name="motherFirstName" disabled="true"></dx-text-box>
+            </div>
+        </div>
+
+        <div class="col-sm-6 inputBox">
+            <label>{{'motherLastName' | translate}}</label>
+            <div class="dxInput">
+                <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.motherLastName" name="motherLastName" disabled="true"></dx-text-box>
+            </div>
+        </div>
+    </div>
+    <!--申请人员基本信息end-->
+
+
+    <h2 class="title">{{'birthPlace'|translate}}</h2>
+    <div class="row">
+        <div class="col-sm-6 inputBox" [hidden]="">
+            <label>{{'countryOfCitizenship' | translate}}</label>
+
+            <div class="dxInput">
+                <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.countryOfCitizenship" name="countryOfCitizenship" disabled="true"></dx-text-box>
+            </div>
+        </div>
+        <div class="col-sm-6 inputBox">
+            <label>{{'provinceName' | translate}}</label>
+            <div class="dxInput">
+                <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.provinceName" name="provinceName" disabled="true"></dx-text-box>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'cityName' | translate}}</label>
+            <div class="dxInput">
+                <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.cityName" name="cityName" disabled="true"></dx-text-box>
+            </div>
+        </div>
+
+        <div class="col-sm-6 inputBox">
+            <label>{{'communityName' | translate}}</label>
+            <div class="dxInput">
+                <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.communityName" name="communityName" disabled="true"></dx-text-box>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="title">{{'livingDetailAddress'| translate}}</h2>
+    <div class="row">
+        <div class="col-sm-6 inputBox" [hidden]="">
+            <label>{{'livingCountryName' | translate}}</label>
+
+            <div class="dxInput">
+                <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.livingCountryName" name="livingCountryName" disabled="true"></dx-text-box>
+            </div>
+        </div>
+        <div class="col-sm-6 inputBox" [hidden]="">
+            <label>{{'livingProvinceName' | translate}}</label>
+
+            <div class="dxInput">
+                <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.livingProvinceName" name="livingProvinceName" disabled="true"></dx-text-box>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-6 inputBox" [hidden]="">
+            <label>{{'livingCityName' | translate}}</label>
+
+            <div class="dxInput">
+                <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.livingCityName" name="livingCityName" disabled="true"></dx-text-box>
+            </div>
+        </div>
+        <div class="col-sm-6 inputBox" [hidden]="">
+            <label>{{'livingCommunityName' | translate}}</label>
+
+            <div class="dxInput">
+                <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.livingCommunityName" name="livingCommunityName" disabled="true"></dx-text-box>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="textarea-p">
+            <label>{{'detailAddress' | translate}}</label>
+            <div class="textAreaDiv">
+                <dx-text-area class="readInfo textAreaCrime" [(ngModel)]="applyBasicInfo.detailAddress" name="detailAddress" [readOnly]="true"></dx-text-area>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="title">{{'otherFeature'| translate}}</h2>
+
+    <div class="row">
+        <div class="col-sm-12 inputBox">
+            <label>{{'profession' | translate}}</label>
+            <div class="dxInput">
+                <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.profession" name="profession" disabled="true"></dx-text-box>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'career' | translate}}</label>
+            <div class="dxInput">
+                <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.careerName" name="careerName" disabled="true"></dx-text-box>
+            </div>
+        </div>
+
+        <div class="col-sm-6 inputBox">
+            <label>{{'contractPhone' | translate}}</label>
+            <div class="dxInput">
+                <dx-text-box class="readInfo" [(ngModel)]="applyBasicInfo.contractPhone" name="contractPhone" disabled="true"></dx-text-box>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="textarea-p">
+            <label>{{'otherFeature' | translate}}</label>
+            <div class="textAreaDiv">
+                <dx-text-area class="readInfo textAreaCrime" [readOnly]="true" [(ngModel)]="applyBasicInfo.otherFeature" name="otherFeature"></dx-text-area>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="textarea-p">
+            <label>{{'applyBasicInfoDescription' | translate}}</label>
+            <div class="textAreaDiv">
+                <dx-text-area class="readInfo textAreaCrime" [readOnly]="true" [(ngModel)]="applyBasicInfo.description" name="description"></dx-text-area>
+            </div>
+        </div>
+    </div>

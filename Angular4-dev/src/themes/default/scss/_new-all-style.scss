@@ -1,0 +1,651 @@
+// 顶部步骤样式
+.wizard-card {
+  height: 100%;
+  .card-header {
+    background-color: #fff;
+    padding: 0;
+    font-size: 1.25rem;
+    border: 0;
+    box-shadow: 0px 2px 1px #ccc;
+  }
+  .card-block {
+    overflow-y: auto;
+  }
+  .card-footer {
+    background-color: #fff;
+    border-top: 0 none;
+  }
+  .nav-item:last-child .three-cicle i {
+    color: #fff !important;
+  }
+  .nav-item {
+    float: left;
+    .notice-entry-top {
+      .commom-width {
+        text-align: center;
+        float: left;
+        height: 80px;
+        padding: 0 30px;
+      }
+      width: 100%;
+      background-color: #fff;
+      height: 80px;
+      .entry-order {
+        height: 80px;
+        text-align: center;
+        float: left;
+        .number {
+          width: 34px;
+          height: 34px;
+          margin: 10px auto 3px;
+          border: 1px solid #eee;
+          border-radius: 17px 17px;
+          line-height: 34px;
+          font-size: 18px;
+          color: #999;
+        }
+        p {
+          line-height: 22px;
+          text-align: center;
+          font-size: 12px;
+          color: #888;
+        }
+      }
+      .three-cicle {
+        width: 30px;
+        float: left;
+        margin-left: 10px;
+        height: 80px;
+        i {
+          font-size: 5px;
+          font-weight: normal;
+          margin-left: 2px;
+          line-height: 80px;
+          color: #ccc;
+        }
+      }
+    }
+  }
+  .nav-item.active {
+    font-weight: bold;
+    color: black;
+    .number {
+      background-color: #ef6052;
+      border: solid 1px #ef6052;
+      color: #fff !important;
+      border: 0;
+      font-weight: normal;
+    }
+    .three-cicle i {
+      color: #ef6052;
+    }
+    p {
+      color: #474747 !important;
+    }
+  }
+  .enabled {
+    cursor: pointer;
+    border-bottom-color: #ef6052;
+  }
+  .disabled {
+    color: #ccc;
+  }
+  .completed {
+    cursor: default;
+  }
+  .card-block {
+    background-color: #fff;
+    height: calc(100% - 80px - 15px - 15px - 60px);
+    margin: 15px;
+    width: calc(100% - 30px);
+    box-shadow: 0 0 8px #eee;
+    padding: 15px 0;
+  }
+  .card-footer {
+    text-align: center;
+    height: 60px;
+    overflow: hidden;
+    button,
+    .dx-button {
+      padding: 0 40px;
+      margin-right: 10px;
+    }
+    .normal {
+      background: #fff;
+      border: solid 1px #e0e0e0;
+      border-radius: 3px;
+    }
+    .next {
+      background-color: #337ab7;
+      border: solid 1px #337ab7;
+      color: #fff;
+      border-radius: 3px;
+    }
+  }
+}
+
+// 公告信息录入样式
+.notice-input-left {
+  width: 100%;
+  margin: 0;
+  box-shadow: none;
+  border-right: 1px dashed #eee;
+  padding-right: 20px;
+}
+
+.attachment-watch-wrap {
+  height: 100%;
+  .attachment-watch {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  .attachment-list-img {
+    height: 690px;
+  }
+}
+
+.special-box1>div {
+  width: 100%;
+  height: calc( 100% - 20px) !important;
+}
+
+.special-box2>div {
+  width: 100%;
+  height: calc( 100% - 70px) !important;
+}
+
+.view-position {
+  position: absolute;
+  top: 140px;
+  z-index: 99;
+  background: #f8f8f8;
+  height: 55px;
+  padding-top: 10px;
+  width: calc(100% - 30px) !important;
+}
+
+.view-width .crime-inquire-list {
+  width: 1250px !important;
+  margin: 0 auto;
+}
+
+.notice-option {
+  width: 100%;
+  text-align: center;
+  .dx-button {
+    margin-right: 25px;
+  }
+  .red-btn {
+    background-color: #ef6052;
+    color: #fff;
+    i {
+      color: #fff !important;
+    }
+  }
+  .green-btn {
+    background-color: #337ab7;
+    color: #fff;
+    i {
+      color: #fff !important;
+    }
+  }
+}
+
+.notice-reject-reson {
+  width: 1250px;
+  height: 180px;
+  margin: 0 auto;
+  label {
+    //margin-left:-15px;
+    font-weight: bold;
+    font-size: 16px;
+    width: 150px;
+  }
+  .label-l {
+    width: auto;
+    justify-content: flex-start;
+  }
+  .textAreaDiv {
+    height: 150px;
+    position: relative;
+  }
+  .textarea-notice-option {
+    height: 180px;
+  }
+  .wordwrap {
+    bottom: 30px;
+    right: 15px;
+  }
+  .bottom10 {
+    bottom: 10px;
+  }
+}
+
+.notice-option-description {
+  width: 1250px;
+  overflow: hidden; //height: 300px;
+  margin: 0 auto;
+  margin-top: -20px;
+  color: #888;
+  .description-wrap {
+    // border: 1px solid #eee;
+    width: 100%;
+    padding-top: 15px;
+    line-height: 30px;
+    font-size: 14px;
+  }
+  .space {
+    margin-top: 25px;
+  }
+}
+
+.down-img {
+  width: 100px;
+  height: 100px;
+  margin: 70px auto 15px;
+}
+
+.down-text {
+  text-align: center;
+  font-size: 24px;
+}
+
+.down-information {
+  width: 450px;
+  height: 200px;
+  background-color: #fafafa;
+  margin: 40px auto 0;
+  div {
+    margin: 0 auto;
+    position: relative;
+    left: 50%;
+    margin-left: -200px;
+    top: 40px;
+    width: 400px;
+  }
+  p {
+    color: #666;
+    padding-left: 25px;
+    line-height: 26px;
+    font-size: 12px;
+  }
+}
+
+.entry-next-item {
+  text-align: center;
+  margin-top: 40px;
+}
+
+
+/**个人申请未完成列表页样式 */
+
+.list-common-width {
+  width: 100%;
+  background-color: #fff;
+  height: 80px;
+  box-shadow: 0px 2px 1px #ccc;
+  .common-title {
+    float: left;
+    height: 80px;
+    font-size: 20px;
+    line-height: 80px;
+    padding: 0 20px;
+  }
+  .btn-groups {
+    float: right;
+    height: 80px;
+    padding: 0 20px;
+    line-height: 65px;
+    button {
+      background-color: transparent;
+      padding: 0 30px;
+      .badge {
+        font-size: 24px;
+        color: #0099CB;
+        font-weight: 500;
+      }
+      .badge-danger {
+        color: #ef6052;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.list-common-content {
+  width: calc(100% - 30px);
+  height: calc(100% - 80px - 15px - 15px);
+  margin: 15px;
+  box-shadow: 0 0 8px #eee;
+  background-color: #fff;
+  padding: 15px;
+}
+
+.list-person {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  margin: 5px 0;
+  margin-right: 15px;
+  border: 2px solid #eee;
+}
+
+
+/** 详细页样式 **/
+
+.detail-width {
+  height: 100px;
+  .detail-left {
+    height: 100%;
+    float: left;
+    overflow: hidden;
+    width: 80%;
+    label {
+      display: inline-block;
+      width: auto;
+      padding-left: 20px;
+    }
+    .info-number {
+      width: 100%;
+      height: 40px;
+      line-height: 60px;
+      font-size: 14px;
+      color: #888;
+      span {
+        font-size: 22px;
+        color: #444;
+        font-weight: 700;
+        vertical-align: -1px;
+      }
+    }
+    .info-wrap {
+      float: left;
+      height: 60px;
+      margin-right: 20px;
+      line-height: 60px;
+      color: #999;
+      span {
+        color: #444;
+        font-weight: 500;
+      }
+    }
+  }
+  .detail-right {
+    width: 20%;
+    text-align: right;
+    padding-right: 20px;
+    height: 100%;
+    overflow: hidden;
+    line-height: 60px;
+  }
+}
+
+.detail-progress {
+  width: calc(100% - 30px);
+  background-color: #fff;
+  box-shadow: 0 0 8px #eee;
+  margin: 15px;
+  height: 190px;
+  overflow: hidden;
+  .progress-title {
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    padding-left: 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+  }
+  .detail-tab {
+    height: 35px;
+    overflow: hidden;
+    width: 100%;
+    margin-top: -5px;
+    margin-left: 20px;
+    span {
+      display: inline-block;
+      height: 35px;
+      overflow: hidden;
+      font-size: 14px;
+      text-align: center;
+      padding: 0 10px;
+      cursor: pointer;
+    }
+    span.noticeBook1,
+    span.noticeUser1 {
+      border-bottom: 3px #ef6052 solid;
+      background-color: transparent;
+    }
+  }
+}
+
+.detail-content {
+  height: calc(100% - 100px - 15px - 190px - 15px - 15px);
+  margin: 15px;
+  background-color: #fff;
+  box-shadow: 0 0 8px #eee;
+  width: calc(100% - 30px);
+  overflow: hidden;
+  overflow-y: auto;
+  .attachment-change-width {
+    width: calc(100% - 20px);
+  }
+}
+
+
+/** 申请分析页面样式  **/
+
+.apply-analysis-content {
+  width: calc(100% - 30px);
+  margin: 15px;
+  height: calc(100% - 100px - 15px - 15px - 55px);
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 0 8px #eee;
+  position: relative;
+  .analysis-content-title {
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    padding-left: 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+  }
+  .card-header,
+  .card-block {
+    box-shadow: none;
+  }
+  .card-block {
+    height: calc(100% - 60px - 40px - 50px);
+    overflow-x: hidden;
+    margin-top: 63px;
+  }
+  .analysis-content-wizard {
+    height: calc(100% - 60px);
+    width: 100%;
+    overflow-y: hidden;
+    .card-footer {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 220px;
+    }
+  }
+  .attachment-change-width {
+    width: 430px;
+  }
+  .attachment-watch-wrap .attachment-list-img {
+    height: 500px;
+  }
+  .info-tab {
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid #eee;
+    position: absolute;
+    top: 145px;
+    left: 0;
+    padding-left: 20px;
+    span {
+      line-height: 40px;
+      padding: 0 10px;
+      display: inline-block;
+      height: 38px;
+      color: #888;
+      cursor: pointer;
+    }
+    .active {
+      border-bottom: 3px solid #ef6052;
+      color: #444;
+    }
+  }
+}
+
+.audit-content {
+  .audit-info {
+    top: 90px;
+  }
+  .analysis-content-wizard {
+    height: calc(100% - 20px)
+  }
+}
+
+
+/** 重新录入公告样式 **/
+
+.re-input {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  .card-block {
+    height: calc(100% - 60px - 80px - 40px - 20px - 100px);
+    overflow-x: hidden;
+  }
+  .attachment-list-img {
+    height: 520px;
+  }
+  .attachment-change-width {
+    width: 440px;
+  }
+}
+
+
+/**
+  证书打印的样式
+**/
+
+#print_div {
+  .carousel-indicators,
+  .sr-only {
+    display: none !important;
+  }
+  ol {
+    list-style: none;
+  }
+  .carousel-control {
+    top: 300px;
+    background-image: none;
+    width: 75px;
+    height: 75px;
+    overflow: hidden;
+  }
+  .carousel-control.left,
+  .carousel-control.right {
+    background-image: none;
+  }
+  .print-tab {
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    margin: 0 20px;
+    span {
+      font-size: 12px;
+      padding: 0 25px;
+      line-height: 40px;
+      border: 1px solid #ddd;
+      margin: 0 20px;
+      cursor: pointer;
+    }
+  }
+  .print-content {
+    width: 450px;
+    height: 800px;
+    text-align: center;
+    position: relative;
+    margin: 0 auto;
+    div {
+      text-align: center;
+      font-size: 14px;
+      span {
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+  }
+  div.print-title {
+    padding-top: 125px;
+  }
+  div.content-word {
+    text-align: left;
+    padding-top: 20px;
+  }
+  div.content-address {
+    margin-top: 40px;
+  }
+  div.print-img {
+    text-align: right;
+    margin-top: 20px;
+  }
+  div.print-certificatenumber,
+  div.print-certificatePurpose {
+    text-align: left;
+    padding-top: 30px;
+  }
+  .print-bottom {
+    position: absolute;
+    bottom: 90px;
+    width: 100%;
+    overflow: hidden;
+    p {
+      text-align: left;
+    }
+  }
+}
+
+.button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: inherit;
+}
+
+.red {
+  color: #ff0000;
+}
+
+//弹出框按钮
+.auto-btn {
+  padding: 10px 120px 5px 0;
+}
+
+.print-outwrap {
+  position: relative;
+  width: 530px;
+  height: 710px;
+  .print-show {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 530px;
+    height: 710px;
+    background: url(../images/certificate-page.png) no-repeat center center;
+    background-size: 100% 100%;
+  }
+  #print_div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 600px;
+    height: 1100px;
+  }
+}

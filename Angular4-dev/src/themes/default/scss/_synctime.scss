@@ -1,0 +1,123 @@
+.modal-content {
+    width: 700px;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    margin-left: -350px;
+}
+
+.modal-content-title {
+    font-size: 16px;
+    background: #fff;
+    line-height: 40px;
+    height: 40px;
+    font-weight: bold;
+    border-radius: 4px 4px 0 0;
+}
+
+.modal-content-txt {
+    position: relative;
+    bottom: 15px;
+}
+
+.modal-content-close {
+    float: right;
+}
+
+.modal-content-list {
+    float: left;
+    position: relative;
+    right: 26px;
+    bottom: 8px;
+}
+
+.mode-content-li {
+    float: left;
+    width: 695px;
+    position: relative;
+    right: 27px;
+    bottom: 8px;
+    top: 1px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.modal-content-list ul li {
+    list-style: none;
+    float: left;
+    line-height: 20px;
+    height: 30px;
+    border-bottom: 1px solid #fff;
+    background: rbga(0, 0, 0, 0);
+    padding: 5px;
+}
+
+.modal-list-head {
+    float: left;
+    width: 700px;
+    position: relative;
+    right: 22px;
+    bottom: 8px;
+}
+
+.modal-list-head-li {
+    float: left;
+    width: 698px;
+    position: relative;
+    right: 33px;
+    bottom: 8px;
+    top: 1px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.modal-list-head ul li {
+    height: 30px;
+    line-height: 20px;
+    background: #fff;
+    font-weight: bold;
+    list-style: none;
+    border-bottom: 1px solid #fff;
+    padding: 5px;
+    width: 100%;
+}
+
+.modal-list-a {
+    width: 40%;
+    float: left;
+}
+
+.modal-list-b {
+    width: 25%;
+    float: left;
+}
+
+.modal-list-c {
+    width: 10%;
+    float: left;
+}
+
+%button-synctime {
+    margin-right: 10px;
+    line-height: 10px;
+    padding: 0 0 0 15px;
+    width: 76px;
+    height: 27px;
+    border: none;
+    color: #fff;
+    font-family: "Microsoft YaHei UI", 'Arial', '微软雅黑';
+    font-weight: bold;
+}
+
+.button-synctime-red {
+    @extend %button-synctime;
+    background: url(../images/red.png) no-repeat;
+}
+
+.button-synctime-orange {
+    @extend %button-synctime;
+    background: url(../images/orange.png) no-repeat;
+}
+
+.button-synctime-green {
+    @extend %button-synctime;
+    background: url(../images/green.png) no-repeat;
+}

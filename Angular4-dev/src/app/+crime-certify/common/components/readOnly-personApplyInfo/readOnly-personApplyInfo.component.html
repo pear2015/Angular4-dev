@@ -1,0 +1,73 @@
+<h1 class="title" >{{'applyInfo'|translate}}</h1>
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'applyPersonType'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.applyPersonType}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'applyCenterName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.applyCenterName}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 inputBox" [hidden]="!applyInfo.agentIdType">
+        <label>{{'agentIdType'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.agentIdTypeName}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox" [hidden]="!applyInfo.agentIdType">
+        <label>{{'agentIdNumber'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.agentIdNumber}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'applyPurpose'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.applyPurposeName}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'priority'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.priorityName}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="textarea-p" [hidden]="!(applyInfo.applyPurposeId === '5')">
+    <label>{{'applyOtherPurposeReason' | translate}}</label>
+
+    <div class="textAreaDiv">
+        <span class="readInfo">{{applyInfo.otherPurposeReason}}</span>
+    </div>
+</div>
+
+<div class="textarea-p">
+    <label>{{'applyDescription' | translate}}</label>
+
+    <div class="textAreaDiv">
+        <span class="readInfo">{{applyInfo.applyDescription}}</span>
+    </div>
+
+</div>
+
+<div class="textarea-p">
+    <label>{{'noticeNote' | translate}}</label>
+    <div class="textAreaDiv">
+        <span class="readInfo">{{applyInfo.note}}</span>
+    </div>
+</div>

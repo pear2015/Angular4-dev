@@ -1,0 +1,141 @@
+<h1 class="title" style="margin-top:0;">{{'applyInfo'|translate}}
+    <i [hidden]="clearBtnVisible" id="clearPersonApplyInfo" class="ag02 ag02-empty clearBtn" (click)="clearInfo.emit('clearPersonApplyInfo')"
+        (mouseenter)="clearPageTolToggle()" (mouseleave)="clearPageTolToggle()"></i>
+</h1>
+<dx-validation-group>
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'applyPersonType'| translate}}<span>*</span></label>
+        <div class="dxInput">
+            <dx-select-box [(ngModel)]="applyInfo.applyPersonType" name="applyPersonType" valueExpr="name" displayExpr="name" [dataSource]="applyPersonTypeEnum" itemTemplate="itemTemplate"
+                (onSelectionChanged)="selectIndexOfApplyPersonType($event)">
+                <div *dxTemplate="let fieldItem of 'itemTemplate'">
+                    <div title="{{fieldItem.name}}" class="search-long-title">{{fieldItem.name}}</div>
+               </div>
+                <dx-validator>
+                    <dxi-validation-rule type="required" message="{{'applyPersonType is required'|translate}}"></dxi-validation-rule>
+                </dx-validator>
+            </dx-select-box>
+        </div>
+    </div>
+
+    <!--<div class="col-sm-6 inputBox">
+        <label>{{'applyCenterName'| translate}}</label>
+        <div class="dxInput">
+            <dx-text-box maxLength="36" disabled="true" [(ngModel)]="centerCodeName" name="centerCodeName" id="centerCodeName" maxLength="256">
+                <dx-validator>
+                    <dxi-validation-rule type="stringLength" [max]="256" message="{{'must less than 256 symbols'| translate}}"></dxi-validation-rule>
+                </dx-validator>
+            </dx-text-box>
+        </div>
+    </div>-->
+      <div class="col-sm-6 inputBox">
+        <label>{{'applyPurpose'| translate}}<span>*</span></label>
+        <div class="dxInput">
+            <dx-select-box [(ngModel)]="applyInfo.applyPurposeId" [searchEnabled]="true" name="applyPurposeId" valueExpr="applyPurposeId"
+                displayExpr="name" (onSelectionChanged)="selectIndexOfApplyPurposeID($event)" [dataSource]="applyPurposeList" itemTemplate="itemTemplate">
+                <div *dxTemplate="let fieldItem of 'itemTemplate'">
+                    <div title="{{fieldItem.name}}" class="search-long-title">{{fieldItem.name}}</div>
+               </div>
+                <dx-validator>
+                    <dxi-validation-rule type="required" message="{{'applyPurpose is required' | translate}}"></dxi-validation-rule>
+                </dx-validator>
+            </dx-select-box>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-sm-6 inputBox" [hidden]="showAgent">
+        <label>{{'agentIdType'| translate}} <span>*</span></label>
+        <div class="dxInput">
+            <dx-select-box [(ngModel)]="applyInfo.agentIdType" [disabled]="showAgent" name="agentIdType" valueExpr="certificateTypeId"
+                displayExpr="name" [dataSource]="certificateTypeList" (onSelectionChanged)="selectedCertificateType($event)">
+                <dx-validator>
+                    <dxi-validation-rule type="required" message="{{'agentIdType is required'|translate}}"></dxi-validation-rule>
+                </dx-validator>
+            </dx-select-box>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox" [hidden]="showAgent">
+        <label>{{'agentIdNumber'| translate}}<span [hidden]="certificateRequired">*</span></label>
+        <div class="dxInput">
+            <dx-text-box maxLength="20" [disabled]="certificateNumberDisabled || showAgent" [(ngModel)]="applyInfo.agentIdNumber" name="agentIdNumber"
+                id="agentIdNumber">
+                <dx-validator>
+                    <dxi-validation-rule type="pattern" [pattern]="idNumberRegex" message="{{'please fill in the correct certificateNumber'| translate}}"></dxi-validation-rule>
+                    <dxi-validation-rule type="required" message="{{'agentIdNumber is required'|translate}}"></dxi-validation-rule>
+                </dx-validator>
+            </dx-text-box>
+        </div>
+    </div>
+</div>
+
+<!--<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'applyPurpose'| translate}}<span>*</span></label>
+        <div class="dxInput">
+            <dx-select-box [(ngModel)]="applyInfo.applyPurposeID" [searchEnabled]="true" name="applyPurposeID" valueExpr="applyPurposeID"
+                displayExpr="name" (onSelectionChanged)="selectIndexOfApplyPurposeID($event)" [dataSource]="applyPurposeList">
+                <dx-validator>
+                    <dxi-validation-rule type="required" message="{{'applyPurpose is required' | translate}}"></dxi-validation-rule>
+                </dx-validator>
+            </dx-select-box>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'priority'| translate}}</label>
+        <div class="dxInput">
+            <dx-select-box [(ngModel)]="applyInfo.priority" name="priority" valueExpr="applyPriorityId" displayExpr="name" [dataSource]="applyPriorityList">
+            </dx-select-box>
+        </div>
+    </div>
+</div>-->
+
+<div class="textarea-p" [hidden]="showOtherPurposeReason">
+    <label>{{'applyOtherPurposeReason' | translate}} <span>*</span></label>
+
+    <div class="textAreaDiv">
+        <dx-text-area class="textAreaCrime" [(ngModel)]="applyInfo.otherPurposeReason" name="otherPurposeReason" id="otherPurposeReason"
+            [disabled]="showOtherPurposeReason" valueChangeEvent="keyup" maxLength="2000">
+            <dx-validator>
+                <dxi-validation-rule type="required" message="{{'applyOtherPurposeReason is required'|translate}}"></dxi-validation-rule>
+            </dx-validator>
+        </dx-text-area>
+        <span class="wordwrap"><var class="word" >{{applyInfo.otherPurposeReason?applyInfo.otherPurposeReason.length:0}}</var>/2000</span>
+
+    </div>
+</div>
+
+<div class="textarea-p">
+    <label>{{'applyDescription' | translate}}</label>
+
+    <div class="textAreaDiv">
+        <dx-text-area class="textAreaCrime " [(ngModel)]="applyInfo.applyDescription" name="applyDescription" id="applyDescription"
+            valueChangeEvent="keyup" maxLength="2000">
+        </dx-text-area>
+        <span class="wordwrap"><var class="word" >{{applyInfo.applyDescription?applyInfo.applyDescription.length:0}}</var>/2000</span>
+    </div>
+
+</div>
+
+<div class="textarea-p">
+    <label>{{'applyNote' | translate}}</label>
+    <div class="textAreaDiv">
+        <dx-text-area class="textAreaCrime" [(ngModel)]="applyInfo.note" name="note" id="note" valueChangeEvent="keyup" maxLength="2000">
+            <dx-validator>
+                <dxi-validation-rule type="stringLength" [max]="2000" message="{{'must less than 2000 symbols'| translate}}"></dxi-validation-rule>
+            </dx-validator>
+        </dx-text-area>
+        <span class="wordwrap"><var class="word" >{{applyInfo.note?applyInfo.note.length:0}}</var>/2000</span>
+    </div>
+</div>
+</dx-validation-group>
+<dx-tooltip target="#clearPersonApplyInfo" position="bottom" [(visible)]="clearPageTolVisible">
+    <div *dxTemplate="let data = data of 'content'">
+        {{'clear apply info'|translate}}
+    </div>
+</dx-tooltip>

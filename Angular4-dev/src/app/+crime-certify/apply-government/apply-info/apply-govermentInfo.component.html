@@ -1,0 +1,161 @@
+<div>
+    <!-- 申请信息 starter -->
+    <h1 class="title margin-top0">{{'applyInfo'|translate}}
+        <i [hidden]="clearBtnVisible" id="clearApplyInfo" class="ag02 ag02-empty clearBtn" (click)="clearInfo.emit('clearApplyInfo')"
+            (mouseenter)="clearPageTolToggle()" (mouseleave)="clearPageTolToggle()"></i>
+    </h1>
+    <dx-validation-group>
+        <div class="row">
+            <div class="col-sm-6 inputBox">
+                <div style="display:table;height:36px;">
+                    <label>{{'govermentProcessNumber'| translate}}
+                        <span>*</span>
+                    </label>
+                </div>
+                <div class="dxInput">
+                    <dx-text-box maxLength="36" [(ngModel)]="applyInfo.govermentProcess" name="govermentProcess" id="govermentProcess" [readOnly]="isEdit">
+                        <dx-validator>
+                            <dxi-validation-rule type="required" message="{{'govermentProcess is required'| translate}}"></dxi-validation-rule>
+                            <dxi-validation-rule type="stringLength" [max]="128" message="{{'must less than 128 symbols'| translate}}"></dxi-validation-rule>
+                        </dx-validator>
+                    </dx-text-box>
+                </div>
+            </div>
+
+            <div class="col-sm-6 inputBox">
+                <label>{{'govermentInfoName'| translate}}</label>
+                <div class="dxInput">
+                    <dx-text-box maxLength="36" [(ngModel)]="applyInfo.govermentInfo" name="govermentInfo" id="govermentInfo" [readOnly]="isEdit">
+                        <dx-validator>
+                            <dxi-validation-rule type="stringLength" [max]="128" message="{{'must less than 128 symbols'| translate}}"></dxi-validation-rule>
+                        </dx-validator>
+                    </dx-text-box>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 inputBox">
+                <label>{{'applyPurpose'| translate}}
+                    <span>*</span>
+                </label>
+                <div class="dxInput">
+                    <dx-select-box name="applyPurposeId" [(ngModel)]="applyInfo.applyPurposeId" valueExpr="applyPurposeId" displayExpr="name"
+                        (onSelectionChanged)="selectIndexOfApplyPurposeID($event)" [dataSource]="applyPurposeList" [readOnly]="isEdit"
+                        [searchEnabled]="true" itemTemplate="itemTemplate">
+                        <div *dxTemplate="let fieldItem of 'itemTemplate'">
+                            <div title="{{fieldItem.name}}" class="search-long-title">{{fieldItem.name}}</div>
+                       </div>
+                        <dx-validator>
+                            <dxi-validation-rule type="required" message="{{'applyPurpose is required'| translate}}"></dxi-validation-rule>
+                        </dx-validator>
+                    </dx-select-box>
+                </div>
+            </div>
+            <!--<div class="col-sm-6 inputBox">
+            <label>{{'applyCenterName'| translate}}</label>
+            <div class="dxInput">
+                <dx-text-box [maxLength]="256" [(ngModel)]="centerCodeName" name="applyCenterName" id="applyCenterName" [disabled]="true">
+                    <dx-validator>
+                        <dxi-validation-rule type="stringLength" [max]="256" message="{{'must less than 256 symbols'| translate}}"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-box>
+            </div>
+        </div>-->
+            <div class="col-sm-6 inputBox">
+                <label>{{'provinceName'| translate}}</label>
+                <div class="dxInput">
+                    <dx-select-box [(ngModel)]="applyInfo.provinceName" [searchEnabled]="true" (onSelectionChanged)="selectIndexOfGovernmentProvince($event)"
+                        valueExpr="provinceName" displayExpr="provinceName" [dataSource]="govermentProvinceList" name="provinceName1"
+                        [readOnly]="isEdit"></dx-select-box>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="textarea-p" [hidden]="!isReason">
+            <label>{{'applyOtherPurposeReason' | translate}}</label>
+            <div class="textAreaDiv">
+                <dx-text-area class="textAreaCrime" [maxLength]="2000" [(ngModel)]="applyInfo.otherPurposeReason" name="otherPurposeReason"
+                    id="otherPurposeReason" [disabled]="!isReason" valueChangeEvent="keyup">
+                    <dx-validator>
+                        <dxi-validation-rule type="required" message="{{'applyOtherPurposeReason is required'|translate}}"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-area>
+                <span class="wordwrap">
+                    <var class="word">{{applyInfo.otherPurposeReason?applyInfo.otherPurposeReason.length:0}}</var>/2000</span>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="row">
+
+            <!--<div class="col-sm-6 inputBox">
+            <label>{{'provinceName'| translate}}</label>
+            <div class="dxInput">
+                <dx-select-box [(ngModel)]="applyInfo.provinceName" [searchEnabled]="true" (onSelectionChanged)="selectIndexOfGovernmentProvince($event)"
+                    valueExpr="provinceName" displayExpr="provinceName" [dataSource]="govermentProvinceList" name="provinceName1"
+                    [readOnly]="isEdit"></dx-select-box>
+            </div>
+        </div>-->
+            <div class="col-sm-6 inputBox">
+                <label>{{'cityName'| translate}}</label>
+                <div class="dxInput">
+                    <dx-select-box [(ngModel)]="applyInfo.cityName" [searchEnabled]="true" (onSelectionChanged)="selectIndexOfGovernmentCity($event)"
+                        valueExpr="cityName" displayExpr="cityName" [dataSource]="govermentCityList" name="cityName1" [readOnly]="isEdit"></dx-select-box>
+                </div>
+            </div>
+            <div class="col-sm-6 inputBox">
+                <label>{{'communityName'| translate}}</label>
+                <div class="dxInput">
+                    <dx-select-box [(ngModel)]="applyInfo.communityName" [searchEnabled]="true" valueExpr="communityName" displayExpr="communityName"
+                        [dataSource]="govermentCommunityList" name="communityName1" [readOnly]="isEdit"></dx-select-box>
+                </div>
+            </div>
+        </div>
+
+
+        <!--<div class="row">-->
+        <!--<div class="col-sm-6 inputBox">
+            <label>{{'communityName'| translate}}</label>
+            <div class="dxInput">
+                <dx-select-box [(ngModel)]="applyInfo.communityName" [searchEnabled]="true" valueExpr="communityName" displayExpr="communityName"
+                    [dataSource]="govermentCommunityList" name="communityName1" [readOnly]="isEdit"></dx-select-box>
+            </div>
+        </div>-->
+
+        <!--<div class="col-sm-6 inputBox">
+            <label>{{'priority'| translate}}</label>
+            <div class="dxInput">
+                <dx-select-box [(ngModel)]="applyInfo.priority" name="priority" valueExpr="applyPriorityId" displayExpr="name" [dataSource]="priorityList"
+                    [readOnly]="isEdit">
+                </dx-select-box>
+            </div>
+        </div>-->
+        <!--</div>-->
+
+
+        <div class="textarea-p">
+            <label>{{'applyNote'| translate}}</label>
+            <div class="textAreaDiv">
+                <dx-text-area class="textAreaCrime" [maxLength]="2000" [(ngModel)]="applyInfo.note" name="note" id="note" valueChangeEvent="keyup"
+                    [readOnly]="isEdit">
+                    <dx-validator>
+                        <dxi-validation-rule type="stringLength" [max]="2000" message="{{'must less than 2000 symbols'| translate}}"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-area>
+                <span class="wordwrap">
+                    <var class="word">{{applyInfo.note?applyInfo.note.length:0}}</var>/2000</span>
+            </div>
+        </div>
+    </dx-validation-group>
+    <!-- 申请信息 starter-->
+</div>
+
+<!--清除按钮提示-->
+<dx-tooltip target="#clearApplyInfo" position="bottom" [(visible)]="clearPageTolVisible">
+    <div *dxTemplate="let data = data of 'content'">
+        {{'clear apply info'|translate}}
+    </div>
+</dx-tooltip>

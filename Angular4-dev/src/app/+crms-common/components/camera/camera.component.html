@@ -1,0 +1,37 @@
+<div>
+    <div style="width:540px; height:720px; background:#f5f5f5; border:2px solid #d6d6d6; ">
+        <canvas id="cameraCanvas" width="540" height="720">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+        <img src="./themes/images/camera-line.png" width="540px" height="720px" style=" margin-top:-757px;">
+    </div>
+    <div class="camera-btn">
+        <button class="camera-90" (click)="sendMsgChangeOrientation(false)">
+         <img src="./themes/images/rotate01.png">
+        </button>
+        <button [disabled]="canClick" class="camera-center" (click)="sendCapture()">
+         <div style=" width:52px; height:52px;"  *ngIf ="loadingVisible"> <i class="fa fa-spinner fa-spin" style=" font-size:35px;position:relative; top:8px; left:6px;"></i></div>
+         <img src="./themes/images/camera.png" *ngIf ="!loadingVisible">
+        </button>
+        <button class="camera-90"  (click)="sendMsgChangeOrientation(true)">
+         <img src="./themes/images/rotate02.png">
+        </button>
+        <!--
+        <button (click)="refreshDev()">
+            <i class="fa fa-refresh fa-3x"></i>
+        </button>
+        -->
+    </div>
+
+    <div class="cameraIcon">
+        <div class="row" style="display: none;">
+            <select id="DeviceName" class="hide"></select>
+            <select id="Resolution" class="hide"></select>
+        </div>
+    </div>
+</div>
+
+<!-- 上传时loading starter-->
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ my:'center',at:'center',of: window }" [(visible)]="loadingVisible"
+    [showIndicator]="true" [showPane]="true" [shading]="false" [closeOnOutsideClick]="false" (onShown)="onShown()" (onHidden)="onHidden()">
+</dx-load-panel>

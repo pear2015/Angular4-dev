@@ -1,0 +1,22 @@
+<dx-data-grid id="gridContainer" #grid [dataSource]="noticeList" (onRowClick)="selectNoticeHandle($event)" [masterDetail]="{enabled: false, template: 'detail' }">
+    <dxo-selection mode="single"></dxo-selection>
+    <dxi-column dataField="noticeNumber" caption="{{'noticeNumber' | translate}}" [allowSorting]="false"></dxi-column>
+    <dxi-column dataField="courtName" caption="{{'courtName' | translate}}" [allowSorting]="false"></dxi-column>
+    <dxi-column dataField="apportionTime" caption="{{'apportionTime' | translate}}" dataType="date" cellTemplate="dateCellTemplate"
+        [visible]="isShowApportionTime" [allowHiding]="true" [allowSorting]="false"></dxi-column>
+    <dxi-column dataField="name" caption="{{'name' | translate}}" [allowSorting]="false"></dxi-column>
+    <dxi-column dataField="certificateNumber" caption="{{'certificateNumber' | translate}}" [allowSorting]="false"></dxi-column>
+    <!--<dxi-column dataField="enteringPersonName" caption="{{'createPersonName' | translate}}" [allowSorting]="false"></dxi-column>-->
+    <dxi-column dataField="statusName" caption="{{'noticeStatus' | translate}}" [allowSorting]="false"></dxi-column>
+    <dxi-column dataField="priorityName" caption="{{'priority' | translate}}" [allowSorting]="false"></dxi-column>
+    <dxi-column dataField="noticeCreateTime" caption="{{'noticeCreateTime' | translate}}" dataType="date" [allowSorting]="false"></dxi-column>
+    <div *dxTemplate="let notice of 'detail'" title=''>
+        <noticeInfo-read [noticeInfo]="notice.data"></noticeInfo-read>
+    </div>
+    <div *dxTemplate="let item of 'dateCellTemplate'">
+        {{item.value | I18nDate:'long'}}
+    </div>
+</dx-data-grid>
+<div class="pull-right pagin-space" [hidden]="pageMenuVisible">
+    <app-pagination [(pageObjEmit)]="searchInfoParam" [(totalCount)]="totalCount" (pageObjChange)="getpageObjChange($event)"></app-pagination>
+</div>

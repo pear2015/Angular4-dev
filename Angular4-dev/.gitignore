@@ -1,0 +1,38 @@
+# webstorm
+.idea/
+
+# vscode
+.vscode
+
+# awcache
+.awcache
+
+# npm
+node_modules/
+
+# for publish folder
+build/
+dist/
+compiled/
+resource/
+/buildReport/
+tests/sonar-report/
+/tests/intern.js
+
+# build directory
+build/
+dist/
+release/
+reports/
+
+# dependency directory
+node_modules/
+
+# other
+*.log
+*.exe
+*.jar
+.sonar/
+localImgFile/
+setups/
+crms-client-win32-x64/

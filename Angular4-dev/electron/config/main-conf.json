@@ -1,0 +1,32 @@
+{
+  "login_config": {
+    "url": "http://localhost:8080/#login/",
+    "static_file": "login-window",
+    "option": {
+      "center": true,
+      "width": 1280,
+      "height": 720,
+      "title": "crms-client",
+      "resizable": false,
+      "frame": false,
+      "autoHideMenuBar": true
+    },
+    "force_show": false,
+    "screen": 0,
+    "enable_debug": true
+  },
+  "shell_configs": [{
+    "url": "http://localhost:8080/#/crms-system",
+    "static_file": "main-window",
+    "option": {
+      "center": true,
+      "title": "crms-client",
+      "fullscreen": true,
+      "resizable": false,
+      "autoHideMenuBar": true
+    },
+    "force_show": false,
+    "screen": 0,
+    "enable_debug": true
+  }]
+}

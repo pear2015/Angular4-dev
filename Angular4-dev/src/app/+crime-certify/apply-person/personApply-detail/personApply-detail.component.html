@@ -1,0 +1,60 @@
+<!--基本描述信息start -->
+<div class="list-common-width detail-width">
+    <div class="detail-left">
+        <div class="info-number">
+            <label>{{'applyNumber'|translate}}</label>
+            <span>{{applyInfo?.deliveryReceiptNumbr}} </span>
+        </div>
+        <div class="info-wrap">
+            <label>{{'createTime'|translate}}</label>
+            <span>{{applyInfo?.applyTime|I18nDate:'long'}} </span>
+        </div>
+        <div class="info-wrap">
+            <label>{{'createPersonName'|translate}}</label>
+            <span>{{applyInfo?.enteringPersonName}} </span>
+        </div>
+        <div class="info-wrap" *ngIf="applyInfo?.applyResultName">
+            <label>{{'applyResult'|translate}}</label>
+            <span>{{applyInfo?.applyResultName}} </span>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="detail-right">
+        <dx-button icon="fa fa-reply" class="grey-btn" text="{{'getBack'| translate}}" (onClick)="goBack()" [disabled]="LoadingPanelVisible"></dx-button>
+    </div>
+</div>
+<!--基本描述信息end -->
+
+<!--进度条start -->
+<div class="detail-progress">
+    <div class="progress-title">{{'applyStatusName'|translate}}</div>
+    <mf-progress [dataSource]='applyStatus' [activeIndex]='applyInfo?.applyStatusId'>
+    </mf-progress>
+    <div class="detail-tab">
+        <span [class.noticeBook1]="noticeBox"  (click)="showNotice()">{{'applyInfo'| translate}}</span>
+        <span [class.noticeUser1]="personBox"  (click)="showPerson()">{{'personDetail'| translate}}</span>
+    </div>
+</div>
+<!--进度条end -->
+
+<!--申请信息 申请基本信息 -->
+<div class="detail-content">
+            <div class="col-xs-8">
+                <!-- 基本信息 -->
+                <div class="tabLeft notice-input-left" *ngIf="noticeBox">
+                    <readOnly-personApplyInfo [applyInfo]="applyInfo"></readOnly-personApplyInfo>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- 个人信息 -->
+                <div class="tabLeft padding-top-10 notice-input-left" *ngIf="personBox">
+                    <readOnly-personApplyBasicInfo [applyBasicInfo]="applyBasicInfo"></readOnly-personApplyBasicInfo>
+                </div>
+            </div>
+            <div class="col-xs-4 attachment-watch-wrap">
+                <div class="attachment attachment-change-width">
+                    <crms-attchment [imageFileList]="attachmentList" [controllFlag]="attchmentControllObj" [onlyForApplyAnalysis]='false'></crms-attchment>
+                </div>
+            </div>
+</div>
+<!--申请信息 申请基本信息 -->

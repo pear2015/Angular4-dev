@@ -1,0 +1,21 @@
+<!--历史记录弹框-->
+<dx-popup class="popup historyPopup messagePopup" [width]="600" [height]="600" title="{{'record History' | translate}}" [showTitle]="true"
+    [dragEnabled]="false" [closeOnOutsideClick]="true" [(visible)]="historyVisible">
+    <div *dxTemplate="let data = model of 'content'">
+        <dx-scroll-view [width]="560">
+            <ul id="timeLine">
+                <li *ngFor="let item of handleHistoryList">
+                    <div class="time">{{item.operatorTime|I18nDate:'long'}}</div>
+                    <div class="userPhoto"></div>
+                    <div class="userHandle">
+                        <img src="{{item.operatorId|mfPerImgPipe|async}}" alt="">
+                        <div>
+                            <p><span>{{item.operatorTime|I18nDate:'long'}}</span><span>{{item.operatorName}} {{item.operatorTypeName}}</span></p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </dx-scroll-view>
+    </div>
+</dx-popup>
+<!--历史记录弹框-->

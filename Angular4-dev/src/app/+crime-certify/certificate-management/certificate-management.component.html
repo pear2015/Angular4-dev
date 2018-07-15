@@ -1,0 +1,170 @@
+<div class="list-common-width">
+    <div class="common-title">{{'CertificateInfoSearch' | translate}}</div>
+</div>
+
+<div class="list-common-content">
+    <div>
+        <div>
+            <dx-button text="{{'watch' | translate}}" icon="fa fa-send" class="grey-btn" (click)="navigateToReanalyse()" [disabled]="isAllow"></dx-button>
+            <dx-button text="{{'SeeAttachment' | translate}}" icon="fa fa-photo" class="grey-btn" (click)="previewImg()" [disabled]="isAllow"></dx-button>
+            <dx-button text="{{'print certificate' | translate}}" icon="fa fa-print" class="grey-btn" (click)="printCertificate()" [(disabled)]="isAllow"></dx-button>
+            <div class="pull-right refresh-btn" *ngIf="formAnimate =='hidden'" title="{{'show the search form' | translate}}">
+                <dx-button icon="fa fa-search" (click)="showForm(formNum)" text="{{'Advanced Search' | translate}}" class="grey-btn search-btn"></dx-button>
+            </div>
+
+            <div class="pull-right refresh-btn" *ngIf="formAnimate =='show'" title="{{'hidden the search form' | translate}}">
+                <dx-button icon="fa fa-search" (click)="showForm(formNum)" text="{{'Advanced Search' | translate}}" class="grey-btn search-btn"></dx-button>
+            </div>
+            <dx-button icon="fa fa-refresh" class="refresh-btn grey-btn" (click)="refreshList()" text="{{'refresh' | translate}}"></dx-button>
+        </div>
+        <!-- 搜索表单 -->
+        <div class="form-layer" id="form-layer" [@formAnimation]="formAnimate">
+            <mf-form [(formObjEmit)]="formObjEmit" (formSubmitEvent)="getFormObjChange($event)"></mf-form>
+        </div>
+        <div class="space-15">
+            <dx-data-grid #grid id="managementGrid" [showBorders]="true" [dataSource]="managementList" (onSelectionChanged)="selectedRow($event)"
+                [masterDetail]="{ enabled: false, template: 'detail' }" (onRowClick)="expendIndexOfRowData($event)" [loadPanel]={enabled:false}>
+                <dxo-selection mode="single"></dxo-selection>
+                <dxi-column dataField="certificateId" caption="{{'certificateId' | translate}}" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="xinName" caption="{{'name' | translate}}" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="certificateNum" caption="{{'certificateNumber' | translate}}" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="printTime" cellTemplate="longDateTemplate" caption="{{'printTime' | translate}}" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="certificateStatus" caption="{{'Statu' | translate}}" [allowSorting]="false"></dxi-column>
+                <div *dxTemplate="let item of 'longDateTemplate'">
+                    <span>{{item.data?.printTime|I18nDate:'long'}}</span>
+                </div>
+                <div *dxTemplate="let managementList of 'detail'" title=''>
+                    <div class="row">
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'certificateId' | translate}}</label>
+                            <div class="dxInput">
+                                <span class="readInfo">{{managementList.data.certificateId}}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'CertificateType' | translate}}</label>
+                            <div class="dxInput">
+                                <span class="readInfo">{{managementList.data.certificateType | translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" [hidden]="!managementList.data.modifyPersonName">
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'SetBoy' | translate}}</label>
+                            <div class="dxInput">
+                                <span class="readInfo">{{managementList.data.modifyPersonName}}</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'SetDate' | translate}}</label>
+                            <div class="dxInput">
+                                <span class="readInfo">{{managementList.data.modifyTime|I18nDate:'long'}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'printTime' | translate}}</label>
+                            <div class="dxInput">
+                                <span class="readInfo">{{managementList.data.printTime|I18nDate:'long'}}</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 inputBox" *ngIf="managementList.data.invalidTime">
+                            <label>{{'LapseDate' | translate}}</label>
+                            <div class="dxInput">
+                                <span class="readInfo">{{managementList.data.invalidTimeShow|I18nDate:'long'}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'deliveryReceiptNumbr' | translate}}</label>
+                            <div class="dxInput">
+                                <span class="readInfo">{{managementList.data.deliveryReceiptNumbr}}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'authCode' | translate}}</label>
+                            <div class="dxInput">
+                                <span class="readInfo">{{managementList.data.validateCode}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'InputPerson' | translate}}</label>
+                            <div class="dxInput">
+                                <span class="readInfo">{{managementList.data.enteringPersonName}}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'Statu' | translate}}</label>
+                            <div class="dxInput">
+                                <span class="readInfo">{{managementList.data.certificateStatus}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" [hidden]="!managementList.data.govermentInfo">
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'govermentInfo' | translate}}</label>
+                            <div class="dxInput">
+                                <span class="readInfo">{{managementList.data.govermentInfo}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </dx-data-grid>
+            <div class="pull-right pagin-space">
+                <app-pagination [(pageObjEmit)]="searchInfo" [(totalCount)]="totalCount" (pageObjChange)="getpageObjChange($event)"></app-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 图片预览 starter-->
+<div class="seeImagePopup">
+    <dx-popup class="popup" [width]="595" [height]="842" [shading]="false" [position]="{my:'center',at:'center',of:window}" [resizeEnabled]="false"
+        [dragEnabled]="true" [closeOnOutsideClick]="true" [(visible)]="previewImgPopup">
+        <div *dxTemplate="let data of 'content'">
+            <div class="print-outwrap">
+                <div class="print-show ">
+                    <img id="image" [src]="managementInfo.img" width="100%" height="100%" class="img-responsive" alt="{{'No Pictures' | translate}}"
+                    />
+                </div>
+            </div>
+
+        </div>
+    </dx-popup>
+</div>
+<!-- 图片预览 end-->
+
+<!--搜索组件开始-->
+<!-- <i class="fa toggle-form" [ngClass]="{'fa-chevron-left toggle-form-left':formAnimate ==='hidden','fa-chevron-right toggle-form-left':formAnimate ==='show'}"
+    (click)="showForm(formNum)"></i> -->
+
+
+<!--搜索组件结束-->
+<!-- 保存以及查询时的loading starter-->
+<dx-load-panel #submitLoadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{my:'center',at:'center', of: '#managementGrid' }"
+    [(visible)]="loadingVisible" [showIndicator]="true" [showPane]="true" [shading]="false" [closeOnOutsideClick]="false">
+</dx-load-panel>
+<!-- 保存以及查询时的loading end-->
+
+<!-- 隐藏搜索表单前，给出相应提示 start -->
+<dx-popup class="popup confirmPopup" [width]="300" [height]="220" title="{{'pupopinformation'|translate}}" [showTitle]="true"
+    [showCloseButton]="false" [dragEnabled]="false" [closeOnOutsideClick]="false" [(visible)]="confirmVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div class="proInfo">{{'Are you sure show and reset search form'| translate}}</div>
+        <div class="btns">
+            <dx-button icon="fa fa-check" id="yes" text="{{'confirm'| translate}}" type="success" (onClick)="srueHiddenForm()"></dx-button>
+            <dx-button icon="fa fa-close" id="no" text="{{'cancel'| translate}}" type="danger" (onClick)="cancelPounp()"></dx-button>
+        </div>
+        <span class="icon-AG-Help"></span>
+    </div>
+</dx-popup>
+
+<mf-print (printOver)="refreshList()" [crimeAndNoticeList]="crimeAndNoticeList" [applyInfo]="certificateInfo"></mf-print>

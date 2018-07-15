@@ -1,0 +1,34 @@
+<div class="list-common-width">
+    <div class="common-title">{{'noticeAuditPendingList of tasks' | translate}}</div>
+</div>
+
+<div class="list-common-content">
+   <div>
+        <dx-button icon="fa fa-link" text="{{'audit' | translate}}" class="red-btn" [disabled]="isAllow" (click)="navigateToAuditDetail()"></dx-button>
+        <dx-button class="refresh-btn grey-btn" icon="fa fa-refresh" (click)="refreshList()" text="{{'refresh' | translate}}"></dx-button>
+   </div>
+    <div class="space-15">
+        <dx-data-grid id="auditNoticeList" #grid [showBorders]="true" [dataSource]="auditNoticeList" [loadPanel]="{enabled:false}"
+            (onSelectionChanged)="selectedRow($event)">
+            <dxo-selection mode="single"></dxo-selection>
+            <dxi-column dataField="noticeNumber" caption="{{'noticeNumber' | translate}}" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="criminalName" caption="{{'CriminalName' | translate}}" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="apportionTime" caption="{{'apportionTime' | translate}}" dataType="date" cellTemplate="dateCellTemplate" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="courtName" caption="{{'SentenceCourt' | translate}}" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="priorityName" caption="{{'priority' | translate}}" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="noticeCreateTime" caption="{{'noticeCreateTime' | translate}}" dataType="date" [allowSorting]="false"></dxi-column>
+             <div *dxTemplate="let item of 'dateCellTemplate'">
+            {{item.value | date:'yyyy-MM-dd HH:mm:ss'}}
+             </div>
+        </dx-data-grid>
+        <!--分页-->
+        <div class="pull-right pagin-space" [hidden]="pageMenuVisible">
+            <app-pagination [(pageObjEmit)]="requestParameters" [(totalCount)]="dataCount" (pageObjChange)="getpageObjChange($event)"></app-pagination>
+        </div>
+    </div>
+</div>
+<!-- 保存以及查询时的loading starter-->
+<dx-load-panel #submitLoadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{my:'center',at:'center', of: '#auditNoticeList' }"
+    [(visible)]="LoadingPanelVisible" [showIndicator]="true" [showPane]="true" [shading]="false" [closeOnOutsideClick]="false">
+</dx-load-panel>
+<!-- 保存以及查询时的loading end-->

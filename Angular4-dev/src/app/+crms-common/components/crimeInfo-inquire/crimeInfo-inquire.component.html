@@ -1,0 +1,82 @@
+<div class="list-common-width">
+    <div class="common-title">{{'CrimeInfoInquire'| translate}}</div>
+</div>
+<div class="list-common-content">
+    <div class="see-view-button">
+        <div class="pull-left">
+            <dx-button icon="fa fa-send" class="grey-btn" (click)="seeView()" text="{{'watch' | translate}}"
+                [disabled]="!routerId || selectFlag "></dx-button>
+        </div>
+
+        <div class="pull-right refresh-btn" *ngIf="formAnimate =='hidden'" title="{{'show the search form' | translate}}">
+            <dx-button icon="fa fa-search" class="grey-btn search-btn" (click)="showForm(formNum)" text="{{'Advanced Search' | translate}}"></dx-button>
+        </div>
+
+        <div class="pull-right refresh-btn" *ngIf="formAnimate =='show'" title="{{'hidden the search form' | translate}}">
+            <dx-button icon="fa fa-search" class="grey-btn search-btn" (click)="showForm(formNum)" text="{{'Advanced Search' | translate}}"></dx-button>
+        </div>
+        <div class="pull-right refresh-btn">
+            <dx-button icon="fa fa-refresh" class="grey-btn" (click)="refresh()" text="{{'refresh' | translate}}"></dx-button>
+        </div>
+        <div class="pull-right">
+            <dx-button icon="fa fa-file-text" class="grey-btn" (click)="export()" text="{{'export' | translate}}" *ngIf="forAdmin" [disabled]="selectArr.length ==0"
+                style="margin-right:15px;"></dx-button>
+        </div>
+    </div>
+    <!-- 搜索表单 -->
+    <div class="form-layer" id="form-layer" [@formAnimation]="formAnimate">
+        <mf-form [(formObjEmit)]="formObjEmit" (formSubmitEvent)="getFormObjChange($event)"></mf-form>
+    </div>
+    <div class="space-15" style=" position:relative;top:-10px;">
+        <dx-data-grid #grid1 [dataSource]="crimeInfoList" [masterDetail]="{ enabled: false, template: 'detail' }" (onRowClick)="expendIndexOfRowData($event)"
+            (onContentReady)="contentReady($event)" (onCellClick)="selectedRow($event)">
+            <!--<dxi-column dataField="isChecked" cellTemplate="isCheckedCellTemplate" [allowFiltering]="true"
+                [allowSorting]="true" caption="{{'export' | translate}}" [visible]="forAdmin"></dxi-column>-->
+            <!--<dxo-export [enabled]="true" fileName="Employees" [allowExportSelectedData]="true" *ngIf="forAdmin"></dxo-export>-->
+            <dxo-selection mode="multiple" *ngIf="forAdmin"></dxo-selection>
+            <dxo-selection mode="single" *ngIf="!forAdmin"></dxo-selection>
+            <dxi-column dataField="name" caption="{{'name'|translate}}" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="certificateNumber" caption="{{'certificateNumber'|translate}}" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="fatherName" caption="{{'fatherName'|translate}}" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="motherName" caption="{{'motherName'|translate}}" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="dateOfBirth" cellTemplate="dateCellTemplate" dataType="date" caption="{{'dateOfBirth'|translate}}"
+                [allowSorting]="false"></dxi-column>
+
+            <!--<div *dxTemplate="let item of 'isCheckedCellTemplate'">
+                {{item.value}}
+                <dx-check-box [(ngModel)]="item.value"></dx-check-box>
+            </div>-->
+
+            <div *dxTemplate="let item of 'dateCellTemplate'">
+                {{item.value | I18nDate}}
+            </div>
+
+            <!--表格展开展开个人信息-->
+            <div *dxTemplate="let item of 'detail'" title=''>
+                <personInfo-read [crimePersonInfo]="item.data"></personInfo-read>
+            </div>
+        </dx-data-grid>
+        <div class="pull-right">
+            <app-pagination [(pageObjEmit)]="advanceQuery" [(totalCount)]="totalCount" (pageObjChange)="pageIndexChange($event)"></app-pagination>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- 隐藏搜索表单前，给出相应提示 start -->
+<dx-popup class="popup confirmPopup" [width]="300" [height]="220" title="{{'pupopinformation'|translate}}" [showTitle]="true"
+    [showCloseButton]="false" [dragEnabled]="false" [closeOnOutsideClick]="false" [(visible)]="confirmVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div class="proInfo">{{'Are you sure show and reset search form'| translate}}</div>
+        <div class="btns">
+            <dx-button icon="fa fa-check" id="yes" text="{{'confirm'| translate}}" type="success" (onClick)="srueHiddenForm()"></dx-button>
+            <dx-button icon="fa fa-close" id="no" text="{{'cancel'| translate}}" type="danger" (onClick)="cancelPounp()"></dx-button>
+        </div>
+        <span class="icon-AG-Help"></span>
+    </div>
+</dx-popup>
+
+<!-- <i class="fa toggle-form" [ngClass]="{'fa-chevron-left toggle-form-left':formAnimate ==='hidden','fa-chevron-right toggle-form-left':formAnimate ==='show'}"
+    (click)="showForm(formNum)"></i> -->

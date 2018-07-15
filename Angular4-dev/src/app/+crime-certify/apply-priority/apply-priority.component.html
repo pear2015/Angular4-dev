@@ -1,0 +1,104 @@
+<div class="list-common-width">
+    <div class="common-title">{{'ApplyPriorityAdjustment' | translate}}</div>
+</div>
+
+<div class="list-common-content">
+    <div>
+        <div>
+            <dx-button icon="fa fa-send" class="grey-btn"  [disabled]="isWatchDetail" text="{{'watch' | translate}}"
+                (click)="detail()"></dx-button>
+                <div class="pull-right refresh-btn" *ngIf="formAnimate =='hidden'" title="{{'show the search form' | translate}}">
+                    <dx-button icon="fa fa-search" class="grey-btn search-btn"  (click)="showForm(formNum)" text="{{'Advanced Search' | translate}}"></dx-button>
+                </div>
+
+                <div class="pull-right refresh-btn" *ngIf="formAnimate =='show'" title="{{'hidden the search form' | translate}}">
+                    <dx-button icon="fa fa-search" class="grey-btn search-btn" (click)="showForm(formNum)" text="{{'Advanced Search' | translate}}"></dx-button>
+                </div>
+            <dx-button class="refresh-btn grey-btn"  icon="fa fa-refresh" (click)="refreshList()" text="{{'refresh' | translate}}"></dx-button>
+        </div>
+
+       <!-- 搜索表单 -->
+        <div class="form-layer" id="form-layer" [@formAnimation]="formAnimate">
+            <mf-form [(formObjEmit)]="formObjEmit" (formSubmitEvent)="getFormObjChange($event)"></mf-form>
+        </div>
+        <div class="space-15">
+            <dx-data-grid id="applyList" #grid [dataSource]="applyList" rowTemplate="rowTemplateName" (onSelectionChanged)="selectedRow($event)">
+                <dxo-selection mode="single"></dxo-selection>
+
+                <dxi-column dataField="applyInfo.applyTypeName" caption="{{'applyTypeName' | translate}}" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="applyInfo.deliveryReceiptNumbr" caption="{{'deliveryReceiptNumbr'| translate }}" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="name" caption="{{'name'| translate }}" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="applyBasicInfo.certificateNumber" caption="{{'certificateNumber'| translate }}" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="applyInfo.applyCenterName" caption="{{'applyCenterName'| translate }}" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="applyInfo.applyTime" caption="{{'applyTime'| translate }}" dataType="date" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="applyInfo.priority" caption="{{'priority'| translate }}" [allowSorting]="false"></dxi-column>
+
+                <tbody *dxTemplate="let item of 'rowTemplateName';let idx=index">
+                    <tr class="dx-row main-row" (click)="getApplyNumber(item.data.applyInfo.applyId)">
+                        <td>{{item.data.applyInfo.applyTypeName}}</td>
+                        <td>{{item.data.applyInfo.deliveryReceiptNumbr}}</td>
+                        <td>{{item.data.applyBasicInfo.firstName | wholeName:item.data.applyBasicInfo.lastName}}</td>
+                        <td>{{item.data.applyBasicInfo.certificateNumber}}</td>
+                        <td>{{item.data.applyInfo.applyCenterName}}</td>
+                        <td>{{item.data.applyInfo.applyTime}}</td>
+                        <td class="priorityTd">
+                            <dx-radio-group #priorityRadio [dataSource]="priorityList" value={{item.data.applyInfo.priority}} valueExpr="applyPriorityId"
+                                displayExpr="name" name="applyPriority" (onValueChanged)="updatePriority($event,priorityRadio)">
+
+                            </dx-radio-group>
+                        </td>
+                    </tr>
+                </tbody>
+
+
+            </dx-data-grid>
+            <div class="pull-right pagin-space" [hidden]="pageMenuVisible">
+                <app-pagination [(pageObjEmit)]="applySearchInfoParam" [(totalCount)]="dataCount" (pageObjChange)="getpageObjChange($event)"></app-pagination>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- <i class="fa toggle-form" [ngClass]="{'fa-chevron-left toggle-form-left':formAnimate ==='hidden','fa-chevron-right toggle-form-left':formAnimate ==='show'}"
+    (click)="showForm(formNum)"></i>
+ -->
+<!-- <div class="form-layer" id="form-layer" [@formAnimation]="formAnimate">
+    <mf-form [(formObjEmit)]="formObjEmit" (formSubmitEvent)="getFormObjChange($event)"></mf-form>
+</div> -->
+
+
+<!-- popup弹窗给出保存提示信息 starter-->
+<dx-popup class="popup confirmPopup" [width]="300" [height]="220" title="{{'pupopinformation'|translate}}" [showTitle]="true"
+    [showCloseButton]="false" [dragEnabled]="false" [closeOnOutsideClick]="false" [(visible)]="confirmVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div class="priorityProInfo">{{message}}</div>
+        <div class="btns">
+            <dx-button icon="fa fa-check" id="yes" text="{{'confirm'| translate}}" class="red-btn" (click)="sureUpdate()"></dx-button>
+            <dx-button icon="fa fa-close" id="no" text="{{'cancel'| translate}}" class="grey-btn" (click)="cancelUpdate()"></dx-button>
+        </div>
+        <span class="icon-AG-Help"></span>
+    </div>
+</dx-popup>
+<!-- popup弹窗给出附件列表提示信息 end-->
+<!-- 保存以及查询时的loading starter-->
+<dx-load-panel #submitLoadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{my:'center',at:'center', of: '#applyList' }"
+    [(visible)]="loadingVisible" [showIndicator]="true" [showPane]="true" [shading]="false" [closeOnOutsideClick]="false">
+</dx-load-panel>
+<!-- 保存以及查询时的loading end-->
+
+
+<!-- 隐藏搜索表单前，给出相应提示 start -->
+<dx-popup class="popup confirmPopup" [width]="300" [height]="220" title="{{'pupopinformation'|translate}}" [showTitle]="true"
+    [showCloseButton]="false" [dragEnabled]="false" [closeOnOutsideClick]="false" [(visible)]="formConfirmVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div class="proInfo">{{'Are you sure show and reset search form'| translate}}</div>
+        <div class="btns">
+            <dx-button icon="fa fa-check" id="yes" text="{{'confirm'| translate}}" type="success" (onClick)="srueHiddenForm()"></dx-button>
+            <dx-button icon="fa fa-close" id="no" text="{{'cancel'| translate}}" type="danger" (onClick)="cancelPounp()"></dx-button>
+        </div>
+        <span class="icon-AG-Help"></span>
+    </div>
+</dx-popup>

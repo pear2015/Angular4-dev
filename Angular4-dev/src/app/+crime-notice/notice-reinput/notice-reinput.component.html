@@ -1,0 +1,12 @@
+<!--基本描述信息start -->
+<noticeAudit-processInfo [noticeInfo]="noticeInput.noticeInfo">
+    <dx-button icon="fa fa-reply" class="grey-btn" text="{{'getBack'| translate}}" (onClick)="goBack()" [disabled]="LoadingPanelVisible"></dx-button>
+</noticeAudit-processInfo>
+<!--基本描述信息end -->
+<!--公告信息录入开始 -->
+
+<div class="re-input">
+    <notice-input #noticeInput></notice-input>
+</div>
+
+<!--公告信息录入结束 -->

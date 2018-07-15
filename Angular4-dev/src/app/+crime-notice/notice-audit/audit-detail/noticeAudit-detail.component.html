@@ -1,0 +1,188 @@
+<!--基本描述信息start -->
+<noticeAudit-processInfo [noticeInfo]="noticeInfo">
+    <dx-button icon="fa fa-reply" class="grey-btn" text="{{'getBack'| translate}}" (onClick)="goBack()" [disabled]="LoadingPanelVisible"></dx-button>
+</noticeAudit-processInfo>
+<!--基本描述信息end -->
+
+<div class="apply-analysis-content audit-content">
+    <div class="analysis-content-wizard">
+        <form-wizard (nextEvent)="nextEventValidata($event)" (submitEvent)="onSubmit($event)">
+            <!-- 附件 -->
+            <wizard-step [title]="['verification information' | translate]">
+                <div class="info-tab  audit-info">
+                    <span (click)="showInfo(1)" [ngClass]="{'active': showInfoIndex==1}">{{'applyInfo' | translate}}</span>
+                    <span (click)="showInfo(2)" [ngClass]="{'active': showInfoIndex==2}">{{'applyBasicInfo' | translate}}</span>
+                    <span (click)="showInfo(3)" [ngClass]="{'active': showInfoIndex==3}">{{'wait merging list' | translate}}</span>
+                </div>
+                <div class="col-xs-8">
+                    <!-- 基本信息 -->
+                    <div *ngIf="showInfoIndex ==1">
+                        <div style="padding-bottom:25px;" [hidden]="showProcessInfo">
+                            <noticeAudit-processInfo [noticeInfo]="noticeInfo"></noticeAudit-processInfo>
+                        </div>
+                        <noticeInfo-read [noticeInfo]="noticeInfo"></noticeInfo-read>
+                        <crimeInfo-read [crimeInfo]="crimeInfo"></crimeInfo-read>
+                    </div>
+
+                    <!-- 个人信息 -->
+                    <div *ngIf="showInfoIndex ==2">
+                        <personInfo-read [crimePersonInfo]="crimePersonInfo"></personInfo-read>
+                    </div>
+                </div>
+
+
+                <!-- 疑似罪犯列表 -->
+                <div *ngIf="showInfoIndex ==3" class="col-xs-12">
+                    <!--  数据列表 待合并数据列表"-->
+                    <h1 class="title" [hidden]="auditInfoSwitch">{{'wait merging list' | translate}}</h1>
+                    <div class="crime-inquire-list padding-15">
+                        <dx-data-grid [hidden]="auditInfoSwitch" #personInfoGrids id="gridContainer" [dataSource]="personInfoList" [masterDetail]="{ enabled: true, template: 'detail' }">
+                            <!-- <dxo-selection mode="single"></dxo-selection> -->
+                            <dxi-column dataField="isChecked" cellTemplate="isCheckedCellTemplate" [allowFiltering]="true" [allowSorting]="false" caption="{{'The person check' | translate}}"
+                                [visible]=""></dxi-column>
+                            <dxi-column dataField="ciminalName" caption="{{'name'| translate }}" [allowSorting]="false"></dxi-column>
+                            <dxi-column dataField="isCheckedDisabled" cellTemplate="isSelectCellTemplate" [allowFiltering]="false" [allowSorting]="false"
+                                caption="{{'can be merge' | translate}}" [visible]=""></dxi-column>
+                            <dxi-column dataField="certificateName" caption="{{'certificateType'| translate }}" [allowSorting]="false"></dxi-column>
+                            <dxi-column dataField="certificateNumber" caption="{{'certificateNumber'| translate }}" [allowSorting]="false"></dxi-column>
+                            <dxi-column dataField="sexName" caption="{{'sexName'| translate }}" [allowSorting]="false"></dxi-column>
+                            <dxi-column dataField="point" caption="{{'matched rate' | translate}}" [allowSorting]="false"></dxi-column>
+                            <!--<dxi-column dataField="isMergingName" cellTemplate="isMeringCellTemplate" caption="{{'merging description' | translate}}"></dxi-column>-->
+
+                            <dxi-column cellTemplate="setCellTemplate" caption="{{'action' | translate}}" [allowSorting]="false"></dxi-column>
+                            <div *dxTemplate="let item of 'isCheckedCellTemplate'">
+                                <dx-check-box [(ngModel)]="item.value" [disabled]="true"></dx-check-box>
+                            </div>
+
+                            <div *dxTemplate="let item of 'isSelectCellTemplate'">
+                                <i *ngIf="item.data.isCheckedDisabled" class="fa fa-close close-red" title="{{'isMaringWithOther'|translate}}"></i>
+                                <i *ngIf="!item.data.isCheckedDisabled" class="fa fa-check check-green"></i>
+                            </div>
+                            <div *dxTemplate="let item of 'detail'">
+                                <personInfo-read [crimePersonInfo]="item.data"></personInfo-read>
+                            </div>
+                            <div *dxTemplate="let item of 'setCellTemplate'" title=''>
+                                <button title="{{'watch' | translate}}" class="btn grey-btn fa fa-send" (click)="watchNotice(item.data)"></button>
+                                <button title="{{'data compare' | translate}}" class="btn grey-btn fa fa-bar-chart" (click)="dataCompare(item.data)"></button>
+                            </div>
+                        </dx-data-grid>
+                        <div class="pull-right" [hidden]="auditInfoSwitch">
+                            <app-pagination [(pageObjEmit)]="matchRequestParameters" [(totalCount)]="dataCount" (pageObjChange)="getpageObjChange($event)"></app-pagination>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4 attachment-watch-wrap" *ngIf="showInfoIndex !=3">
+                    <div class="attachment attachment-change-width">
+                        <crms-attchment [imageFileList]="attachmentList" [controllFlag]="attchmentControllObj" [onlyForApplyAnalysis]='false'></crms-attchment>
+                    </div>
+                </div>
+            </wizard-step>
+            <!-- 录入意见 "-->
+            <wizard-step [title]="['Input comments' | translate]" [showComplete]="true" [showNext]="false">
+                <dx-validation-group>
+                    <div class="notice-reject-reson" [hidden]="isAnalystReject">
+                        <div class="notice-option">
+                            <dx-button *ngFor="let item of simpleProducts; let i = index" icon="fa fa-check" text="{{item.name| translate}}" class="grey-btn"
+                                (onClick)="enterOption(i)" [ngClass]="{'green-btn':noticeInfo.auditResultId == item.value}"></dx-button>
+                        </div>
+                        <div class="textarea-p">
+                            <label>{{'auditDescription' | translate}}
+                                <span>*</span>
+                            </label>
+                            <div class="textAreaDiv">
+                                <dx-text-area class="textAreaNotice" id="noticeDescription" [(ngModel)]="noticeInfo.auditDescription" name="auditDescription"
+                                    valueChangeEvent="keyup" maxLength="1000">
+                                    <dx-validator>
+                                        <dxi-validation-rule type="required" message="{{'You must fill in the audit reason'| translate}}"></dxi-validation-rule>
+                                    </dx-validator>
+                                </dx-text-area>
+                                <span class="wordwrap">
+                                    <var class="word">{{noticeInfo.auditDescription?noticeInfo.auditDescription.length:0}}</var>/1000</span>
+                            </div>
+                        </div>
+
+
+                        <div class="textarea-p" style="margin-bottom:12px;" [hidden]="isRecorded || noticeInfo.noticeInputStatus==='1' ">
+                            <label>{{'rejectEnterReason' | translate}}</label>
+                            <div class="textAreaDiv">
+                                <span class="readInfo">{{noticeInfo.rejectEnterReason}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="notice-option-description">
+                        <!-- <p>说明:</p> -->
+                        <div class="description-wrap">
+                            {{'pass' | translate}}：
+                            <br/> {{'if confirm not fail...' | translate}}
+                            <br/> {{'fail' | translate}}：
+                            <br/> {{'if confirm not pass...' | translate}}
+                        </div>
+                    </div>
+
+                </dx-validation-group>
+            </wizard-step>
+
+
+
+
+           <!-- 完成 -->
+            <wizard-step [title]="['complete' | translate]" [showPrev]="false" class="special-box2">
+                <div class="down-img">
+                    <img src="./themes/images/down.png" alt="" width="100" height="100" *ngIf="completeInfo">
+                    <img src="./themes/images/fail.png" alt="" width="100" height="100" *ngIf="!completeInfo">
+                </div>
+                <div class="down-text">{{submitResult}}</div>
+                <div class="down-information">
+                    <div>
+                        <p>{{'auditTime' | translate}}:{{completeInfo?.auditTime | I18nDate:'long'}}</p>
+                        <p>{{'auditPersonName' | translate}}:{{completeInfo?.auditPersonName | translate}}</p>
+                        <p>{{'auditResultName' | translate}}：{{completeInfo?.auditResultId | aduitResult | translate}}</p>
+                    </div>
+                </div>
+                <div class="entry-next-item">
+                    <dx-button icon="fa fa-reply" class="grey-btn" text="{{'getBack'| translate}}" (onClick)="goBack()" [disabled]="LoadingPanelVisible"></dx-button>
+                </div>
+            </wizard-step>
+        </form-wizard>
+    </div>
+</div>
+
+
+
+
+<!-- 保存以及查询时的loading starter-->
+<dx-load-panel #submitLoadPanel shadingColor="rgba(0,0,0,0.4)" [(visible)]="loadingPanelVisible" [showIndicator]="true" [showPane]="true"
+    [shading]="false" [closeOnOutsideClick]="false">
+</dx-load-panel>
+<!-- 保存以及查询时的loading end-->
+
+<!--数据比对弹框-->
+<dx-popup class="popup notice-detail" [width]="1300" [height]="800" [shading]="false" [position]="{my:'center',at:'center',of:window}"
+    [resizeEnabled]="false" [dragEnabled]="true" [closeOnOutsideClick]="false" [(visible)]="dataCompareVisible" title="{{'compairtion information of the entery and criminals' | translate}}">
+    <div *dxTemplate="let data of 'content'">
+        <dx-scroll-view [width]="1275">
+            <crimeData-compare [criminalInfoObj]="criminalInfoObj" [applyBasicInfo]="crimePersonInfo"></crimeData-compare>
+        </dx-scroll-view>
+    </div>
+</dx-popup>
+
+
+<!-- popup 犯罪嫌疑人的公告详情 starter-->
+<div class="seeImagePopup">
+    <dx-popup class="popup notice-detail" [width]="1300" [height]="800" [shading]="false" [position]="{my:'center',at:'center',of:window}"
+        [resizeEnabled]="false" [dragEnabled]="true" [closeOnOutsideClick]="false" [(visible)]="popupNoticeVisible" title="{{'criminal announcements details' | translate}}">
+        <div *dxTemplate="let data of 'content'">
+            <dx-scroll-view [width]="1275">
+                <div class="layer-attchment">
+                    <crimeinfo-detail [personId]="crimePersonId"></crimeinfo-detail>
+                </div>
+            </dx-scroll-view>
+        </div>
+    </dx-popup>
+</div>
+<!--<dx-tooltip target="#redLight" position="bottom" [(visible)]="clearPageTolVisible">
+    <div *dxTemplate="let data = data of 'content'">
+        {{'isMaringWithOther'|translate}}
+    </div>
+</dx-tooltip>-->

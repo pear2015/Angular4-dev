@@ -1,0 +1,36 @@
+{
+  "login_config": {
+    "filePath": "/dist/index.html#login",
+    "static_file": "login-window",
+    "option": {
+      "center": true,
+      "width": 1280,
+      "height": 720,
+      "title": "crms-client",
+      "resizable": false,
+      "frame": false,
+      "autoHideMenuBar": true
+    },
+    "force_show": false,
+    "screen": 0,
+    "enable_debug": false
+  },
+  "shell_configs": [
+    {
+      "filePath": "/dist/index.html#/crms-system",
+      "static_file": "main-window",
+      "option": {
+        "center": true,
+        "title": "crms-client",
+        "fullscreen": true,
+        "resizable": false,
+        "autoHideMenuBar": true
+      },
+      "force_show": true,
+      "screen": 0,
+      "enable_debug": false
+    }
+  ],
+  "version": "1.1.1",
+  "chanel": "stable"
+}

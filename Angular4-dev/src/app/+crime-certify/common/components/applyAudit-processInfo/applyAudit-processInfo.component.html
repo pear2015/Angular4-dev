@@ -1,0 +1,89 @@
+<h1 class="title margin-top0">{{'processInfo'|translate}}</h1>
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'applyTypeName' | translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.applyTypeName}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'enteringPersonName' | translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.enteringPersonName}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'applyTime' | translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.applyTime}}</span>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'analysisPersonName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.analysisPersonName}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'analysisResultName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.analysisResultName}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="textarea-p" [hidden]="!(applyInfo.analysisResultID === '3')">
+        <label>{{'analysisDescription' | translate}}</label>
+
+        <div class="textAreaDiv">
+            <span class="readInfo">{{applyInfo.analysisDescription}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'auditPersonName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.auditPersonName}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'auditResultName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.auditResultName}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="textarea-p">
+        <label>{{'auditDescription' | translate}}</label>
+
+        <div class="textAreaDiv">
+            <span class="readInfo">{{applyInfo.auditDescription}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="textarea-p" [hidden]="applyInfo.auditResultID === '1'">
+        <label>{{'auditRejectReason' | translate}}</label>
+
+        <div class="textAreaDiv">
+            <span class="readInfo">{{applyInfo.auditRejectReason}}</span>
+        </div>
+    </div>
+</div>

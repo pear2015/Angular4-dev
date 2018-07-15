@@ -1,0 +1,64 @@
+<dx-popup class="popup" [width]="560" [height]="830" [shading]="false" [position]="{my:'center',at:'center',of:window}" [resizeEnabled]="false"
+    [dragEnabled]="true" [closeOnOutsideClick]="false" [showCloseButton]="false" [(visible)]="certificatePrintVisable">
+    <div *dxTemplate="let data of 'content'">
+        <div style="background:#FFF" class="print-outwrap">
+            <div class="print-show">
+                <!-- 个人无犯罪展示 -->
+                <person-noCrimePrint [certificatePrintInfo]="certificatePrintInfo" [applyBasicInfo]="applyBasicInfo"  [isPrint]="false"  *ngIf="personPrintFlag" [certificateId]="certificateInfo.certificateId" [applyInfo]="applyInfo"></person-noCrimePrint>
+
+                <!-- 个人有犯罪展示 -->
+                <person-hasCrimePrint [certificatePrintInfo]="certificatePrintInfo" [applyBasicInfo]="applyBasicInfo" [crimeAndNoticeList]="crimeAndNoticeList" [isPrint]="false" *ngIf="!personPrintFlag" [certificateId]="certificateInfo.certificateId"  [applyInfo]="applyInfo"></person-hasCrimePrint>
+            </div>
+            <div id="print_div" #printDiv style=" z-index:-1;">
+                <div #certificateDiv class="certificatePage" style="background-color:#fff;height:1100px;">
+                      <!-- 个人无犯罪打印 -->
+                    <person-noCrimePrint [certificatePrintInfo]="certificatePrintInfo" [applyBasicInfo]="applyBasicInfo" [isPrint]="true"   *ngIf="personPrintFlag" [certificateId]="certificateInfo.certificateId"  [applyInfo]="applyInfo"></person-noCrimePrint>
+
+                      <!-- 个人有犯罪打印 -->
+                    <person-hasCrimePrint [certificatePrintInfo]="certificatePrintInfo" [applyBasicInfo]="applyBasicInfo" [crimeAndNoticeList]="crimeAndNoticeList" [isPrint]="true" *ngIf="!personPrintFlag" [certificateId]="certificateInfo.certificateId"  [applyInfo]="applyInfo"></person-hasCrimePrint>
+                </div>
+                <div #crimeRecord style="display:none;"></div>
+            </div>
+
+        </div>
+        <div style="text-align:center;overflow:hidden;width:100%;height:40px;">
+            <div style="float:right;overflow:hidden" title="{{'exit'|translate}}">
+                <dx-button icon="fa fa-close" (click)="closePopup()"></dx-button>
+            </div>
+            <div style="float:right;margin:0 15px 0 0">
+                <crms-print #print [mode]="'iframe'" [btnText]="'confirmPrint'" (click)="beforePrint()" (printComplete)="completePrint()"
+                    [printHTML]="printDiv" [showBtn]="showPrintBtn">
+                </crms-print>
+            </div>
+            <div style="float:right;margin:5px 15px 0 0;">
+                <div class="switch-text">{{'whether to display the announcement number' | translate}}:</div>
+                <div class="switch-container">
+                    <div class="bg-con">
+                        <input type="checkbox" class="switch-input" id="checked-1" [(ngModel)]="isShowNoticeNumber">
+                        <label for="checked-1"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sure-print" style="margin-top:45px;">
+            <crimerecord-print [crimeAndNoticeList]='crimeAndNoticeList' [applyInfo]='applyInfo' [applyBasicInfo]='applyBasicInfo' [showNoticeNumber]="isShowNoticeNumber"></crimerecord-print>
+        </div>
+    </div>
+</dx-popup>
+
+
+<!--打印证书时的loading窗口-->
+<dx-load-panel #submitLoadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{my:'center',at:'center',of:window}" [(visible)]="LoadingPanelVisible"
+    [showIndicator]="true" [showPane]="true" [shading]="true" [closeOnOutsideClick]="false">
+</dx-load-panel>
+<!---->
+
+
+<!-- popup弹窗给出保存提示信息 starter-->
+<dx-popup class="popup" [width]="300" [height]="200" title="{{'pupopinformation'|translate}}" [showTitle]="true" [dragEnabled]="false"
+    [closeOnOutsideClick]="false" [(visible)]="saveInfoVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div class="proInfo"> {{ operationInfo | translate}}</div>
+    </div>
+</dx-popup>
+<!-- popup弹窗给出附件列表提示信息 end-->

@@ -1,0 +1,195 @@
+%base-title {
+    font-size: 24px;
+    font-weight: 500;
+    color: $navbar-color;
+}
+
+%base-btn {
+    color: #dbdbdb;
+    font-size: 14px;
+    width: 180px;
+    height: 118px;
+    cursor: pointer;
+    display: block;
+    margin: 15px;
+    float: left;
+    &:hover {
+        color: #fff
+    }
+    span {
+        position: relative;
+        width: 180px;
+        margin-top: 45%;
+        display: block;
+        text-align: center;
+    }
+}
+
+@mixin feature-btn($normalUrl, $hoverUrl) {
+    @extend %base-btn;
+    background: $normalUrl no-repeat;
+    background-position-x: center;
+    &:hover {
+        background: $hoverUrl no-repeat;
+        background-position-x: center;
+    }
+}
+
+
+/* 整体背景 start */
+
+.content-bg {
+    background: url(../images/bg.jpg) no-repeat;
+    width: 1920px;
+    height: 1080px;
+}
+
+
+/* 整体背景 end */
+
+
+/* menu start */
+
+.content-menu {
+    top: 80px;
+    left: 36px;
+    height: 100%;
+    width: 600px;
+    z-index: 100;
+}
+
+.menu-region-30,
+.menu-region-70 {
+    position: relative;
+    height: 35%;
+    float: left;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.menu-padding-left {
+    padding-left: 45px;
+}
+
+.menu-region-70 {
+    width: 38%;
+    /*background: yellow;*/
+}
+
+.menu-region-30 {
+    width: 31%;
+    /*background: red;*/
+}
+
+
+/* 业务发展趋势 start */
+
+.menu-title {
+    margin-top: 32px;
+    margin-bottom: 10px;
+    @extend %base-title;
+}
+
+.btn-appeal-quantity {
+    @include feature-btn(url(../images/icon/link-appeal-quantity.png), url(../images/icon/link-appeal-quantity-light.png));
+}
+
+.btn-center-contrast {
+    @include feature-btn(url(../images/icon/link-center-contrast.png), url(../images/icon/link-center-contrast-light.png));
+}
+
+.btn-appeal-period {
+    @include feature-btn(url(../images/icon/link-appeal-period.png), url(../images/icon/link-appeal-period-light.png));
+}
+
+.btn-occurrence-region {
+    @include feature-btn(url(../images/icon/link-occurrence-region.png), url(../images/icon/link-occurrence-region-light.png));
+}
+
+.btn-inherent-relevance {
+    @include feature-btn(url(../images/icon/link-inherent-relevance.png), url(../images/icon/link-inherent-relevance-light.png));
+}
+
+.btn-appeal-holiday {
+    @include feature-btn(url(../images/icon/link-appeal-holiday.png), url(../images/icon/link-appeal-holiday-light.png));
+}
+
+
+/* 业务发展趋势end */
+
+
+/* 社会效益start */
+
+.btn-public-coverage {
+    @include feature-btn(url(../images/icon/link-public-coverage.png), url(../images/icon/link-public-coverage-light.png));
+}
+
+.btn-centeral-coverage {
+    @include feature-btn(url(../images/icon/link-centeral-coverage.png), url(../images/icon/link-centeral-coverage-light.png));
+}
+
+.btn-keyword {
+    left: 220px;
+    @include feature-btn(url(../images/icon/link-keyword.png), url(../images/icon/link-keyword-light.png));
+}
+
+
+/* 社会效益 end */
+
+
+/* 资源优化利用 start */
+
+.btn-hot-resource {
+    @include feature-btn(url(../images/icon/link-hot-resource.png), url(../images/icon/link-hot-resource-light.png));
+}
+
+
+/* 资源优化利用 end */
+
+
+/* 中心服务水平 start */
+
+.btn-timeliness {
+    @include feature-btn(url(../images/icon/link-timeliness.png), url(../images/icon/link-timeliness-light.png));
+}
+
+
+/* 中心服务水平 end */
+
+
+/* menu end */
+
+
+/*词云 start*/
+
+.content-worldCloud {
+    right: 0;
+    top: 80px;
+    background: url(../images/bg-worldCloud.png) no-repeat;
+    background-size: 100% 100%;
+    max-width: 783px;
+    min-width: 500px;
+    width: 783px;
+    opacity: 0.5;
+    max-height: 842px;
+    min-height: 700px;
+    height: calc(100% - 80px);
+}
+
+
+/*词云 end*/
+
+.bottom_footer {
+    position: absolute;
+    font-size: 13px;
+    width: 100%;
+    bottom: 8px;
+    color: #dbdbdb;
+    text-align: center;
+}
+
+.api_link {
+    color: #dbdbdb;
+    text-decoration: underline
+}

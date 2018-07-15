@@ -1,0 +1,127 @@
+<!-- 犯罪基本信息 starter-->
+<h1 class="title">{{'crimeInfo'|translate}}
+    <i [hidden]="clearBtnVisible" id="clearCrimeInfo" class="ag02 ag02-empty clearBtn" (click)="clearInfo.emit('crimeInfo')"
+        (mouseenter)="clearPageTolToggle()" (mouseleave)="clearPageTolToggle()"></i>
+</h1>
+<dx-validation-group>
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'litigationNumber'| translate}}</label>
+            <div class="dxInput">
+                <dx-text-box [(ngModel)]="crimeInfo.litigationNumber" name="crimeName" id="crimeName" maxLength="36" [disabled]="isReadOnly">
+                </dx-text-box>
+            </div>
+        </div>
+        <!-- 犯罪时间 -->
+        <div class="col-sm-6 inputBox">
+            <label>{{'crimeTime'| translate}}
+                <span>*</span>
+            </label>
+            <div class="dxInput">
+                <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [(max)]="crimeInfo.crimeJudgeTime!=null? crimeInfo.crimeJudgeTime:noticeInfo.noticeCreateTime != null?noticeInfo.noticeCreateTime:now"
+                    [min]="crimePersonInfo.dateOfBirth?crimePersonInfo.dateOfBirth:minDateOfcrimeTime" [(ngModel)]="crimeInfo.crimeTime"
+                    id="crimeTime" name="crimeTime" [disabled]="isReadOnly">
+                    <dx-validator>
+                        <dxi-validation-rule type="required" message="{{'date of crimeTime is required'| translate}}"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-date-box>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'crimeType'| translate}}</label>
+            <div class="dxInput">
+                <dx-select-box [(ngModel)]="crimeInfo.crimeTypeId" name="crimeType" id="crimeType" maxLength="36" valueExpr="crimeTypeId"
+                    displayExpr="crimeTypeName" [dataSource]="crimeTypeList" [disabled]="isReadOnly">
+                    <!--<dx-validator>
+                    <dxi-validation-rule type="required" message="{{'crimeType is required'| translate}}"></dxi-validation-rule>
+                </dx-validator>-->
+                </dx-select-box>
+            </div>
+        </div>
+
+        <div class="col-sm-6 inputBox">
+            <label>{{'crimeName'| translate}}</label>
+            <div class="dxInput">
+                <dx-text-box [(ngModel)]="crimeInfo.crimeName" name="crimeName" id="crimeName" maxLength="36" [disabled]="isReadOnly">
+                </dx-text-box>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-6 inputBox">
+            <label>{{'crimeRegion'| translate}}</label>
+            <div class="dxInput">
+                <dx-select-box [(ngModel)]="crimeInfo.crimeRegionName" [searchEnabled]="true" name="crimeRegionName" id="crimeRegionName"
+                    valueExpr="provinceName" displayExpr="provinceName" [dataSource]="crimeRegionList" [disabled]="isReadOnly">
+                    <!--<dx-validator>
+                    <dxi-validation-rule type="required" message="{{'crimeRegion is required'| translate}}"></dxi-validation-rule>
+                </dx-validator>-->
+                </dx-select-box>
+            </div>
+        </div>
+
+        <!-- 判决时间 -->
+        <div class="col-sm-6 inputBox">
+            <label>{{'crimeJudgeTime'| translate}}</label>
+            <div class="dxInput">
+                <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [min]="crimeInfo.crimeTime?crimeInfo.crimeTime:(crimePersonInfo.dateOfBirth ? crimePersonInfo.dateOfBirth :minDateOfcrimeTime)"
+                    [(max)]="noticeInfo.noticeCreateTime !=null ? noticeInfo.noticeCreateTime : now" [(ngModel)]="crimeInfo.crimeJudgeTime"
+                    id="crimeJudgeTime" name="crimeJudgeTime" [disabled]="isReadOnly">
+                </dx-date-box>
+            </div>
+        </div>
+    </div>
+
+    <div class="textarea-p">
+        <label>{{'crimeResult'| translate}}</label>
+        <div class="textAreaDiv">
+            <dx-text-area class="textAreaCrime" [(ngModel)]="crimeInfo.crimeResult" id="crimeResult" name="crimeResult" valueChangeEvent="keyup"
+                maxLength="2000" [disabled]="isReadOnly">
+            </dx-text-area>
+            <span class="wordwrap">
+                <var class="word">{{crimeInfo.crimeResult?crimeInfo.crimeResult.length:0}}</var>/2000</span>
+        </div>
+    </div>
+
+    <div class="textarea-p">
+        <label>{{'crimeDescription'| translate}}
+            <span>*</span>
+        </label>
+
+        <div class="textAreaDiv" maxLength="2000">
+            <dx-text-area class="textAreaCrime" [(ngModel)]="crimeInfo.crimeDescription" id="crimeDescription" name="crimeDescription"
+                valueChangeEvent="keyup" maxLength="2000" [disabled]="isReadOnly">
+                <dx-validator>
+                    <dxi-validation-rule type="required" message="{{'crimeDescription is required'| translate}}"></dxi-validation-rule>
+                </dx-validator>
+            </dx-text-area>
+            <span class="wordwrap">
+                <var class="word">{{crimeInfo.crimeDescription?crimeInfo.crimeDescription.length:0}}</var>/2000</span>
+        </div>
+    </div>
+
+    <div class="textarea-p">
+        <label>{{'brief description of case'| translate}}</label>
+
+        <div class="textAreaDiv">
+            <dx-text-area class="textAreaCrime" [(ngModel)]="crimeInfo.description" id="description" name="description" valueChangeEvent="keyup"
+                maxLength="2000" [disabled]="isReadOnly">
+            </dx-text-area>
+            <span class="wordwrap">
+                <var class="word">{{crimeInfo.description?crimeInfo.description.length:0}}</var>/2000</span>
+        </div>
+    </div>
+</dx-validation-group>
+<!-- 犯罪基本信息 end-->
+
+<dx-tooltip target="#clearCrimeInfo" position="bottom" [(visible)]="clearPageTolVisible">
+    <div *dxTemplate="let data = data of 'content'">
+        {{'clear crime info'|translate}}
+    </div>
+</dx-tooltip>

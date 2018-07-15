@@ -1,0 +1,230 @@
+.login-bg {
+  //background: url(../images/login-opcity.png) no-repeat left top;
+  width: 503px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -470px;
+}
+
+.login-clound-bg {
+  //background: url(../images/login-cloud.png) no-repeat left top;
+  width: 617px;
+  height: 682px;
+  position: absolute;
+  top: 15%;
+  bottom: 0;
+  left: 50%;
+  margin-left: 35px;
+}
+
+.login-bg-body {
+  background: url(../images/login-bg.jpg) 50% 0 / cover no-repeat;
+  text-align: center;
+  background-size: 100%;
+  background-position: 50% 0;
+  height: 720px;
+  width: 100%;
+  color: #fff;
+}
+
+.login-container {
+  width: 400px;
+  height: 360px;
+  margin: 0 auto;
+  padding: 30px;
+  position: absolute;
+  top: 45%;
+  left: 57%;
+  margin-left: 7px;
+  margin-top: -110px;
+  .login-left-img {
+    position: absolute;
+    top: 49%;
+    margin-top: -130px;
+    width: 554px;
+    height: 196px;
+    margin-left: -158%;
+  }
+}
+
+.login-home-out {
+  // margin: 20px 20px 0 0 ;
+}
+
+.login-h1 {
+  font-size: 36px;
+  font-weight: 700;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+}
+
+.login-form {
+  position: relative;
+  width: 350px;
+  margin: 15px auto 0 auto;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+}
+
+.login-input {
+  height: 48px;
+  margin-top: 25px;
+  margin-left: 20px;
+  text-indent: 15px;
+  letter-spacing: 3px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, .15);
+  font-size: 16px;
+  color: #898989;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+  text-decoration: none;
+  width: 100%;
+   :-moz-placeholder {
+    color: #fff
+  }
+  ;
+   :-ms-input-placeholder {
+    color: #fff
+  }
+}
+
+.login-dxinput {
+  width: 100%;
+  margin-top: 25px;
+  margin-left: 20px;
+  border: 0 !important;
+  font-size: 16px;
+  color: #898989;
+  input {
+    height: 48px;
+    text-indent: 5px;
+    letter-spacing: 3px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, .15);
+    font-size: 16px;
+    color: #898989;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+    text-decoration: none;
+    width: 100%;
+     :-moz-placeholder {
+      color: #fff
+    }
+    ;
+     :-ms-input-placeholder {
+      color: #fff
+    }
+  }
+  .dx-placeholder {
+    left: 7px;
+    font-size: 16px;
+    color: #898989;
+  }
+}
+
+.login-button {
+  cursor: pointer;
+  width: 300px;
+  height: 48px;
+  margin-top: 25px;
+  margin-left: 20px;
+  padding: 0;
+  background: #45b381 !important;
+  border-radius: 3px !important;
+  -moz-border-radius: 3px !important;
+  -webkit-border-radius: 3px !important;
+  border: none !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .1) !important;
+  text-decoration: none;
+  width: 100%;
+  font-size: 24px !important;
+  transition: all .2s !important;
+  &:hover {
+    box-shadow: 0 15px 30px 0 rgba(255, 255, 255, .15) inset, 0 2px 7px 0 rgba(0, 0, 0, .2) !important;
+  }
+}
+
+.btn-loginout {
+  height: 36px;
+  width: 36px;
+  margin: 5px 10px;
+  background: transparent !important;
+  border-style: none !important;
+  border-radius: 2px !important;
+  cursor: pointer;
+  &:hover {
+    background: #b31103 !important;
+  }
+}
+
+.dx-button-has-icon .dx-icon {
+  width: 20px;
+  height: 20px;
+}
+
+
+/*登陆信息*/
+
+.login-state {
+  li:hover {
+    background: #222;
+  }
+  .dx-icon-user {
+    font-size: 18px;
+    padding: 0 9px;
+  }
+}
+
+.user-pic {
+  float: left;
+}
+
+.user-box {
+  float: left;
+  margin-left: 20px;
+  .user-name {
+    display: block;
+    font-size: 24px !important;
+    color: #222;
+  }
+  .user-info {
+    display: block;
+    font-size: 14px;
+    color: #666;
+  }
+}
+.user-box1 {
+  float: left;
+  width:240px;
+  border:1px solid #eee;
+  background:#f8f8f8;
+  margin-top:15px;
+  padding:15px;
+
+}
+
+
+
+/** 修改密码 **/
+
+.edit-password {
+  margin-top: 20px;
+  .text {
+    line-height: 35px;
+    color: #888;
+    text-align: right;
+    span {
+      color: #f00;
+    }
+  }
+}

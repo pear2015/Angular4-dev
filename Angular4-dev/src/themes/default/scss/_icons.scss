@@ -1,0 +1,170 @@
+/* 侧边栏图标 start */
+%cursor {
+    cursor: pointer;
+}
+
+@mixin sidebarIcon($background, $background-selected) {
+    background: $background no-repeat;
+    &:hover, &.selected {
+        background: $background-selected no-repeat;
+	    @extend %cursor;
+    }
+}
+
+.icon-appeal-quantity {
+    @include sidebarIcon(url(../images/icon/icon-appeal-quantity.png), url(../images/icon/icon-appeal-quantity-light.png));
+}
+
+.icon-center-contrast {
+    @include sidebarIcon(url(../images/icon/icon-center-contrast.png), url(../images/icon/icon-center-contrast-light.png));
+}
+
+.icon-appeal-period {
+    @include sidebarIcon(url(../images/icon/icon-appeal-period.png), url(../images/icon/icon-appeal-period-light.png));
+}
+
+.icon-occurrence-region {
+    @include sidebarIcon(url(../images/icon/icon-occurrence-region.png), url(../images/icon/icon-occurrence-region-light.png));
+}
+
+.icon-inherent-relevance {
+    @include sidebarIcon(url(../images/icon/icon-inherent-relevance.png), url(../images/icon/icon-inherent-relevance-light.png));
+}
+
+.icon-holiday-appeal {
+    @include sidebarIcon(url(../images/icon/icon-holiday-appeal.png), url(../images/icon/icon-holiday-appeal-light.png));
+}
+
+.icon-public-coverage {
+    @include sidebarIcon(url(../images/icon/icon-public-coverage.png), url(../images/icon/icon-public-coverage-light.png));
+}
+
+.icon-centeral-coverage {
+    @include sidebarIcon(url(../images/icon/icon-centeral-coverage.png), url(../images/icon/icon-centeral-coverage-light.png));
+}
+
+.icon-appeal-keywords {
+    @include sidebarIcon(url(../images/icon/icon-appeal-keywords.png), url(../images/icon/icon-appeal-keywords-light.png));
+}
+
+.icon-hot-resource {
+    @include sidebarIcon(url(../images/icon/icon-hot-resource.png), url(../images/icon/icon-hot-resource-light.png));
+}
+
+.icon-timeliness {
+    @include sidebarIcon(url(../images/icon/icon-timeliness.png), url(../images/icon/icon-timeliness-light.png));
+}
+/* 侧边栏图标 end */
+
+
+@font-face {
+  font-family: 'AG02';
+  src:  url('../fonts/AG02.eot?vae8y9');
+  src:  url('../fonts/AG02.eot?vae8y9#iefix') format('embedded-opentype'),
+    url('../fonts/AG02.ttf?vae8y9') format('truetype'),
+    url('../fonts/AG02.woff?vae8y9') format('woff'),
+    url('../fonts/AG02.svg?vae8y9#AG02') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="ag02-"], [class*=" ag02-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'AG02' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ag02 { 
+  font-family: 'AG02';
+  src:  url('../fonts/AG02.eot?vae8y9');
+  src:  url('../fonts/AG02.eot?vae8y9#iefix') format('embedded-opentype'),
+    url('../fonts/AG02.ttf?vae8y9') format('truetype'),
+    url('../fonts/AG02.woff?vae8y9') format('woff'),
+    url('../fonts/AG02.svg?vae8y9#AG02') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+.ag02-minimize:before {
+  content: "\e924";
+}
+
+.ag02-delete01:before {
+  content: "\e914";
+}
+.ag02-arrow-down:before {
+  content: "\e915";
+}
+.ag02-logout:before {
+  content: "\e916";
+}
+.ag02-submit:before {
+  content: "\e913";
+}
+.ag02-filter:before {
+  content: "\e912";
+}
+.ag02-home:before {
+  content: "\e910";
+}
+.ag02-refresh:before {
+  content: "\e911";
+}
+.ag02-search:before {
+  content: "\e909";
+}
+.ag02-add:before {
+  content: "\e90a";
+}
+.ag02-del:before {
+  content: "\e90b";
+}
+.ag02-edit:before {
+  content: "\e90c";
+}
+.ag02-empty:before {
+  content: "\e90d";
+}
+.ag02-flag:before {
+  content: "\e90e";
+}
+.ag02-more:before {
+  content: "\e90f";
+}
+.ag02-circle:before {
+  content: "\e900";
+}
+.ag02-endpage:before {
+  content: "\e901";
+}
+.ag02-firstpage:before {
+  content: "\e902";
+}
+.ag02-flow:before {
+  content: "\e903";
+}
+.ag02-lastpage:before {
+  content: "\e904";
+}
+.ag02-msg:before {
+  content: "\e905";
+}
+.ag02-nextpage:before {
+  content: "\e906";
+}
+.ag02-picmanage:before {
+  content: "\e907";
+}
+.ag02-point:before {
+  content: "\e908";
+}

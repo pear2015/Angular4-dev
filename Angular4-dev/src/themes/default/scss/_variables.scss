@@ -1,0 +1,37 @@
+// main color
+$yellow:              #ffdd03 !default;
+$dark:                #282828 !default;
+$white:               #ffffff !default;
+$background-color:    $white !default;
+
+// navbarbar
+$navbar-color:              $yellow;
+$navbar-height:             61px;
+$navbar-logo-width:         175px;
+$navbar-logo-min-width:     90px;
+$navbar-logo-height:        47px;
+$navbar-logo-margin:        7px 14px;
+$menu-selected-color:       $white;
+$menu-selected-background:  #d8271c;
+$menu-item-padding:         0 14px;
+
+// sidebar
+$sidebar-color:             #1e1e36;
+$sidebar-text:              $white;
+$sidebar-width:             64px;
+$sidebar-icon-width:        $sidebar-width;
+$sidebar-icon-height:       $sidebar-icon-width;
+
+// filterlist
+// $filterlist-color:          #B0BEC5;
+$filterlist-color:          #e9e9e9;
+$filterlist-selected-color: #0072c3;
+
+// content-area
+$summary-height:            50px;
+$summary-font-size:         14px;
+$summary-text-color:        #f0a708;
+$summary-background:        #161627;
+$btn-group-height:          34px;
+$common-space:              8px;
+$buttom-space:              16px;

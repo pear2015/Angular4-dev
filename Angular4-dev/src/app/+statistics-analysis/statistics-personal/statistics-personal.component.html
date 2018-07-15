@@ -1,0 +1,182 @@
+<div class="chartsContainer" (window:resize)="onResize($event)">
+    <div class="btnGroup">
+
+        <button class="btn btn-outline-primary c-btn-reset" [class.active]='isCountByDay' (click)="countByDay()">
+            <i class="fa fa-calendar"></i>
+            {{'dayly-statistics'|translate}}
+        </button>
+
+        <button class="btn btn-outline-primary c-btn-reset" [class.active]='isCountByMonth' (click)="countByMonth()">
+            <i class="fa fa-calendar"></i>
+            {{'monthly-statistics' | translate}}
+        </button>
+
+        <button class="btn btn-outline-primary c-btn-reset" [class.active]='isCountByYear' (click)="countByYear()">
+            <i class="fa fa-calendar"></i>
+            {{'yearly-statistics'|translate}}
+        </button>
+
+        <button class="btn btn-outline-primary c-btn-reset" [class.active]="isCountByCustom" (click)="customDatePopup()">
+            <i class="fa fa-clock-o"></i>
+            {{'customTime' | translate}}
+        </button>
+
+        <div class="btn-group tab-group" style="float:right;">
+            <button class="btn" [class.thisI]="box1" (click)="showBox1()" title="{{'applyCenterName' | translate}}">
+                <span class="img-bg">
+                    <i class="fa fa-institution"></i>
+                </span>
+            </button>
+            <button class="btn" [class.thisI]="box2" (click)="showBox2()" title="{{'profession and applyPurpose' | translate}}">
+                <span class="img-bg color-1">
+                    <i class="fa fa-flag"></i>
+                </span>
+            </button>
+            <button class="btn" [class.thisI]="box3" (click)="showBox3()" title="{{'profession and applyResult' | translate}}">
+                <span class="img-bg color-2">
+                    <i class="fa fa-tasks"></i>
+                </span>
+            </button>
+            <button class="btn" [class.thisI]="box4" (click)="showBox4()" title="{{'applyPurpose and applyResult' | translate}}">
+                <span class="img-bg color-3">
+                    <i class="fa fa-file-text-o"></i>
+                </span>
+            </button>
+
+        </div>
+
+
+    </div>
+    <div class="searchModel">
+
+
+        <div class="boxHidden " [class.searchBox]="box1 || box2 || box3 || box4" style="float:right;">
+            <p [hidden]="box2 || box3 || box4" class="selectGroup">
+                <label style="width:180px;">{{'applyCenterName' | translate}}</label>
+                <dx-select-box class="codeBox" [(ngModel)]="stationCode" [dataSource]="collectOfficesList" displayExpr="stationName" valueExpr="stationCode" itemTemplate="itemTemplate"
+                    name="stationCode" [searchEnabled]="true">
+                    <div *dxTemplate="let fieldItem of 'itemTemplate'">
+                        <div title="{{fieldItem.stationName}}" class="search-long-title">{{fieldItem.stationName}}</div>
+                   </div>
+                </dx-select-box>
+            </p>
+
+            <p [hidden]="box4 || box1" class="selectGroup">
+                <label style="width:150px;">{{'profession' | translate}}</label>
+                <dx-text-box class="selectBox" [(ngModel)]="occName" name="occName"></dx-text-box>
+            </p>
+            <p [hidden]="box3 || box1" class="selectGroup">
+                <label style="width:200px;">{{'governmentPurpose' | translate}}</label>
+                <dx-select-box class="selectBox" [(ngModel)]="applyPurposeId" [dataSource]="applyPurposeList" displayExpr="name" valueExpr="applyPurposeId" itemTemplate="itemTemplate"
+                    name="applyPurposeId" [searchEnabled]="true">
+                    <div *dxTemplate="let fieldItem of 'itemTemplate'">
+                        <div title="{{fieldItem.name}}" class="search-long-title">{{fieldItem.name}}</div>
+                   </div>
+                </dx-select-box>
+            </p>
+            <p [hidden]="box2 || box1" class="selectGroup">
+                <label style="width:200px;">{{'governmentResult' | translate}}</label>
+                <dx-select-box class="selectBox" [(ngModel)]="value" [dataSource]="applyResultList" displayExpr="name" valueExpr="value"
+                    name="value" [searchEnabled]="true" itemTemplate="itemTemplate">
+                    <div *dxTemplate="let fieldItem of 'itemTemplate'">
+                        <div title="{{fieldItem.name}}" class="search-long-title">{{fieldItem.name}}</div>
+                   </div>
+                </dx-select-box>
+            </p>
+
+            <button class="btn red-btn c-btn-reset" (click)="countBySearch()" style="margin-left:12px;">
+                <i class="fa fa-search"></i>
+                {{'search'|translate}}
+            </button>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="chartsBox">
+        <div class="chartBox chartBoxHeight">
+            <h1 class="title text-center">{{'person-statistics-table' | translate}}</h1>
+            <dx-pivot-grid class="dataList" [allowSortingBySummary]="true" [allowSorting]="true" [allowFiltering]="true" [allowExpandAll]="true"
+                [showBorders]="true" [dataSource]="dataSource" [height]="300">
+                <dxo-export [enabled]="true" fileName="{{'person-statistics-table' | translate}}"></dxo-export>
+                <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
+                <dxo-texts total="{0}" [grandTotal]="grandTotal"></dxo-texts>
+            </dx-pivot-grid>
+              <div class="chartHeight">
+            <div class="chart chartWidth" #chartDiv></div>
+        </div>
+        </div>
+
+        
+    </div>
+</div>
+
+
+<!--自定义时间  start-->
+<dx-popup class="popup customTimePopup" [width]="500" [height]="300" title="{{'customTime'|translate}}" [showTitle]="true"
+    [dragEnabled]="false" [shading]="true" [(visible)]="customDateVisible" (onHidden)="popupClose()">
+    <div *dxTemplate="let data of 'content'">
+        <form>
+            <dx-select-box (onSelectionChanged)="selectedCustomDate()" [(ngModel)]="customSelectedId" name="customSelectedId" valueExpr="id"
+                displayExpr="name" [dataSource]="customDateList">
+            </dx-select-box>
+
+            <div class="row" [hidden]="yearSwitch">
+                <div>
+                    <label class="col-md-2">{{'beginTime'|translate}}:</label>
+                    <div class="col-md-4 input">
+                        <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [(ngModel)]="startDate" maxZoomLevel="decade" [(max)]="endDate || nowDate"
+                            type="date" name="startDate">
+                        </dx-date-box>
+                    </div>
+                    <label class="col-md-2">{{'to'|translate}}:</label>
+                    <div class="col-md-4 input">
+                        <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [(ngModel)]="endDate" maxZoomLevel="decade" [max]="nowDate"
+                            [(min)]="startDate" type="date" name="endDate" (onValueChanged)="changeDate()">
+                        </dx-date-box>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" [hidden]="monthSwitch">
+                <div>
+                    <label class="col-md-2">{{'beginTime'|translate}}:</label>
+                    <div class="col-md-4 input">
+                        <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [(ngModel)]="startDate" maxZoomLevel="year" [(max)]="endDate?endDate:nowDate"
+                            type="date" name="startDate" (onValueChanged)="changeDate()" [min]="startFlagDate">
+                        </dx-date-box>
+                    </div>
+                    <label class="col-md-2">{{'to'|translate}}:</label>
+                    <div class="col-md-4 input">
+                        <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [(ngModel)]="endDate" maxZoomLevel="year" [max]="endFlagDate?endFlagDate:nowDate"
+                            [(min)]="startDate" type="date" name="endDate" (onValueChanged)="changeDate()">
+                        </dx-date-box>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" [hidden]="daySwitch">
+                <div>
+                    <label class="col-md-2">{{'beginTime'|translate}}:</label>
+                    <div class="col-md-4 input">
+                        <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [(ngModel)]="startDate" maxZoomLevel="month" [(max)]="endDate || nowDate"
+                            type="date" name="startDate" (onValueChanged)="changeDate()" [min]="startFlagDate">
+                        </dx-date-box>
+                    </div>
+                    <label class="col-md-2">{{'to'|translate}}:</label>
+                    <div class="col-md-4 input">
+                        <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [(ngModel)]="endDate" maxZoomLevel="month" [max]="endFlagDate < nowDate?endFlagDate:nowDate"
+                            [(min)]="startDate" type="date" name="endDate">
+                        </dx-date-box>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn">
+                <dx-button icon="fa fa-search" class="red-btn" id="searchButton" text="{{'search'|translate}}" (click)="countByCustomDate()"
+                    [disabled]="!startDate || startDate > endDate"></dx-button>
+
+            </div>
+        </form>
+    </div>
+
+</dx-popup>
+<!--自定义时间 end-->

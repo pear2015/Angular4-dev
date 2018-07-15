@@ -1,0 +1,39 @@
+<div class="list-common-width">
+    <div class="common-title">{{'reanalyseList of tasks' | translate}}</div>
+</div>
+<div class="list-common-content">
+    <div class="main">
+        <div>
+            <dx-button icon="fa fa-send" text="{{'reanalyse'| translate}}" class="grey-btn" (click)="navigateToReanalyse()" [disabled]="!analystInfo"></dx-button>
+            <dx-button icon="fa fa-history" text="{{'record History'| translate}}" class="grey-btn" [disabled]="!analystInfo" (click)="watchRecordHistory()"></dx-button>
+            <dx-button class="refresh-btn grey-btn" icon="fa fa-refresh" (click)="refreshList()" text="{{'refresh' | translate}}"></dx-button>
+        </div>
+
+        <div class="reanalyseGrid space-15">
+            <dx-data-grid #replyAnalysisGrid id="reanalyseInfoList" [showBorders]="true" [dataSource]="reanalyseInfoList" (onSelectionChanged)="selectRecordHandle($event)"
+                [selectedRowKeys]="[]" [loadPanel]={enabled:false}>
+                <dxo-selection mode="single"></dxo-selection>
+                <dxi-column dataField="applyTypeName" caption="{{'applyTypeName' | translate}}" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="applyPurposeName" caption="{{'applyPurpose' | translate}}" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="apportionTime" caption="{{'apportionTime' | translate}}" dataType="date" cellTemplate="dateCellTemplate"
+                    [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="applyCenterName" caption="{{'applyCenterName' | translate}}" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="priorityName" caption="{{'priority' | translate}}" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="applyTime" caption="{{'applyTime' | translate}}" dataType="date" [allowSorting]="false"></dxi-column>
+                <div *dxTemplate="let item of 'dateCellTemplate'">
+                    {{item.value | I18nDate:'long'}}
+                </div>
+            </dx-data-grid>
+            <div class="pull-right pagin-space" [hidden]="pageMenuVisible">
+                <app-pagination [(pageObjEmit)]="applyInfoPage" [(totalCount)]="dataCount" (pageObjChange)="pageIndexChange($event)"></app-pagination>
+            </div>
+        </div>
+
+    </div>
+</div>
+<mf-history [handleHistoryList]="historyRecordList"></mf-history>
+<!-- 保存以及查询时的loading starter-->
+<dx-load-panel #submitLoadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{my:'center',at:'center', of: '#reanalyseInfoList' }"
+    [(visible)]="loadingVisible" [showIndicator]="true" [showPane]="true" [shading]="false" [closeOnOutsideClick]="false">
+</dx-load-panel>
+<!-- 保存以及查询时的loading end-->
