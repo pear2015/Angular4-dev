@@ -1,0 +1,37 @@
+<div class="list-common-width detail-width">
+    <div class="detail-left">
+        <div class="info-number">
+            <label>{{'noticeNumber'| translate}}</label>
+            <span>{{noticeInfo?.noticeNumber}} </span>
+        </div>
+        <div class="info-wrap">
+            <label>{{'noticeEnteringTime'| translate}}</label>
+            <span>{{noticeInfo?.enteringTime|I18nDate:'long'}} </span>
+        </div>
+        <div class="info-wrap">
+            <label>{{'createPersonName'| translate}}</label>
+            <span>{{noticeInfo?.enteringPersonName}} </span>
+        </div>
+        <div class="info-wrap" *ngIf="noticeInfo?.noticeInputStatusName">
+            <label>{{'Input comments'| translate}}</label>
+            <span>{{noticeInfo?.noticeInputStatusName}} </span>
+        </div>
+        <div class="info-wrap" *ngIf="noticeInfo?.auditResultName">
+            <label>{{'auditResult'| translate}}</label>
+            <span>{{noticeInfo?.auditResultName}} </span>
+        </div>
+       <!--  <div class="info-wrap" *ngIf="noticeInfo?.auditDescription">
+            <label>{{'auditDescription'| translate}}</label>
+            <span>{{noticeInfo?.auditDescription}} </span>
+        </div> -->
+        <div class="info-wrap" *ngIf="noticeInfo?.rejectEnterReason">
+            <label>{{'auditRejectReason'| translate}}</label>
+            <span>{{noticeInfo?.rejectEnterReason}} </span>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="detail-right">
+        <ng-content></ng-content>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<div #crimeRecord style="z-index:-2;position:relative">
+    <div style="page-break-after:always">
+        <div *ngIf="goverMentInfo!==null">
+            <p>
+                {{'govermentInfo'|translate}}：{{applyInfo.govermentInfo}}
+            </p>
+        </div>
+        <div>
+            <p>
+                {{'applyCenterName'|translate}}:{{applyInfo.applyCenterName}},{{'according to the procisions of article 79 crc'|translate}},{{'relevant
+                to the application'|translate}}{{applyBasicInfo.lastName}}·{{applyBasicInfo.firstName}}{{'criminal recorg
+                information'|translate}}.
+            </p>
+        </div>
+        <div>
+            <p>
+                {{applyBasicInfo.lastName}}·{{applyBasicInfo.firstName}},{{applyBasicInfo.provinceName}},{{'dateOfBirth'|translate}}:{{applyBasicInfo.dateOfBirth|I18nDate}},{{'marriageName'|translate}}:{{applyBasicInfo.marriageName}}
+            </p>
+            <p>
+                {{'livingDetailAddress'|translate}}:{{applyBasicInfo.livingProvinceName}},{{applyBasicInfo.livingCityName}},{{applyBasicInfo.livingCommunityName}},{{applyBasicInfo.detailAddress}}
+            </p>
+        </div>
+        <div>
+            <p>
+                {{'certificateNumber'|translate}}:{{applyBasicInfo.certificateNumber}},{{'contractPhone'|translate}}:{{applyBasicInfo.contractPhone}}。
+            </p>
+        </div>
+    </div>
+    <div *ngFor="let item  of crimeAndNoticeList;index as i;last as isLast" style="page-break-after:always">
+        <div>
+            <div>
+                <p>
+                    <span [hidden]="!showNoticeNumber">{{ 'noticeNumber' | translate }}：{{item.noticeInfo.noticeNumber}},</span> {{ 'personalID' | translate
+                    }}：{{item.noticeInfo.crimePersonId}}, {{ 'courtName' | translate }}：{{item.noticeInfo.courtName}}, {{
+                    'noticeCreateTime' | translate }}：{{item.noticeInfo.noticeCreateTime}}, {{ 'createPersonName' | translate
+                    }}：{{item.noticeInfo.enteringPersonName}} ,{{ 'noticeDescription' | translate}}：{{item.noticeInfo.noticeDescription}},
+                    {{ 'noticeNote' | translate }}：{{item.noticeInfo.note}}
+                </p>
+            </div>
+            <div>
+                <p>
+                    <span>{{'litigationNumber'|translate}}:{{item.crimeInfo.litigationNumber}}</span>
+                    <br> {{'crimeName'| translate}}:{{item.crimeInfo.crimeName}},{{'crimeType'| translate}}:{{item.crimeInfo.crimeTypeName}},{{'crimeJudgeTime'|translate}}:{{item.crimeInfo.crimeJudgeTime|I18nDate}},
+                    {{'crimeRegion'|translate}}:{{item.crimeInfo.crimeRegionName}}, {{'crimeResult'| translate}}:{{item.crimeInfo.crimeResult}},{{'crimeDescription'|translate}}:{{item.crimeInfo.crimeDescription}},
+                    {{'brief description of case'| translate}}:{{item.crimeInfo.description}}
+                </p>
+            </div>
+            <div *ngIf="isLast">
+                <span>{{currentTime}}</span>
+            </div>
+        </div>
+    </div>
+
+</div>

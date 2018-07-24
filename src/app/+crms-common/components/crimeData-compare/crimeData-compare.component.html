@@ -1,0 +1,278 @@
+<!--<div class="col-xs-12 compare-data-h1">申请人资料对比</div>-->
+<div class="col-xs-12 data-compare-row data-compare-title">
+    <div class="col-xs-2"> {{'attributes'| translate}}</div>
+    <div class="col-xs-5"> {{'inputPerson info'| translate}}</div>
+    <div class="col-xs-5">{{'crimeBasicPersoninfo'| translate}}</div>
+</div>
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2" style="height:150px;"> {{'avatar'| translate}}</div>
+    <div class="col-xs-5" style="line-height:150px;">
+        <img *ngIf="applyBasicInfo.registrationPhoto!=null && applyBasicInfo.registrationPhoto!=''" src="data:image/jpg;base64,{{applyBasicInfo.registrationPhoto}}" alt="" width="150" height="150" style="margin-top:25px;">
+        <img *ngIf="applyBasicInfo.registrationPhoto==null||applyBasicInfo.registrationPhoto==''" src="./themes/images/person.png" alt="" width="100" height="100" style="margin-top:25px;">
+        </div>
+    <div class="col-xs-5" style="line-height:150px;">
+         <img *ngIf="criminalInfoObj.registrationPhoto!=null && criminalInfoObj.registrationPhoto!=''" src="data:image/jpg;base64,{{criminalInfoObj.registrationPhoto}}" alt="" width="150" height="150" style="margin-top:25px;">
+         <img *ngIf="criminalInfoObj.registrationPhoto==null||criminalInfoObj.registrationPhoto==''"src="./themes/images/person.png" alt="" width="100" height="100" style="margin-top:25px;">
+        </div>
+</div>
+
+<!--名-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"><span>{{'firstName'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.firstName == criminalInfoObj.firstName}">{{applyBasicInfo.firstName}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.firstName == criminalInfoObj.firstName}">{{criminalInfoObj.firstName}}</span></div>
+</div>
+<!--姓-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"><span>{{'lastName'| translate}}</span> </div>
+    <div class="col-xs-5"> <span [ngClass]="{'active': applyBasicInfo.lastName == criminalInfoObj.lastName}">{{applyBasicInfo.lastName}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.lastName == criminalInfoObj.lastName}">{{criminalInfoObj.lastName}}</span></div>
+</div>
+
+<!--证件类型-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'certificateType'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.certificateName == criminalInfoObj.certificateName}">{{applyBasicInfo.certificateName | translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.certificateName == criminalInfoObj.certificateName}">{{criminalInfoObj.certificateName  | translate}}</span></div>
+</div>
+
+
+<!--证件编号-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'certificateNumber'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.certificateNumber == criminalInfoObj.certificateNumber}">{{applyBasicInfo.certificateNumber}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.certificateNumber == criminalInfoObj.certificateNumber}">{{criminalInfoObj.certificateNumber}}</span></div>
+</div>
+
+
+<!--性别-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'sexName'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.sexId == criminalInfoObj.sexId}">{{applyBasicInfo.sexId |Sex | translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.sexId == criminalInfoObj.sexId}">{{criminalInfoObj.sexId |Sex |translate}}</span></div>
+</div>
+
+<!--出生日期-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'dateOfBirth'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.dateOfBirth == criminalInfoObj.dateOfBirth}">{{applyBasicInfo.dateOfBirth | I18nDate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.dateOfBirth == criminalInfoObj.dateOfBirth}">{{criminalInfoObj.dateOfBirth | I18nDate}}</span></div>
+</div>
+
+
+<!--证件有效期-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'certificateValidity'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.certificateValidity == criminalInfoObj.certificateValidity}">{{applyBasicInfo.certificateValidity}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.certificateValidity == criminalInfoObj.certificateValidity}">{{criminalInfoObj.certificateValidity}}</span></div>
+</div>
+
+<!--父亲名-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'fatherFirstName'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.fatherFirstName == criminalInfoObj.fatherFirstName}">{{applyBasicInfo.fatherFirstName}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.fatherFirstName == criminalInfoObj.fatherFirstName}">{{criminalInfoObj.fatherFirstName}}</span></div>
+</div>
+
+<!--父亲姓-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'fatherLastName'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.fatherLastName == criminalInfoObj.fatherLastName}">{{applyBasicInfo.fatherLastName}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.fatherLastName == criminalInfoObj.fatherLastName}">{{criminalInfoObj.fatherLastName}}</span></div>
+</div>
+
+<!--父亲证件号码-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'fatherCertificateNumber'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.fatherCertificateNumber == criminalInfoObj.fatherCertificateNumber}">{{applyBasicInfo.fatherCertificateNumber}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.fatherCertificateNumber == criminalInfoObj.fatherCertificateNumber}">{{criminalInfoObj.fatherCertificateNumber}}</span></div>
+</div>
+
+
+
+<!--母亲名-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'motherFirstName'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.motherFirstName == criminalInfoObj.motherFirstName}">{{applyBasicInfo.motherFirstName}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.motherFirstName == criminalInfoObj.motherFirstName}">{{criminalInfoObj.motherFirstName}}</span></div>
+</div>
+
+<!--母亲姓-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'motherLastName'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.motherLastName == criminalInfoObj.motherLastName}">{{applyBasicInfo.motherLastName}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.motherLastName == criminalInfoObj.motherLastName}">{{criminalInfoObj.motherLastName}}</span></div>
+</div>
+
+<!--母亲证件号码-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'motherCertificateNumber'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.motherCertificateNumber == criminalInfoObj.motherCertificateNumber}">{{applyBasicInfo.motherCertificateNumber}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.motherCertificateNumber == criminalInfoObj.motherCertificateNumber}">{{criminalInfoObj.motherCertificateNumber}}</span></div>
+</div>
+
+
+<!--国籍-->
+<div class="col-xs-12 compare-data-h1">{{'birthPlace'| translate}}</div>
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'countryName'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.countryName == criminalInfoObj.countryName}">{{applyBasicInfo.countryName}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.countryName == criminalInfoObj.countryName}">{{criminalInfoObj.countryName}}</span></div>
+</div>
+
+
+<!--所在省-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'provinceName'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.provinceName == criminalInfoObj.provinceName}">{{applyBasicInfo.provinceName}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.provinceName == criminalInfoObj.provinceName}">{{criminalInfoObj.provinceName}}</span></div>
+</div>
+
+<!--所在城市-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'cityName'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.cityName == criminalInfoObj.cityName}">{{applyBasicInfo.cityName}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.cityName == criminalInfoObj.cityName}">{{criminalInfoObj.cityName}}</span></div>
+</div>
+
+<!--所在社区-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'communityName'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.communityName == criminalInfoObj.communityName}">{{applyBasicInfo.communityName}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.communityName == criminalInfoObj.communityName}">{{criminalInfoObj.communityName}}</span></div>
+</div>
+
+<!--现居住地址-->
+<div class="col-xs-12 compare-data-h1">{{'livingDetailAddress'| translate}}</div>
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'livingCountryName'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.livingCountryName == criminalInfoObj.livingCountryName}">{{applyBasicInfo.livingCountryName}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.livingCountryName == criminalInfoObj.livingCountryName}">{{criminalInfoObj.livingCountryName}}</span></div>
+</div>
+
+
+<!--现居住省份-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'livingProvinceName'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.livingProvinceName == criminalInfoObj.livingProvinceName}">{{applyBasicInfo.livingProvinceName}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.livingProvinceName == criminalInfoObj.livingProvinceName}">{{criminalInfoObj.livingProvinceName}}</span></div>
+</div>
+
+
+<!--现居住城市-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'livingCityName'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.livingCityName == criminalInfoObj.livingCityName}">{{applyBasicInfo.livingCityName}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.livingCityName == criminalInfoObj.livingCityName}">{{criminalInfoObj.livingCityName}}</span></div>
+</div>
+
+<!--现居住社区-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'livingCommunityName'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.livingCommunityName == criminalInfoObj.livingCommunityName}">{{applyBasicInfo.livingCommunityName}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.livingCommunityName == criminalInfoObj.livingCommunityName}">{{criminalInfoObj.livingCommunityName}}</span></div>
+</div>
+
+
+<!--详细地址-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'detailAddress'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.detailAddress == criminalInfoObj.detailAddress}">{{applyBasicInfo.detailAddress}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.detailAddress == criminalInfoObj.detailAddress}">{{criminalInfoObj.detailAddress}}</span></div>
+</div>
+
+
+
+<!--其他特征-->
+<div class="col-xs-12 compare-data-h1">{{'otherFeature'| translate}}</div>
+
+
+<!--年龄-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'age'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.age == criminalInfoObj.age}">{{applyBasicInfo.age | zeroToNull}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.age == criminalInfoObj.age}">{{criminalInfoObj.age | zeroToNull}}</span></div>
+</div>
+
+<div class="col-xs-12 data-compare-row  charactorsLong">
+    <div class="col-xs-2"> <span>{{'marriageName'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.marriageId == criminalInfoObj.marriageId}">{{applyBasicInfo.marriageId | Marriage |translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.marriageId == criminalInfoObj.marriageId}">{{criminalInfoObj.marriageId | Marriage |translate}}</span></div>
+</div>
+
+<!--身高-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'height'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.height == criminalInfoObj.height}">{{applyBasicInfo.height | zeroToNull}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.height == criminalInfoObj.height}">{{criminalInfoObj.height | zeroToNull}}</span></div>
+</div>
+
+<!--学历-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'career'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.careerId == criminalInfoObj.careerId}">{{applyBasicInfo.careerName}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.careerId == criminalInfoObj.careerId}">{{criminalInfoObj.careerName}}</span></div>
+</div>
+
+<!--电话-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'contractPhone'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.contractPhone == criminalInfoObj.contractPhone}">{{applyBasicInfo.contractPhone}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.contractPhone == criminalInfoObj.contractPhone}">{{criminalInfoObj.contractPhone}}</span></div>
+</div>
+
+
+<!--民族-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'nation'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.nation == criminalInfoObj.nation}">{{applyBasicInfo.nation}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.nation == criminalInfoObj.nation}">{{criminalInfoObj.nation}}</span></div>
+</div>
+
+
+<!--肤色-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'skinColor'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.skinColor == criminalInfoObj.skinColor}">{{applyBasicInfo.skinColor}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.skinColor == criminalInfoObj.skinColor}">{{criminalInfoObj.skinColor}}</span></div>
+</div>
+
+
+<!--眼睛颜色-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'eyeColor'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.eyeColor == criminalInfoObj.eyeColor}">{{applyBasicInfo.eyeColor}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.eyeColor == criminalInfoObj.eyeColor}">{{criminalInfoObj.eyeColor}}</span></div>
+</div>
+
+
+<!--发色-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'hairColor'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.hairColor == criminalInfoObj.hairColor}">{{applyBasicInfo.hairColor}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.hairColor == criminalInfoObj.hairColor}">{{criminalInfoObj.hairColor}}</span></div>
+</div>
+
+
+<!--鼻形-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'noseType'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.noseType == criminalInfoObj.noseType}">{{applyBasicInfo.noseType}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.noseType == criminalInfoObj.noseType}">{{criminalInfoObj.noseType}}</span></div>
+</div>
+
+
+<!--其他特征-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'otherFeature'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.otherFeature == criminalInfoObj.otherFeature}">{{applyBasicInfo.otherFeature}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.otherFeature == criminalInfoObj.otherFeature}">{{criminalInfoObj.otherFeature}}</span></div>
+</div>
+
+
+<!--描述-->
+<div class="col-xs-12 data-compare-row charactorsLong">
+    <div class="col-xs-2"> <span>{{'applyBasicInfoDescription'| translate}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.description == criminalInfoObj.description}">{{applyBasicInfo.description}}</span></div>
+    <div class="col-xs-5"><span [ngClass]="{'active': applyBasicInfo.description == criminalInfoObj.description}">{{criminalInfoObj.description}}</span></div>
+</div>

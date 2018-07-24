@@ -1,0 +1,38 @@
+<form (submit)="onFormSubmit(commonForm.value)" #commonForm="ngForm">
+    <div class="form-border">
+    <div class="dx-field col-xs-3" *ngFor="let item of formObjEmit.textDatas">
+        <label class="common-form-label searchLabel col-xs-4">{{item.title|translate}}</label>
+        <div class="common-form-label  col-xs-8">
+            <dx-text-box name="{{item.labelName}}" [(ngModel)]="item.value" maxLength="36">
+            </dx-text-box>
+        </div>
+    </div>
+    <div class="dx-field col-xs-3" *ngFor="let item of formObjEmit.selectDatas">
+        <label class="common-form-label searchLabel col-xs-3">{{item.title|translate}}</label>
+        <div class="common-form-label  col-xs-9">
+            <dx-select-box valueExpr="value" name="{{item.labelName}}" displayExpr="name"  [dataSource]="item.data"
+                [(ngModel)]="item.value" [searchEnabled]="true" itemTemplate="itemTemplate">
+                <div *dxTemplate="let fieldItem of 'itemTemplate'">
+                     <div title="{{fieldItem.name}}" class="search-long-title">{{fieldItem.name}}</div>
+                </div>
+            </dx-select-box>
+        </div>
+    </div>
+
+    <div class="dx-field col-xs-3" *ngFor="let item of formObjEmit.dateDatas">
+        <label class="common-form-label searchLabel col-xs-4">{{item.title|translate}}</label>
+        <div class="col-xs-8">
+            <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [value]="item.value" [(ngModel)]="item.value" type="date"
+                name="{{item.labelName}}" [max]="item.end?now:(maxTime?maxTime:now)" [min]="item.minTime?minTime:null" (onValueChanged)="timeChanged()">
+            </dx-date-box>
+        </div>
+    </div>
+
+    <div class="dx-field col-xs-12">
+        <dx-button class="form-rest grey-btn" icon="fa fa-repeat"  text="{{'reset'|translate}}" (click)="commonForm.reset()">
+        </dx-button>
+        <dx-button class="form-submit red-btn" icon="fa fa-search" text="{{'Search'|translate}}" [useSubmitBehavior]="true">
+        </dx-button>
+    </div>
+</div>
+</form>

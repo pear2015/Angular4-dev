@@ -1,0 +1,47 @@
+{
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "noUnusedLocals": true,
+    "noFallthroughCasesInSwitch": true,
+    "removeComments": true,
+    "importHelpers": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "strictNullChecks": false,
+    "lib": [
+      "dom",
+      "es6"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@angular/*": ["node_modules/@angular/*"]
+    },
+    "typeRoots": [
+      "./node_modules/@types/"
+    ],
+    "types": [
+      "jasmine",
+      "node",
+      "socket.io-client"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "src/main-*.ts"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "forkChecker": true,
+    "useWebpackText": true
+  },
+  "atom": {
+    "rewriteTsconfig": false
+  }
+}

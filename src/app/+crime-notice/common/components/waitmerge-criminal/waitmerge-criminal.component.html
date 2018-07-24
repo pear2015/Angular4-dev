@@ -1,0 +1,89 @@
+<div class="row crime-inquire-list" style="margin-bottom:18px;" [(hidden)]="isMergeCriminalQuery">
+    <h1 class="title" [(hidden)]="isMergeCriminalQuery">{{'wait merging list'| translate}}<span>({{'can check similar criminals to merge'| translate}})</span></h1>
+    <dx-data-grid #canMergeDataGrid class="margin-15" id="gridContainer" [(dataSource)]="canMergeCriminalList" [masterDetail]="{ enabled: true, template: 'detail' }"
+        [hidden]="dataGridShow"  noDataText="{{'search no data'|translate}}"(onContentReady) ="criminalContentReady($event)">
+        <!--<dxo-selection mode="multiple"></dxo-selection>-->
+        <dxi-column dataField="isChecked" [width]="50" cellTemplate="selectCellTemplate" caption="" [allowSorting]="false"></dxi-column>
+        <dxi-column dataField="name" caption="{{'name'|translate}}" [allowSorting]="false" cellTemplate="nameCellTemplate" [width]="300"></dxi-column>
+        <dxi-column dataField="sexName" caption="{{'sexName'|translate}}" [allowSorting]="false"></dxi-column>
+        <dxi-column dataFiels="redOrGreen" cellTemplate="isMergingTemplate" caption="{{'can be merge'|translate}}" [allowSorting]="false"></dxi-column>
+        <dxi-column dataField="certificateName" caption="{{'certificateType'|translate}}" [allowSorting]="false"></dxi-column>
+        <dxi-column dataField="certificateNumber" caption="{{'certificateNumber'|translate}}" [allowSorting]="false"></dxi-column>
+        <!-- <dxi-column dataField="marriageName" caption="{{'marriageName'| translate }}" [allowSorting]="false"></dxi-column> -->
+        <dxi-column dataField="point" [width]="auto" caption="{{'matched rate' | translate}}" [allowSorting]="false"></dxi-column>
+        <dxi-column cellTemplate="watchDetailTemplate" [width]="230" caption="{{'data compare'|translate}}" [allowSorting]="false"></dxi-column>
+        <div *dxTemplate="let item of 'selectCellTemplate'">
+            <dx-check-box [(value)]="item.data.isChecked" (onValueChanged)="selectMergeCrimnal(item)" [disabled]="item.data.isCheckedDisabled"></dx-check-box>
+        </div>
+
+        <!-- 姓名模板 -->
+        <div *dxTemplate="let item of 'nameCellTemplate'">
+                <span *ngIf="item.data?.registrationPhoto==null">
+                    <img src="./themes/images/person.png" alt="" width="30" height="30" style="border-radius:15px 15px; margin-right:15px;border:1px solid red;">
+                </span>
+                  <span *ngIf="item.data?.registrationPhoto!=null">
+                   <img src="data:image/jpg;base64,{{item.data?.registrationPhoto}}" width="30" height="30" style="border-radius:15px 15px; margin-right:15px;"/>
+                </span>
+               <span>{{item.data?.firstName}} {{item.data?.lastName}}</span>
+        </div>
+
+
+        <div *dxTemplate="let item of 'dateCellTemplate'">
+            {{item.value | I18nDate}}
+        </div>
+        <div *dxTemplate="let item of 'isMergingTemplate'">
+            <span *ngIf="item.data.redOrGreen"><i class="fa fa-close close-red"></i></span><span *ngIf="!item.data.redOrGreen"><i class="fa fa-check check-green"></i></span>
+        </div>
+
+        <div *dxTemplate="let item of 'watchDetailTemplate'">
+            <button title="{{'watch' | translate}}" class="btn grey-btn fa fa-send" (click)="watchNotice(item.data)"></button>
+            <button title="{{'data compare' | translate}}" class="btn grey-btn fa fa-bar-chart" (click)="dataCompare(item.data)"></button>
+        </div>
+
+        <!--表格展开展开个人信息-->
+        <div *dxTemplate="let item of 'detail'">
+            <personInfo-read [crimePersonInfo]="item.data"></personInfo-read>
+        </div>
+    </dx-data-grid>
+    <div class="pull-right" style="margin:0 12px 0 0" [hidden]="isMergeCriminalQuery">
+        <app-pagination [(pageObjEmit)]="canMergeCriminalQuery" [(totalCount)]="canMergeCriminalDataCount" (pageObjChange)="changeCanMergeCriminalPage($event)"></app-pagination>
+    </div>
+</div>
+
+<!--数据比对弹框-->
+<dx-popup class="popup notice-detail" [width]="1300" [height]="800" [shading]="false" [position]="{my:'center',at:'center',of:window}"
+    [resizeEnabled]="false" [dragEnabled]="true" [closeOnOutsideClick]="false" [(visible)]="dataCompareVisible" title="{{'compairtion information of the entery and criminals' | translate}}">
+    <div *dxTemplate="let data of 'content'">
+        <dx-scroll-view [width]="1275">
+            <crimeData-compare [criminalInfoObj]="criminalInfoObj" [applyBasicInfo]="crimePersonInfo"></crimeData-compare>
+        </dx-scroll-view>
+    </div>
+</dx-popup>
+
+
+
+<!-- popup 犯罪嫌疑人的公告详情 starter-->
+<div class="seeImagePopup">
+    <dx-popup class="popup notice-detail" [width]="1300" [height]="800" [shading]="false" [position]="{my:'center',at:'center',of:window}"
+        [resizeEnabled]="false" [dragEnabled]="true" [closeOnOutsideClick]="false" [(visible)]="popupNoticeVisible" title="{{'criminal announcements details' | translate}}">
+        <div *dxTemplate="let data of 'content'">
+            <dx-scroll-view [width]="1275">
+                <div class="layer-attchment">
+                    <crimeinfo-detail [personId]="crimePersonId"></crimeinfo-detail>
+                </div>
+            </dx-scroll-view>
+        </div>
+    </dx-popup>
+</div>
+<!-- popup弹窗给出选中提示信息 starter-->
+<dx-popup class="popup confirmPopup" [width]="300" [height]="220" title="{{'pupopinformation'|translate}}" [showTitle]="true"
+    [showCloseButton]="false" [dragEnabled]="false" [closeOnOutsideClick]="false" [(visible)]="confirmVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div class="proInfo">{{message| translate}}</div>
+        <div class="btns">
+            <dx-button icon="fa fa-check" id="yes" text="{{'confirm'| translate}}" class="red-btn" (click)="configSelected()"></dx-button>
+            <dx-button icon="fa fa-close" id="no" text="{{'cancel'| translate}}"class="grey-btn" (click)="cancelSelected()"></dx-button>
+        </div>
+        <span class="icon-AG-Help"></span>
+    </div>
+</dx-popup>

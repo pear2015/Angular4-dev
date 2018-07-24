@@ -1,0 +1,59 @@
+<!--基本描述信息start -->
+<div class="list-common-width detail-width">
+    <div class="detail-left">
+        <div class="info-number">
+            <label>{{'applyNumber'|translate}}</label>
+            <span>{{applyInfo?.deliveryReceiptNumbr}} </span>
+        </div>
+        <div class="info-wrap">
+            <label>{{'createTime'|translate}}</label>
+            <span>{{applyInfo?.applyTime}} </span>
+        </div>
+        <div class="info-wrap">
+            <label>{{'createPersonName'|translate}}</label>
+            <span>{{applyInfo?.enteringPersonName}} </span>
+        </div>
+        <div class="info-wrap" *ngIf="applyInfo?.applyResultName">
+            <label>{{'applyResult'|translate}}</label>
+            <span>{{applyInfo?.applyResultName}} </span>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="detail-right">
+        <dx-button id="btn" icon="fa fa-reply" class="grey-btn" text="{{'getBack'| translate}}" (onClick)="goBack()"></dx-button>
+    </div>
+</div>
+<!--基本描述信息end -->
+
+<!--进度条start -->
+<div class="detail-progress">
+    <div class="progress-title">{{'applyStatusName'|translate}}</div>
+    <mf-progress [dataSource]='applyStatus' [activeIndex]='applyInfo?.applyStatusId'>
+    </mf-progress>
+    <div class="detail-tab">
+        <span [class.noticeBook1]="governmentBox" title="{{'applyInfo'| translate}}" (click)="showNotice()">{{'applyInfo'| translate}}</span>
+        <span [class.noticeBook1]="personBox" title="{{'personDetail'| translate}}" (click)="showPerson()">{{'personDetail'| translate}}</span>
+    </div>
+</div>
+<!--进度条end -->
+<!--申请信息 申请基本信息 -->
+<div class="detail-content">
+    <div class="col-xs-8">
+        <!-- 基本信息 -->
+        <div class="tabLeft notice-input-left" [class.noticeBox]="governmentBox" [class.personBox1]="personBox">
+            <audit-governApplyInfo [applyInfo]="applyInfo"></audit-governApplyInfo>
+            <div class="clearfix"></div>
+        </div>
+        <!-- 个人信息 -->
+        <div class="tabLeft padding-top-10 notice-input-left" [class.personBox]="personBox" [class.noticeBox1]="governmentBox">
+            <readOnly-personApplyBasicInfo [applyBasicInfo]="applyBasicInfo"></readOnly-personApplyBasicInfo>
+        </div>
+    </div>
+    <div class="col-xs-4 attachment-watch-wrap">
+        <div class="attachment attachment-change-width">
+            <crms-attchment [imageFileList]="attachmentList" [controllFlag]="attchmentControllObj" [onlyForApplyAnalysis]='false'></crms-attchment>
+        </div>
+    </div>
+</div>
+<!--申请信息 申请基本信息 -->

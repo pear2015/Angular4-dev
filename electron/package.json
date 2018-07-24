@@ -1,0 +1,13 @@
+{
+  "name": "crms-client",
+  "version": "0.1.1-alpha",
+  "description": "crms-client",
+  "main": "main.prod.js",
+  "productName": "crms-client",
+  "autoUpdateServer": "http://172.18.8.65:1337",
+  "author": "gsafety",
+  "dependencies": {
+    "winston": "^2.2.0",
+    "winston-daily-rotate-file": "^1.1.4"
+  }
+}

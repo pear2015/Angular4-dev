@@ -1,0 +1,166 @@
+<form-wizard (nextEvent)="nextEventValidata($event)" (submitEvent)="checkEnterSuggestion($event)">
+    <!-- 附件 -->
+    <wizard-step [title]="['noticeAttachment' | translate]">
+        <div class="attachment attachment-change-width">
+            <notice-attachment [imageFileList]="attachmentList" [controllFlag]="attchmentControllObj" (ocrFillBackEvent)="ocrFillBackEmit($event)"></notice-attachment>
+        </div>
+    </wizard-step>
+
+
+    <!-- 公告信息 -->
+    <wizard-step [title]="['noticeInfo' | translate]">
+        <div class="col-xs-8">
+            <div class="tabLeft notice-input-left">
+                <crms-notice [clearBtnVisible]="clearBtnVisible" [crimeInfo]="crimeInfo" [noticeInfo]="noticeInfo" [courtInfoList]="courtInfoList"
+                    [(crimePersonInfo)]="crimePersonInfo" [priorityList]="priorityList" (checkNoticeNumber)="checkCrimeNoticeNumber($event)"
+                    (clearInfo)="showConfirmPopup($event)" [isReadOnly]="isReadOnly"></crms-notice>
+                <div class="clearfix"></div>
+                <crms-crimeinfo [clearBtnVisible]="clearBtnVisible" [crimeRegionList]="crimeRegionList" [crimeInfo]="crimeInfo" [noticeInfo]="noticeInfo"
+                    [(crimePersonInfo)]="crimePersonInfo" [crimeTypeList]="crimeTypeList" (clearInfo)="showConfirmPopup($event)"
+                    [isReadOnly]="isReadOnly"></crms-crimeinfo>
+            </div>
+        </div>
+
+        <div class="col-xs-4 attachment-watch-wrap">
+            <div class="attachment attachment-change-width attachment-watch">
+                <notice-attachment [imageFileList]="attachmentList" [controllFlag]="attchmentWatchObj"></notice-attachment>
+            </div>
+        </div>
+    </wizard-step>
+
+
+
+
+    <!-- 犯罪人员基本信息 "-->
+    <wizard-step [title]="['crimePersoninfo' | translate]">
+        <div class="col-xs-8">
+            <div class="tabLeft padding-top-10 notice-input-left">
+                <crms-pesoninfo #crms [crimeInfo]="crimeInfo" [(crimePersonInfo)]="crimePersonInfo" [certificateTypeList]="certificateTypeList"
+                    [genderEnum]="genderEnum" [marriageEnum]="marriageEnum" [birthPlaceEnum]="birthPlaceEnum" [countryOfCitizenshipEnum]="countryOfCitizenshipEnum"
+                    [birthPlaceVisible]="showCountryDetailPlace" [livingPlaceVisible]="showLivingDetailAddress" [provinceList]="provinceList"
+                    [careerList]="careerList" [cityList]="cityList" [communityList]="communityList" [livingProvinceList]="livingProvinceList"
+                    [livingCityList]="livingCityList" [livingCommunityList]="livingCommunityList" (selectedBirthCountry)="selectIndexOfBirthCountry($event)"
+                    (selectedProvince)="selectIndexOfProvince($event)" (selectedCity)="selectIndexOfCity($event)" (selectedlivingCountry)="selectIndexOfLivingCountry($event)"
+                    (selectedLivingProvince)="selectIndexOfLivingProvince($event)" (selectedLivingCity)="selectIndexOfLivingCity($event)"
+                    (getPersonInfoByName)="getPersonInfoByName($event)" [personInfoList]="personInfoList" (sendPersonInfoOut)="getCrimePersonInfo($event)"
+                    [dataCount]="dataCount" (clearInfo)="showConfirmPopup($event)" [clearBtnVisible]="clearBtnVisible" [waitCriminalIds]="replyWaitCriminalIds"
+                    [backfillSearchVisible]="backfillSearchVisible" [isNeedEdit]="isReadOnly" [routerFlag]="routerFlag" [fillDataVisible]="fillDataVisible"></crms-pesoninfo>
+            </div>
+        </div>
+        <div class="col-xs-4 attachment-watch-wrap">
+            <div class="attachment attachment-change-width attachment-watch">
+                <notice-attachment [imageFileList]="attachmentList" [controllFlag]="attchmentWatchObj"></notice-attachment>
+            </div>
+        </div>
+    </wizard-step>
+
+    <!-- 相似罪犯列表-->
+    <wizard-step [title]="['wait merging list' | translate]">
+        <waitmerge-criminal [(canMergeCriminalQuery)]="canMergeCriminalQuery" [(isMergeCriminalQuery)]="isMergeCriminalQuery" [(canMergeCriminalList)]="canMergeCriminalList"
+            [crimePersonInfo]="crimePersonInfo" [(canMergeCriminalDataCount)]="canMergeCriminalDataCount" (changeQueryPage)="changeQueryPage($event)"
+            (changeMergeCrimePerson)="changeMergeCrimePerson($event)" [(criminalIds)]="waitCriminalIds" [waitCriminalIds]="replyWaitCriminalIds"
+            [startWaitCriminalIds]="startWaitCriminalIds" [(backFillCriminalId)]="crimePersonInfo.backFillCriminalId"></waitmerge-criminal>
+    </wizard-step>
+
+
+    <!-- 录入意见 -->
+    <wizard-step [title]="['Input comments' | translate]" [showComplete]="true" [showNext]="false">
+        <!-- <div *ngIf="!isDown"> -->
+        <dx-validation-group>
+            <div class="notice-option">
+                <dx-button icon="fa fa-check" text="{{'agreeeEnter'| translate}}" class="grey-btn" (onClick)="enterOption(1)" [ngClass]="{'green-btn':noticeInfo.noticeInputStatus == '1'}"></dx-button>
+                <dx-button icon="fa fa-remove" text="{{'rejectEnter'| translate}}" class="grey-btn" (onClick)="enterOption(2)" [ngClass]="{'red-btn':noticeInfo.noticeInputStatus == '2'}"></dx-button>
+            </div>
+            <div class="notice-reject-reson" [hidden]="noticeInfo.noticeInputStatus!=='2'">
+                    <label class="label-l">{{'rejectEnterReason'| translate}}
+                        <span class="red">*</span>
+                    </label>
+                    <div class="textAreaDiv">
+                        <dx-text-area [disabled]="noticeInfo.noticeInputStatus!=='2' || enterSuggetion " class="textarea-notice-option" style="height:150px;" [(ngModel)]="noticeInfo.rejectEnterReason"
+                            id="rejectEnterReason" name="rejectEnterReason" maxLength="1000" valueChangeEvent="keyup" (keyup)="countRejectEnterReasonCharacter()">
+                            <dx-validator>
+                                <dxi-validation-rule type="required" message="{{'reject reason is required'| translate}}"></dxi-validation-rule>
+                            </dx-validator>
+                        </dx-text-area>
+                        <span class="wordwrap bottom10">
+                            <var class="word">{{rejectEnterReasonLength}}</var>/1000</span>
+                    </div>
+            </div>
+
+            <div class="notice-option-description">
+                 <!-- 审核描述-->
+                 <div class="row">
+                        <div class="textarea-p" style="position:relative;padding-right:5px;" [hidden]="auditResultVisible">
+                            <label>{{'auditDescription' | translate}}</label>
+                            <div class="textAreaDiv">
+                                <dx-text-area class="textAreaCrime" disabled="true" [(ngModel)]="auditDescription" name="auditDescription"></dx-text-area>
+                            </div>
+                        </div>
+               </div>
+                <!-- <p>说明:</p> -->
+                <div class="description-wrap space">
+                    {{'agreeeEnter' | translate}}：
+                    <br/> {{'if confirm not fail...' | translate}}
+                    <br/> {{'rejectEnter' | translate}}：
+                    <br/> {{'if confirm not pass...' | translate}}
+                </div>
+            </div>
+        </dx-validation-group>
+        <!-- </div> -->
+        <!-- <div *ngIf="isDown"> -->
+        <!-- </div> -->
+    </wizard-step>
+
+
+
+    <!-- 完成 -->
+    <wizard-step [title]="['complete' | translate]" [showPrev]="false">
+        <div class="down-img">
+            <img src="./themes/images/down.png" alt="" width="100" height="100">
+        </div>
+        <div class="down-text">{{submitResult}}</div>
+        <div class="down-information">
+            <div>
+                <p>{{'noticeEnteringTime' | translate }}:{{completeInfo?.enteringTime | I18nDate:'long'}}</p>
+                <p>{{'enteringPersonName' | translate}}:{{completeInfo?.enteringPersonName}}</p>
+                <p>{{'noticeInputStatusResult' | translate}}：{{completeInfo?.noticeInputStatus | noticeInputStatus | translate}}</p>
+            </div>
+        </div>
+        <div class="entry-next-item">
+            <dx-button icon="fa fa-pencil" text="{{'entering next item'| translate}}" class="grey-btn" (onClick)="enterNextItem()"></dx-button>
+        </div>
+    </wizard-step>
+</form-wizard>
+
+
+
+<!-- 保存前验证，给出相应提示 start -->
+<dx-popup class="popupValidation popup" [width]="344" [height]="" [maxHeight]="475" title="{{'pupopinformation'|translate}}"
+    [shading]="false" [showTitle]="true" [dragEnabled]="true" [closeOnOutsideClick]="true" [(visible)]="validateVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div id="toast-container-error">
+            <div *ngFor="let rules of brokenRules">
+                <div class="toast toast-error">{{rules.message}}</div>
+            </div>
+        </div>
+    </div>
+</dx-popup>
+<!-- 保存前验证，给出相应提示 end -->
+
+<!-- 保存时的loading starter-->
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{ my:'center',at:'center',of: window }" [(visible)]="loadingVisible"
+    [showIndicator]="true" [showPane]="true" [shading]="false" [closeOnOutsideClick]="false">
+</dx-load-panel>
+
+<!-- 保存时的loading end-->
+<dx-popup class="popup confirmPopup" [width]="300" [height]="220" title="{{'pupopinformation'|translate}}" [showTitle]="true"
+    [dragEnabled]="false" [closeOnOutsideClick]="true" [(visible)]="confirmVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div class="proInfo">{{'are you sure to clear'|translate}}</div>
+        <div class="btns">
+            <dx-button icon="fa fa-check" id="yes" text="{{'confirm'| translate}}" class="red-btn" (click)="clearThisInfo()"></dx-button>
+            <dx-button icon="fa fa-close" id="no" text="{{'cancel'| translate}}" class="grey-btn" (click)="cancelclear()"></dx-button>
+        </div>
+        <span class="icon-AG-Help"></span>
+    </div>
+</dx-popup>

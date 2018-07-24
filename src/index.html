@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="./">
+    <link rel="shortcut icon" href="favicon.ico">
+    <!-- inject:css -->
+    <!-- endinject -->
+    <script>
+        const electron = require('electron');
+        if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }
+        window.onkeydown = function (event) {
+            if (event.keyCode == 122 || event.keyCode == 27) {
+                return false;
+            }
+        }
+        window.ondragstart=function(){
+            return false;
+        }
+
+    </script>
+    <!-- inject:libs -->
+    <!-- endinject -->
+</head>
+
+<body>
+    <electron-app id="clickEventListener">
+        <div class="wave">
+            <div class="rect rect1"></div>
+            <div class="rect rect2"></div>
+            <div class="rect rect3"></div>
+            <div class="rect rect4"></div>
+        </div>
+    </electron-app>
+    <!-- inject:scripts -->
+    <!-- endinject -->
+    <script>
+        if (window.module) {
+            module = window.module;
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!-- 犯罪基本信息star-->
+
+<h1 class="title">{{'crimeInfo'|translate}}</h1>
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'litigationNumber'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{crimeInfo.litigationNumber}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'crimeTime'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{crimeInfo.crimeTime | I18nDate}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'crimeType'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{crimeInfo.crimeTypeName}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'crimeName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{crimeInfo.crimeName}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-sm-6 inputBox">
+        <label >{{'crimeRegion'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{crimeInfo.crimeRegionName}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'crimeJudgeTime'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{crimeInfo.crimeJudgeTime|I18nDate}}</span>
+        </div>
+    </div>
+
+</div>
+
+<div class="textarea-p">
+    <label style=" margin-left:0 ">{{'crimeResult'| translate}}</label>
+    <div class="textAreaDiv" style=" margin-right:0 ">
+        <span class="readInfo">{{crimeInfo.crimeResult}}</span>
+    </div>
+</div>
+
+<div class="textarea-p">
+    <label style=" margin-left:0 ">{{'crimeDescription'| translate}}</label>
+    <div class="textAreaDiv" style=" margin-right:0 ">
+        <span class="readInfo">{{crimeInfo.crimeDescription}}</span>
+    </div>
+</div>
+
+<div class="textarea-p">
+    <label style=" margin-left:0 ">{{'brief description of case'| translate}}</label>
+    <div class="textAreaDiv" style=" margin-right:0 ">
+        <span class="readInfo">{{crimeInfo.description}}</span>
+    </div>
+</div>
+
+<!-- 犯罪基本信息end-->

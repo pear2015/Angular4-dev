@@ -1,0 +1,104 @@
+/* 整体布局 start */
+
+@mixin responsive-animate($time, $property...) {
+    transition: all $time ease-in-out;
+    transition-property: $property;
+}
+
+.mf-navbar {
+    top: 0;
+    left: 0;
+    height: $navbar-height;
+    width: 100%;
+    background: $yellow;
+    line-height: $navbar-height;
+    position: relative;
+    z-index: 1000;
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.mf-navbar-logo {
+    width: $navbar-logo-width;
+    height: $navbar-logo-height;
+    margin: $navbar-logo-margin;
+    background: url(../images/logo.png) no-repeat;
+    display: inline-block;
+    cursor: pointer;
+    @include responsive-animate(0.5s, width);
+}
+
+ul.mf-navbar-menus {
+    height: 100%;
+    color: $dark;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    list-style: none;
+    &>li {
+        float: left;
+        padding: $menu-item-padding;
+        cursor: pointer;
+        font-size: 14px;
+    }
+    &>li:hover {
+        color: $menu-selected-color;
+        background: darken($color: $yellow, $amount: 10)
+    }
+    &>li.selected {
+        height: $navbar-height;
+        color: $menu-selected-color;
+        background: $menu-selected-background;
+        border-bottom: 3px solid darken($color: $menu-selected-background, $amount: 10);
+    }
+}
+
+.mf-placeholder {
+    height: 10px;
+}
+
+.mf-sidebar {
+    position: absolute;
+    display: block;
+    left: 0;
+    bottom: 0;
+    top: $navbar-height;
+    background: $sidebar-color;
+    width: $sidebar-width;
+    box-shadow: 3px 0 6px rgba(0, 0, 0, 0.24);
+}
+
+.mf-sidebar-list {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    width: $sidebar-width;
+    text-align: center;
+    list-style: none
+}
+
+.mf-sidebar-icon {
+    display: block;
+    width: $sidebar-icon-width;
+    height: $sidebar-icon-height;
+    margin-bottom: 3px;
+}
+
+.mf-content {
+    min-width: 800px;
+    left: $sidebar-width;
+    right: 0;
+    top: $navbar-height;
+    bottom: 0;
+    display: block;
+    position: fixed;
+    background: url(../images/content-bg.jpg) no-repeat;
+}
+
+@media (max-width: 1024px) {
+    .mf-navbar-logo {
+        width: $navbar-logo-min-width;
+    }
+}
+
+
+/* 整体布局 end */

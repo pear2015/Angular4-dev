@@ -1,0 +1,25 @@
+<div card-header class="wizard-card" style="height:100px;">
+    <div class="card-header" style="box-shadow:none;">
+        <ul class="nav nav-justified">
+            <li class="nav-item" *ngFor="let item of dataSource,let i=index" [ngClass]="{'active': i==activeIndex}">
+                <div class="notice-entry-top">
+                    <div class="commom-width">
+                        <div class="entry-order">
+                            <div class="number" *ngIf="!(activeIndex > i)">{{i+1}}</div>
+                            <div class="number" *ngIf="activeIndex > i">
+                                <i class="fa fa-check" style="color:#ef6052;"></i>
+                            </div>
+                            <p [innerHtml]="item.name"></p>
+                        </div>
+                        <div class="three-cicle">
+                            <i class="fa fa-circle"></i>
+                            <i class="fa fa-circle"></i>
+                            <i class="fa fa-circle"></i>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

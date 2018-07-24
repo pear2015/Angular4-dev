@@ -1,0 +1,30 @@
+<div class="left-bar" *ngIf = "hiddenBar">
+    <accordion [closeOthers]="true">
+        <accordion-group #group *ngFor="let menu of menus;let i = index">
+            <div accordion-heading class="mainMenu" [class.mainMenuActive]="group.accordion.groups[i].isOpen">
+                <span class="flex-box">
+                    <li class="{{menu.icon}}"></li>
+                    <span class="list-txt">{{menu.title | translate}}</span>
+                    <i class="fa fa-angle-right" *ngIf = "!group.accordion.groups[i].isOpen"></i>
+                    <i class="fa fa-angle-down" *ngIf = "group.accordion.groups[i].isOpen"></i>
+                </span>
+                <i class=" float-xs-right glyphicon" [ngClass]="{'glyphicon-plus': group?.isOpen,'glyphicon-minus': !group?.isOpen}"></i>
+            </div>
+            <ul>
+                <li *ngFor="let childMenu of menu.children">
+                    <a routerLink="{{childMenu.expression}}" ondragstart="return false" routerLinkActive="active" (click)="nav(childMenu.expression)">
+                        <li class="{{childMenu.icon}}"></li>
+                        {{childMenu.title | translate}}
+                    </a>
+                </li>
+            </ul>
+        </accordion-group>
+    </accordion>
+    <div class="crms-vision"><p>{{version}}</p></div>
+</div>
+<div class="right-bar" [ngClass]="{'right-bar-left0':!hiddenBar}">
+    <router-outlet></router-outlet>
+</div>
+
+
+

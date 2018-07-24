@@ -1,0 +1,460 @@
+<h1 class="title" style="margin-top:0px;">{{'applyBasicInfo'|translate}}
+<i [hidden]="clearBtnVisible" id="clearPersonApplyBasicInfo" class="ag02 ag02-empty clearBtn" (click)="clearInfo.emit('clearPersonApplyBasicInfo')"
+    (mouseenter)="clearPageTolToggle()" (mouseleave)="clearPageTolToggle()"></i>
+</h1>
+<dx-validation-group>
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="photoImg dx-icon" [ngClass]="{'dx-icon-user':applyBasicInfo.registrationPhoto==null}">
+                <img src="data:image/jpg;base64,{{applyBasicInfo.registrationPhoto}}" alt="" width="150" height="210">
+            </div>
+        </div>
+
+        <dx-text-box maxLength="36" hidden="hidden" [(ngModel)]="applyBasicInfo.applyBasicId" name="applyBasicId" id="applyBasicId"></dx-text-box>
+
+        <div class="col-sm-10">
+
+            <div class="row">
+                <div class="col-sm-6 inputBox">
+                    <label>{{'certificateType'| translate}} <span>*</span></label>
+                    <div class="dxInput">
+                        <dx-select-box [(ngModel)]="applyBasicInfo.certificateType" name="certificateType" valueExpr="certificateTypeId" displayExpr="name" itemTemplate="itemTemplate"
+                            [dataSource]="certificateTypeList" (onSelectionChanged)="selectedCertificateType($event)">
+                            <div *dxTemplate="let fieldItem of 'itemTemplate'">
+                                <div title="{{fieldItem.name}}" class="search-long-title">{{fieldItem.name}}</div>
+                           </div>
+                            <dx-validator>
+                                <dxi-validation-rule type="required" message="{{'certificateType is required'|translate}}"></dxi-validation-rule>
+                            </dx-validator>
+                        </dx-select-box>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 inputBox">
+                    <label>{{'certificateNumber'| translate}} <span [hidden]='certificateRequired'>*</span></label>
+                    <div class="dxInput">
+                        <div class="cardIcon">
+                            <dx-text-box maxLength="36" [(ngModel)]="applyBasicInfo.certificateNumber" name="certificateNumber" id="certificateNumber"
+                                (onFocusOut)="certificateNumberTrim()" [disabled]="certificateNumberDisabled">
+                                <dx-validator>
+                                    <dxi-validation-rule type="pattern" [pattern]="idNumberRegex" message="{{'please fill in the correct certificateNumber'| translate}}"></dxi-validation-rule>
+                                    <dxi-validation-rule type="required" message="{{'certificateNumber is required'|translate}}"></dxi-validation-rule>
+                                </dx-validator>
+                            </dx-text-box>
+                            <i (click)="getPersonInfoByNameAndNumber()" class=" fa fa-search queryIcon" title="{{'Click on the name and ID to search personInfo' | translate}}"></i>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 inputBox">
+                    <label>{{'firstName'| translate}} <span>*</span></label>
+                    <div class="dxInput">
+                        <dx-text-box maxLength="36" [(ngModel)]="applyBasicInfo.firstName" name="firstName" id="firstName">
+                            <dx-validator>
+                                <dxi-validation-rule type="required" message="{{'firstName is required' | translate}}"></dxi-validation-rule>
+                                <dxi-validation-rule type="stringLength" [max]="128" message="{{'must less than 128 symbols'| translate}}"></dxi-validation-rule>
+                            </dx-validator>
+                        </dx-text-box>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 inputBox">
+                    <label>{{'lastName'| translate}} <span>*</span></label>
+                    <div class="dxInput">
+                        <dx-text-box maxLength="36" [(ngModel)]="applyBasicInfo.lastName" name="lastName" id="lastName">
+                            <dx-validator>
+                                <dxi-validation-rule type="required" message="{{'lastName is required' | translate}}"></dxi-validation-rule>
+                                <dxi-validation-rule type="stringLength" [max]="36" message="{{'must less than 128 symbols'| translate}}"></dxi-validation-rule>
+                            </dx-validator>
+                        </dx-text-box>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-6 inputBox">
+                    <label>{{'sexName'| translate}}<span>*</span></label>
+                    <div class="dxInput">
+                        <dx-select-box [(ngModel)]="applyBasicInfo.sexId" name="sexId" valueExpr="value" displayExpr="name" [dataSource]="genderEnum">
+                            <dx-validator>
+                                <dxi-validation-rule type="required" message="{{'sex is required'|translate}}"></dxi-validation-rule>
+                            </dx-validator>
+                        </dx-select-box>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'dateOfBirth'| translate}}</label>
+            <div class="dxInput">
+                <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [max]="applyBasicInfo.credentialsIssueDate!=null?applyBasicInfo.credentialsIssueDate:now"
+                    [width]="500" (onValueChanged)="getAge()" [(ngModel)]="applyBasicInfo.dateOfBirth" name="dateOfBirth" id="dateOfBirth"
+                    invalidDateMessage="{{'dateOfBirth must be a date'| translate}}" [min]="minDateOfBirth">
+                </dx-date-box>
+            </div>
+        </div>
+        <div class="col-sm-6 inputBox">
+            <label>{{'age'| translate}}</label>
+            <div class="dxInput">
+                <div class="cardIcon">
+                    <!-- <dx-text-box [(ngModel)]="applyBasicInfo.age" name="age" id="age" (keypress)="ageOnkeyPress($event)" [readOnly]="true">
+                </dx-text-box>
+                <i class=" fa fa-question queryIcon" title="{{'automatic calculation of age acn not be manually entered'| translate}}"></i>-->
+                    <dx-number-box [readOnly]="applyBasicInfo.dateOfBirth" [(ngModel)]="applyBasicInfo.age" name="age" id="age" [showClearButton]="!applyBasicInfo.dateOfBirth"
+                        [max]="200" (keypress)="ageOnkeyPress($event)"> </dx-number-box>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'nation'| translate}}</label>
+            <div class="dxInput">
+                <dx-text-box maxLength="36" [(ngModel)]="applyBasicInfo.nation" name="nation" id="nation">
+                    <dx-validator>
+                        <dxi-validation-rule type="stringLength" [max]="128" message="{{'must less than 128 symbols'| translate}}"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-box>
+            </div>
+        </div>
+
+        <div class="col-sm-6 inputBox">
+            <label>{{'marriageName'| translate}}</label>
+            <div class="dxInput">
+                <dx-select-box [(ngModel)]="applyBasicInfo.marriageId" name="marriageId" valueExpr="marriageId" displayExpr="name" [dataSource]="marriageEnum">
+                </dx-select-box>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'credentialsIssueDate'| translate}}</label>
+            <div class="dxInput">
+                <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [min]="applyBasicInfo.dateOfBirth" [max]="now" [(ngModel)]="applyBasicInfo.credentialsIssueDate"
+                    name="credentialsIssueDate" id="credentialsIssueDate" invalidDateMessage="{{'credentialsIssueDate must be a date'| translate}}">
+                </dx-date-box>
+            </div>
+        </div>
+
+        <div class="col-sm-6 inputBox">
+            <label>{{'certificateValidity'| translate}}</label>
+            <div class="dxInput">
+                <dx-text-box maxLength="36" [(ngModel)]="applyBasicInfo.certificateValidity" name="certificateValidity" id="certificateValidity">
+                    <dx-validator>
+                        <dxi-validation-rule type="stringLength" [max]="128" message="{{'must less than 128 symbols'| translate}}"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-box>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="textarea-p">
+            <label>{{'credentialsIssuePlace'| translate}}</label>
+            <div class="textAreaDiv">
+                <dx-text-area class="textAreaCrime" [(ngModel)]="applyBasicInfo.credentialsIssuePlace" name="credentialsIssuePlace" [maxLength]="300"
+                    valueChangeEvent="keyup">
+                </dx-text-area>
+                <span class="wordwrap"><var class="word">{{applyBasicInfo.credentialsIssuePlace?applyBasicInfo.credentialsIssuePlace.length:0}}</var>/300</span>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <h1 class="title">{{'parentInfo'|translate}}</h1>
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'fatherCertificateNumber'| translate}}</label>
+            <div class="dxInput">
+                <dx-text-box [(ngModel)]="applyBasicInfo.fatherCertificateNumber" name="fatherCertificateNumber" id="fatherCertificateNumber">
+                    <dx-validator>
+                        <dxi-validation-rule type="pattern" [pattern]="idCardNumberRegex" message="{{'Please fill in the correct ID number'| translate}}"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-box>
+            </div>
+        </div>
+        <div class="col-sm-6 inputBox">
+            <label>{{'motherCertificateNumber'| translate}}</label>
+            <div class="dxInput">
+                <dx-text-box [(ngModel)]="applyBasicInfo.motherCertificateNumber" name="motherCertificateNumber" id="motherCertificateNumber">
+                    <dx-validator>
+                        <dxi-validation-rule type="pattern" [pattern]="idCardNumberRegex" message="{{'Please fill in the correct ID number'| translate}}"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-box>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'motherFirstName'| translate}}</label>
+            <div class="dxInput">
+                <dx-text-box maxLength="36" [(ngModel)]="applyBasicInfo.motherFirstName" name="motherFirstName" id="motherFirstName">
+                    <dx-validator>
+                        <dxi-validation-rule type="stringLength" [max]="128" message="{{'must less than 128 symbols'| translate}}"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-box>
+            </div>
+        </div>
+
+        <div class="col-sm-6 inputBox">
+            <label>{{'motherLastName'| translate}}</label>
+            <div class="dxInput">
+                <dx-text-box maxLength="36" [(ngModel)]="applyBasicInfo.motherLastName" name="motherLastName" id="motherLastName">
+                    <dx-validator>
+                        <dxi-validation-rule type="stringLength" [max]="128" message="{{'must less than 128 symbols'| translate}}"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-box>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'fatherFirstName'| translate}}</label>
+            <div class="dxInput">
+                <dx-text-box maxLength="36" [(ngModel)]="applyBasicInfo.fatherFirstName" name="fatherFirstName" id="fatherFirstName">
+                    <dx-validator>
+                        <dxi-validation-rule type="stringLength" [max]="128" message="{{'must less than 128 symbols'| translate}}"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-box>
+            </div>
+        </div>
+
+        <div class="col-sm-6 inputBox">
+            <label>{{'fatherLastName'| translate}}</label>
+            <div class="dxInput">
+                <dx-text-box maxLength="36" [(ngModel)]="applyBasicInfo.fatherLastName" name="fatherLastName" id="fatherLastName">
+                    <dx-validator>
+                        <dxi-validation-rule type="stringLength" [max]="128" message="{{'must less than 128 symbols'| translate}}"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-box>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <h1 class="title">{{'birthPlace'|translate}}</h1>
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'countryOfCitizenship'| translate}}</label>
+            <div class="dxInput">
+                <dx-select-box [(ngModel)]="applyBasicInfo.countryOfCitizenship" name="countryOfCitizenship" id="countryOfCitizenship" (onSelectionChanged)="selectIndexOfCountryShip($event)"
+                    valueExpr="name" displayExpr="name" [dataSource]="countryOfCitizenshipEnum"></dx-select-box>
+            </div>
+        </div>
+        <div class="col-sm-6 inputBox">
+            <label>{{'provinceName'| translate}}</label>
+            <div class="dxInput">
+                <dx-select-box [(ngModel)]="applyBasicInfo.provinceName" [searchEnabled]="true" [disabled]="showCountryDetailPlace" name="proviceName"
+                    (onSelectionChanged)="selectedProvince.emit($event)" valueExpr="provinceName" displayExpr="provinceName"
+                    [dataSource]="provinceList"></dx-select-box>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'cityName'| translate}}</label>
+            <div class="dxInput">
+                <dx-select-box [(ngModel)]="applyBasicInfo.cityName" [searchEnabled]="true" [disabled]="showCountryDetailPlace" name="cityName"
+                    (onSelectionChanged)="selectedCity.emit($event)" valueExpr="cityName" displayExpr="cityName" id="cityName"
+                    [dataSource]="cityList"></dx-select-box>
+            </div>
+        </div>
+
+        <div class="col-sm-6 inputBox">
+            <label>{{'communityName'| translate}}</label>
+            <div class="dxInput">
+                <dx-select-box [(ngModel)]="applyBasicInfo.communityName" [searchEnabled]="true" [disabled]="showCountryDetailPlace" valueExpr="communityName"
+                    name="communityName" displayExpr="communityName" id="communityName" [dataSource]="communityList"></dx-select-box>
+            </div>
+
+        </div>
+    </div>
+
+    <h1 class="title">{{'livingDetailAddress'| translate}}</h1>
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'livingCountryName'| translate}}</label>
+            <div class="dxInput">
+                <dx-select-box [(ngModel)]="applyBasicInfo.livingCountryName" name="livingCountryName" (onSelectionChanged)="selectIndexOfLivingCountry($event)"
+                    valueExpr="name" displayExpr="name" [dataSource]="countryOfCitizenshipEnum"></dx-select-box>
+            </div>
+        </div>
+        <div class="col-sm-6 inputBox">
+            <label>{{'livingProvinceName'| translate}}</label>
+            <div class="dxInput">
+                <dx-select-box [(ngModel)]="applyBasicInfo.livingProvinceName" [searchEnabled]="true" [disabled]="showLivingDetailAddress"
+                    name="livingProvinceName" (onSelectionChanged)="selectedLivingProvince.emit($event)" valueExpr="provinceName"
+                    displayExpr="provinceName" [dataSource]="livingProvinceList"></dx-select-box>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'livingCityName'| translate}}</label>
+            <div class="dxInput">
+                <dx-select-box [(ngModel)]="applyBasicInfo.livingCityName" [searchEnabled]="true" [disabled]="showLivingDetailAddress" name="livingCityName"
+                    (onSelectionChanged)="selectedLivingCity.emit($event)" valueExpr="cityName" displayExpr="cityName" [dataSource]="livingCityList"></dx-select-box>
+            </div>
+        </div>
+
+        <div class="col-sm-6 inputBox">
+            <label>{{'livingCommunityName'| translate}}</label>
+            <div class="dxInput">
+                <dx-select-box [(ngModel)]="applyBasicInfo.livingCommunityName" [searchEnabled]="true" [disabled]="showLivingDetailAddress"
+                    name="livingCommunityName" valueExpr="communityName" displayExpr="communityName" [dataSource]="livingCommunityList"></dx-select-box>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="textarea-p">
+        <label>{{'detailAddress'| translate}}</label>
+
+        <div class="textAreaDiv">
+            <dx-text-area class="textAreaCrime" [(ngModel)]="applyBasicInfo.detailAddress" name="detailAddress" id="detailAddress" valueChangeEvent="keyup"
+                maxLength="2000">
+                <dx-validator>
+                    <dxi-validation-rule type="stringLength" [max]="2000" message="{{'must less than 2000 symbols'| translate}}"></dxi-validation-rule>
+                </dx-validator>
+            </dx-text-area>
+            <span class="wordwrap"><var class="word" >{{applyBasicInfo.detailAddress?applyBasicInfo.detailAddress.length:0}}</var>/2000</span>
+
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+
+    <h1 class="title ">{{'otherFeature'| translate}}</h1>
+    <div class="row">
+        <div class="col-sm-12 inputBox">
+            <label>{{'profession'| translate}}</label>
+            <div class="dxInput">
+                <dx-text-box maxLength="36" [(ngModel)]="applyBasicInfo.profession" name="profession" id="profession">
+                    <dx-validator>
+                        <dxi-validation-rule type="stringLength" [max]="256" message="{{'must less than 256 symbols'| translate}}"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-box>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 inputBox">
+            <label>{{'career'| translate}}</label>
+            <div class="dxInput">
+                <dx-select-box [(ngModel)]="applyBasicInfo.careerId" name="careerId" valueExpr="careerId" displayExpr="name" [dataSource]="careerList">
+                </dx-select-box>
+            </div>
+        </div>
+
+        <div class="col-sm-6 inputBox">
+            <label>{{'contractPhone'| translate}}</label>
+            <div class="dxInput">
+                <dx-text-box maxLength="10" [(ngModel)]="applyBasicInfo.contractPhone" name="contractPhone" id="contractPhone">
+                    <dx-validator>
+                        <dxi-validation-rule type="pattern" [pattern]="telephoneRegex" message="{{'please fill in the correct phoneNumber'| translate}}"></dxi-validation-rule>
+                        <dxi-validation-rule type="stringLength" [max]="128" message="{{'must less than 128 symbols'| translate}}"></dxi-validation-rule>
+                    </dx-validator>
+                </dx-text-box>
+            </div>
+        </div>
+    </div>
+
+    <div class="textarea-p">
+        <label>{{'otherFeature'| translate}}</label>
+
+        <div class="textAreaDiv">
+            <dx-text-area class="textAreaCrime" [(ngModel)]="applyBasicInfo.otherFeature" name="otherFeature" id="otherFeature" valueChangeEvent="keyup"
+                maxLength="2000">
+                <dx-validator>
+                    <dxi-validation-rule type="stringLength" [max]="2000" message="{{'must less than 2000 symbols'| translate}}"></dxi-validation-rule>
+                </dx-validator>
+            </dx-text-area>
+            <span class="wordwrap"><var class="word" >{{applyBasicInfo.otherFeature?applyBasicInfo.otherFeature.length:0}}</var>/2000</span>
+
+        </div>
+    </div>
+
+    <div class="textarea-p">
+        <label>{{'applyBasicInfoDescription'| translate}}</label>
+
+        <div class="textAreaDiv">
+            <dx-text-area class="textAreaCrime" [(ngModel)]="applyBasicInfo.description" name="description" id="dercription" valueChangeEvent="keyup"
+                maxLength="2000">
+                <dx-validator>
+                    <dxi-validation-rule type="stringLength" [max]="2000" message="{{'must less than 2000 symbols'| translate}}"></dxi-validation-rule>
+                </dx-validator>
+            </dx-text-area>
+            <span class="wordwrap"><var class="word" >{{applyBasicInfo.description?applyBasicInfo.description.length:0}}</var>/2000</span>
+
+        </div>
+    </div>
+</dx-validation-group>
+<!--数据回填窗口start-->
+<dx-popup class="popup dataBackPopup" title="{{'backfill'| translate}}" [width]="1280" [height]="760" [minWidth]="1280" [minHeight]="720"
+    [shading]="false" [position]="{my:'center',at:'center',of:window}" [resizeEnabled]="false" [dragEnabled]="true" [closeOnOutsideClick]="false"
+    [(visible)]="fillDataVisible">
+    <div *dxTemplate="let data of 'content'">
+        <dx-scroll-view [width]="1240" showScrollbar="always">
+            <div class="executionBtn">
+                <dx-button id="dataBackFill" icon="fa fa-paperclip" type="success" text="{{'backfill'|translate}}" (onClick)="dataBackFill()"
+                    [disabled]="dataBackDisabled"></dx-button>
+            </div>
+            <div class="clearfix"></div>
+            <div class="crime-inquire-list">
+                <!--人口信息start -->
+                <dx-data-grid #personInfoGrids id="gridContainer" [dataSource]="personInfoList" [masterDetail]="{ enabled: true, template: 'detail' }"
+                    (onSelectionChanged)="selectChangedHandle($event)">
+                    <dxo-paging [pageSize]="10"></dxo-paging>
+                    <dxo-selection mode="single"></dxo-selection>
+                    <!--<dxo-paging [pageSize]="5"></dxo-paging>-->
+
+                    <dxi-column dataField="name" [width]="100" caption="{{'name'| translate }}" [allowSorting]="false"></dxi-column>
+                    <!--<dxi-column dataField="lastName" caption="{{'lastName'| translate }}"></dxi-column>-->
+                    <!--<dxi-column dataField="age" caption="{{'age'| translate }}"></dxi-column>-->
+                    <dxi-column dataField="sexName" cellTemplate="sexCellTemplate" caption="{{'sexName'| translate }}" [allowSorting]="false"></dxi-column>
+                    <dxi-column dataField="certificateName" cellTemplate="certificateCellTemplate" caption="{{'certificateType'| translate }}"
+                        [allowSorting]="false"></dxi-column>
+                    <dxi-column dataField="certificateNumber" [width]="150" caption="{{'certificateNumber'| translate }}" [allowSorting]="false"></dxi-column>
+                    <!--<dxi-column dataField="livingCountryName" caption="{{'countryOfCitizenship'| translate }}"></dxi-column>-->
+                    <dxi-column dataField="point" caption="{{'matched rate'| translate }}" [allowSorting]="false"></dxi-column>
+
+                    <div *dxTemplate="let item of 'detail'" title=''>
+                        <!--<dx-scroll-view [width]="1220">-->
+                        <readOnly-personApplyBasicInfo [applyBasicInfo]="item.data"></readOnly-personApplyBasicInfo>
+                        <!--</dx-scroll-view>-->
+                    </div>
+                    <div *dxTemplate="let item of 'sexCellTemplate'">
+                        {{item.value | translate}}
+                    </div>
+                    <div *dxTemplate="let item of 'certificateCellTemplate'">
+                        {{item.value | translate}}
+                    </div>
+                </dx-data-grid>
+                <!--<div class="pull-right" style="margin:20px 30px 0 0" [hidden]="pageMenuVisible">
+                <app-pagination [(pageObjEmit)]="applyPersonQuery" [(totalCount)]="dataCount" (pageObjChange)="pageIndexChange($event)"></app-pagination>
+            </div>-->
+                <!--人口信息end -->
+            </div>
+        </dx-scroll-view>
+    </div>
+</dx-popup>
+<!--数据回填窗口end-->
+
+<dx-tooltip target="#clearPersonApplyBasicInfo" position="bottom" [(visible)]="clearPageTolVisible">
+    <div *dxTemplate="let data = data of 'content'">
+        {{'clear applicant info'|translate}}
+    </div>
+</dx-tooltip>

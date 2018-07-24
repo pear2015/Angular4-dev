@@ -1,0 +1,53 @@
+{
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "noFallthroughCasesInSwitch": true,
+    "noEmit": true,
+    "noEmitHelpers": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "strictNullChecks": false,
+    "lib": [
+      "es2015",
+      "es6",
+      "dom"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@angular/*": ["node_modules/@angular/*"]
+    },
+    "typeRoots": [
+      "node_modules/@types/"
+    ],
+    "types": [
+      "jasmine",
+      "node",
+      "socket.io-client"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "src/**/*.spec.ts",
+    "src/**/*.e2e.ts"
+  ],
+  "angularCompilerOptions": {
+    "genDir": "./compiled",
+    "skipMetadataEmit": true
+  },
+  "awesomeTypescriptLoaderOptions": {
+    "forkChecker": true,
+    "useWebpackText": true
+  },
+  "atom": {
+    "rewriteTsconfig": false
+  }
+}

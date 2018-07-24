@@ -1,0 +1,97 @@
+<div class="c-top-btn-group">
+    <button class="btn btn-outline-primary c-btn-reset" [class.active]='isByToday' (click)="statisticsByToday()">
+                <i class="fa fa-calendar"></i>
+                {{'dayly-statistics' | translate}}
+    </button>
+    <button class="btn btn-outline-primary c-btn-reset" [class.active]='isByMonth' (click)="statisticsByMonth()">
+                <i class="fa fa-calendar"></i>
+                {{'monthly-statistics' | translate}}
+    </button>
+    <button class="btn btn-outline-primary c-btn-reset" [class.active]='isByYear' (click)="statisticsByYear()">
+            <i class="fa fa-calendar"></i>
+            {{'yearly-statistics'|translate}}
+    </button>
+   <!-- <multiple-select-box *ngIf="isHideCourt==true" [dataSource]="courts" [default]="defaultCourtOffice" [chooseForDisplay]="currentCourt.courtName"
+        (selectChanged)="courtSelectChanged($event)"></multiple-select-box>-->
+
+    <multiple-select-box *ngIf="isHideCenter==true" [dataSource]="centers" [default]="defaultCenter" [chooseForDisplay]="currentCenter.name"
+        (selectChanged)="centerSelectChanged($event)"></multiple-select-box>
+    <button class="btn btn-outline-primary c-btn-reset" [class.active]="isByCustom" (click)="showCustomTimePopup()">
+                <i class="fa fa-clock-o"></i>
+                {{'customTime' | translate}}
+    </button>
+</div>
+
+<!--自定义时间  start-->
+<dx-popup class="popup customTimePopup" [width]="500" [height]="300" title="{{'customTime'|translate}}" [showTitle]="true"
+    [dragEnabled]="false" [closeOnOutsideClick]="true" [shading]="true" [(visible)]="customTimeVisible" (onHidden)="popupHidden()">
+    <div *dxTemplate="let data of 'content'">
+        <form #commonForm="ngForm">
+            <dx-select-box (onSelectionChanged)="selectedIndexOfDateType($event)" name="statisticsByDate" valueExpr="value" displayExpr="translateText"  [(ngModel)]="statisticsDateType"
+                [dataSource]="statisticsByDate" >
+            </dx-select-box>
+
+            <div class="row" [hidden]="yearStatistics">
+                <!--<dx-check-box [(value)]="yearStatistics" (onOptionChanged)="statisticsByYear()" [width]="80" text="{{'searchByYear'|translate}}"></dx-check-box>-->
+                <div>
+                    <label class="col-md-2">{{'beginTime'|translate}}:</label>
+                    <div class="col-md-4 input">
+                        <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [(ngModel)]="customStartTimeByYear" maxZoomLevel="decade"  #startYearDom
+                            [disabled]="yearStatistics" type="date" name="customStartTimeByYear" [(max)]="customEndTimeByYear?customEndTimeByYear:nowForYear"
+                            (onValueChanged)="timeChanged($event)">
+                        </dx-date-box>
+                    </div>
+                    <label class="col-md-2">{{'to'|translate}}:</label>
+                    <div class="col-md-4 input">
+                        <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [(ngModel)]="customEndTimeByYear" maxZoomLevel="decade" #endYearDom
+                            [(min)]="customStartTimeByYear" [disabled]="yearStatistics" [max]="nowForYear" type="date" name="customEndTimeByYear"
+                            (onValueChanged)="timeChanged($event)">
+                        </dx-date-box>
+                    </div>
+                </div>
+            </div>
+            <div class="row" [hidden]="monthStatistics">
+                <!--<dx-check-box [(value)]="monthStatistics" (onOptionChanged)="statisticsByMonth()" [width]="80" text="{{'searchByMonth'|translate}}"></dx-check-box>-->
+                <div>
+                    <label class="col-md-2">{{'beginTime'|translate}}:</label>
+                    <div class="col-md-4 input">
+                        <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [(ngModel)]="customStartTimeByMonth" maxZoomLevel="year" [(min)] = "minForStartMonth"
+                            [disabled]="monthStatistics" type="date" name="customStartTimeByMonth" [(max)]="customEndTimeByMonth?customEndTimeByMonth:maxForStartMonth" #startMonthDom
+                            (onValueChanged)="startMonthChanged($event)">
+                        </dx-date-box>
+                    </div>
+                    <label class="col-md-2">{{'to'|translate}}:</label>
+                    <div class="col-md-4 input">
+                        <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [(ngModel)]="customEndTimeByMonth" maxZoomLevel="year" #endMonthDom
+                            [disabled]="monthStatistics" [max]="maxForEndMonth" [(min)]="customStartTimeByMonth?customStartTimeByMonth:firstMonthOfYear" type="date" name="customEndTimeByMonth"
+                            (onValueChanged)="endMonthChanged($event)">
+                        </dx-date-box>
+                    </div>
+                </div>
+            </div>
+            <div class="row" [hidden]="dayStatistics">
+                <!--<dx-check-box [(value)]="dayStatistics" (onOptionChanged)="statisticsByDay()" [width]="80" text="{{'searchByDay'|translate}}"></dx-check-box>-->
+                <div>
+                    <label class="col-md-2">{{'beginTime'|translate}}:</label>
+                    <div class="col-md-4 input">
+                        <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [(ngModel)]="customStartTimeByDay" maxZoomLevel="month"  [min]="minForStartDay" #startDayDom
+                            [disabled]="dayStatistics" type="date" name="customStartTimeByDay" [(max)]="customEndTimeByDay?customEndTimeByDay:maxForStartDay" (onValueChanged)="timeChanged($event)">
+                        </dx-date-box>
+                    </div>
+                    <label class="col-md-2">{{'to'|translate}}:</label>
+                    <div class="col-md-4 input">
+                        <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [(ngModel)]="customEndTimeByDay" maxZoomLevel="month" [disabled]="dayStatistics" #endDayDom
+                            [max]="now" [(min)]="customStartTimeByDay?customStartTimeByDay:firstDayOfMonth" type="date" name="customEndTimeByDay" (onValueChanged)="timeChanged($event)">
+                        </dx-date-box>
+                    </div>
+                </div>
+            </div>
+            <div class="btn">
+                <dx-button icon="fa fa-search" class="red-btn" id="searchButton" text="{{'search'|translate}}" (click)="countByCustomTime()"
+                    [(disabled)]="searchBtn"></dx-button>
+            </div>
+        </form>
+    </div>
+
+</dx-popup>
+<!--自定义时间 end-->

@@ -1,0 +1,68 @@
+<div class="list-common-width">
+    <div class="common-title">{{'applyAuditCompleteList of tasks' | translate}}</div>
+</div>
+<div class="list-common-content">
+    <div>
+    <div>
+        <dx-button icon="fa fa-send" class="grey-btn" (click)="navigateToAuditDetail()" id="button" text="{{'watch' | translate}}"
+            [(disabled)]="isAllow"></dx-button>
+
+        <dx-button icon="fa fa-history" class="grey-btn" (click)="watchHistoryRecord()" id="" text="{{'record History' | translate}}"
+            [(disabled)]="isAllow"></dx-button>
+        <div class="pull-right refresh-btn " *ngIf="formAnimate =='hidden'" title="{{'show the search form' | translate}}">
+            <dx-button icon="fa fa-search" (click)="showForm(formNum)" text="{{'Advanced Search' | translate}}" class="grey-btn search-btn"></dx-button>
+    </div>
+
+<div class="pull-right refresh-btn" *ngIf="formAnimate =='show'" title="{{'hidden the search form' | translate}}">
+    <dx-button icon="fa fa-search" class="grey-btn search-btn" (click)="showForm(formNum)" text="{{'Advanced Search' | translate}}"></dx-button>
+</div>
+<dx-button class="refresh-btn grey-btn" icon="fa fa-refresh" (click)="refreshList()" text="{{'refresh' | translate}}"></dx-button>
+</div>
+<!-- 搜索表单 -->
+<div class="form-layer" id="form-layer" [@formAnimation]="formAnimate">
+    <mf-form [(formObjEmit)]="formObjEmit" (formSubmitEvent)="getFormObjChange($event)"></mf-form>
+</div>
+<div class="space-15">
+    <dx-data-grid #auditInfoGrids id="auditInfoList" [dataSource]="auditInfoList" [columnAutoWidth]="true" (onSelectionChanged)="selectChangedHandle($event)"
+        [loadPanel]={enabled:false}>
+        <dxo-selection mode="single"></dxo-selection>
+        <dxi-column dataField="deliveryReceiptNumbr" caption="{{'deliveryReceiptNumbr' | translate}}" [allowSorting]="false"></dxi-column>
+        <dxi-column dataField="applyTypeName" caption="{{'applyTypeName' | translate}}" [allowSorting]="false"></dxi-column>
+        <dxi-column dataField="applyPurposeName" caption="{{'applyPurpose' | translate}}" [allowSorting]="false"></dxi-column>
+        <dxi-column dataField="applyCenterName" caption="{{'applyCenterName' | translate}}" [allowSorting]="false"></dxi-column>
+        <dxi-column dataField="analysisPersonName" caption="{{'analysisPersonName' | translate}}" [allowSorting]="false"></dxi-column>
+        <dxi-column dataField="priorityName" caption="{{'priority' | translate}}" [allowSorting]="false"></dxi-column>
+        <dxi-column dataField="applyTime" caption="{{'applyTime' | translate}}" [allowSorting]="false" cellTemplate="longDateTemplate"></dxi-column>
+        <div *dxTemplate="let item of 'longDateTemplate'">
+            <span>{{item.data?.applyTime|I18nDate:'long'}}</span>
+        </div>
+    </dx-data-grid>
+    <div class="pull-right pagin-space" [hidden]="pageMenuVisible">
+        <app-pagination [(pageObjEmit)]="applyInfoPage" [(totalCount)]="dataCount" (pageObjChange)="pageIndexChange($event)"></app-pagination>
+    </div>
+</div>
+</div>
+</div>
+<!-- <i class="fa toggle-form" [ngClass]="{'fa-chevron-left toggle-form-left':formAnimate ==='hidden','fa-chevron-right toggle-form-left':formAnimate ==='show'}"
+    (click)="showForm(formNum)"></i> -->
+
+<mf-history [handleHistoryList]="historyRecordList"></mf-history>
+<!-- 保存以及查询时的loading starter-->
+<dx-load-panel #submitLoadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{my:'center',at:'center', of: '#auditInfoList' }"
+    [(visible)]="loadingApplyAudit" [showIndicator]="true" [showPane]="true" [shading]="false" [closeOnOutsideClick]="false">
+</dx-load-panel>
+<!-- 保存以及查询时的loading end-->
+
+
+<!-- 隐藏搜索表单前，给出相应提示 start -->
+<dx-popup class="popup confirmPopup" [width]="300" [height]="220" title="{{'pupopinformation'|translate}}" [showTitle]="true"
+    [showCloseButton]="false" [dragEnabled]="false" [closeOnOutsideClick]="false" [(visible)]="confirmVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div class="proInfo">{{'Are you sure show and reset search form'| translate}}</div>
+        <div class="btns">
+            <dx-button icon="fa fa-check" id="yes" text="{{'confirm'| translate}}" type="success" (onClick)="srueHiddenForm()"></dx-button>
+            <dx-button icon="fa fa-close" id="no" text="{{'cancel'| translate}}" type="danger" (onClick)="cancelPounp()"></dx-button>
+        </div>
+        <span class="icon-AG-Help"></span>
+    </div>
+</dx-popup>

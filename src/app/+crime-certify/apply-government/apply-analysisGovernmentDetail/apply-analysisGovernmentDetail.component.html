@@ -1,0 +1,150 @@
+<div class="list-common-width detail-width">
+    <div class="detail-left">
+        <div class="info-number">
+            <label>{{'applyNumber'| translate}}</label>
+            <span>{{applyInfo?.deliveryReceiptNumbr}} </span>
+        </div>
+        <div class="info-wrap">
+            <label>{{'createTime'| translate}}</label>
+            <span>{{applyInfo?.changeTime}} </span>
+        </div>
+        <div class="info-wrap">
+            <label>{{'createPersonName'| translate}}</label>
+            <span>{{applyInfo?.enteringPersonName}} </span>
+        </div>
+        <div class="info-wrap" *ngIf="noticeInfo?.auditResultName">
+            <label>{{'auditResult'| translate}}</label>
+            <span>{{applyInfo?.auditResultName}} </span>
+        </div>
+        <div class="info-wrap" *ngIf="noticeInfo?.auditDescription">
+            <label>{{'auditDescription'| translate}}</label>
+            <span>{{applyInfo?.auditRejectReason}} </span>
+        </div>
+        <div class="info-wrap" *ngIf="noticeInfo?.rejectEnterReason">
+            <label>{{'auditRejectReason'| translate}}</label>
+            <span>{{applyInfo?.rejectEnterReason}} </span>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="detail-right">
+        <dx-button icon="fa fa-reply" class="grey-btn" text="{{'getBack'| translate}}" (onClick)="goBack()" [disabled]="LoadingPanelVisible"></dx-button>
+    </div>
+</div>
+
+
+<div class="apply-analysis-content">
+    <div class="analysis-content-title">{{'processInfo' | translate}}</div>
+    <div class="analysis-content-wizard">
+        <form-wizard (nextEvent)="nextEventValidata($event)" (submitEvent)="onSubmit($event)">
+            <wizard-step [title]="['verification information' | translate]">
+                <div class="info-tab">
+                    <span (click)="showInfo(1)" [ngClass]="{'active': showInfoIndex==1}">{{'applyInfo' | translate}}</span>
+                    <span (click)="showInfo(2)" [ngClass]="{'active': showInfoIndex==2}">{{'applyBasicInfo' | translate}}</span>
+                    <span (click)="showInfo(3)" [ngClass]="{'active': showInfoIndex==3}">{{'wait merging list' | translate}}</span>
+                </div>
+                <div class="col-xs-8">
+                    <div [hidden]="showInfoIndex !==1">
+                        <audit-governApplyInfo [applyInfo]="applyInfo"></audit-governApplyInfo>
+                    </div>
+
+                    <div [hidden]="showInfoIndex !==2">
+                        <readOnly-personApplyBasicInfo [applyBasicInfo]="applyBasicInfo"></readOnly-personApplyBasicInfo>
+                    </div>
+                </div>
+
+                <div [hidden]="showInfoIndex !==3" class="col-xs-12">
+                    <div [hidden]="isHasAuditResult && historyFlag">
+                        <analysis-result [applyInfo]="applyInfo" [crimeNoticeQuery]="crimeNoticeQuery" [isAnalysised]="isAnalysised" [applyBasicInfo]="applyBasicInfo"
+                            [rejectReason]="rejectReason" [applyRejectReasonLength]="applyRejectReasonLength" [isRejected]="isRejected"
+                            [applyAndCriminalRelation]="applyAndCriminalRelation" [crimePersonInfo]="crimePersonInfo" [hasSelectCrimePersonId]="hasSelectCrimePersonId"
+                            [isCheckedDisabled]="isCheckedDisabled" [isEdit]="isEdit" [dataCount]="dataCount" [criminalInfo]="criminalInfo"
+                            (crimeNoticeEmit)="getCrimeNoticeEmit($event)"></analysis-result>
+                    </div>
+                </div>
+                <div class="col-xs-4 attachment-watch-wrap" [hidden]="showInfoIndex ==3">
+                    <div class="attachment attachment-change-width">
+                        <crms-attchment [imageFileList]="attachmentList" [controllFlag]="attchmentControllObj" [onlyForApplyAnalysis]='false'></crms-attchment>
+                    </div>
+                </div>
+            </wizard-step>
+
+
+
+            <!-- 录入意见 "-->
+            <wizard-step [title]="['Input comments' | translate]" [showComplete]="true" [showNext]="false">
+                <dx-validation-group>
+                    <div class="notice-option">
+                        <dx-button *ngFor="let item of analysisResultEnum; let i = index" icon="fa fa-check" text="{{item.name| translate}}" class="grey-btn"
+                            (onClick)="enterOption(i)" [ngClass]="{'green-btn':applyInfo.analysisResultId == item.value}"></dx-button>
+                    </div>
+                    <div class="notice-option-description">
+                        <!-- <p>说明:</p> -->
+                        <div class="description-wrap">
+                            {{'agreeeEnter' | translate}}
+                             <br/> {{'if confirm not fail...' | translate}}
+                            <br/> {{'rejectEnter' | translate}}：
+                            <br/> {{'if confirm not pass...' | translate}}
+                        </div>
+                    </div>
+
+
+                    <div class="notice-reject-reson" [hidden]="isRejected">
+                        <div class="textarea-p" [hidden]="isRejected">
+                            <label>{{'auditRejectReason' | translate}}</label>
+                            <div class="textAreaDiv  col-sm-10" style="margin-right:0;">
+                                <dx-text-area class="textAreaCrime" [(ngModel)]="rejectReason" name="rejectReason" id="rejectReason" valueChangeEvent="keyup"
+                                    [readOnly]="isEdit">
+                                </dx-text-area>
+                                <span class="wordwrap">
+                                    <var class="word">{{rejectReason?rejectReason.length:0}}</var>/2000</span>
+                            </div>
+                        </div>
+                    </div>
+                </dx-validation-group>
+            </wizard-step>
+
+
+            <!-- 完成 -->
+            <wizard-step [title]="['complete' | translate]" [showPrev]="false" class="special-box2">
+                <div class="down-img">
+                    <img src="./themes/images/down.png" alt="" width="100" height="100">
+                </div>
+                <div class="down-text">{{submitResult}}</div>
+                <div class="down-information">
+                    <div>
+                            <p>{{'analysis time' | translate}}:{{completeInfo?.analysisTime | I18nDate:'long'}}</p>
+                            <p>{{'InputPerson' | translate}}:{{completeInfo?.enteringPersonName | translate}}</p>
+                            <p>{{'analysisResult' | translate}}：{{completeInfo?.analysisResultId | applyInputStatus | translate}}</p>
+                    </div>
+                </div>
+                <div class="entry-next-item">
+                    <dx-button icon="fa fa-reply" class="grey-btn" text="{{'analysis next'| translate}}" (onClick)="goBack()" [disabled]="LoadingPanelVisible"></dx-button>
+                </div>
+            </wizard-step>
+        </form-wizard>
+    </div>
+</div>
+
+
+
+<!-- 保存前验证，给出相应提示 start 说明，验证框需要放在验证组里面 -->
+<dx-popup class="popupValidation popup" [width]="344" [height]="" [maxHeight]="475" title="{{'pupopinformation'|translate}}"
+    [shading]="false" [showTitle]="true" [dragEnabled]="true" [closeOnOutsideClick]="false" [(visible)]="validateVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div id="toast-container-error">
+            <div *ngFor="let rules of brokenRules">
+                <div class="toast toast-error">{{rules.message}}</div>
+            </div>
+        </div>
+    </div>
+</dx-popup>
+<!-- 保存前验证，给出相应提示 end -->
+
+<!-- 保存时的loading starter-->
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [(visible)]="loadingVisible" [showIndicator]="true" [showPane]="true"
+    [shading]="false" [closeOnOutsideClick]="false" (onShown)="onShown()">
+</dx-load-panel>
+<!-- 保存时的loading end-->
+
+<!-- popup公告附件图片弹窗 end-->

@@ -1,0 +1,189 @@
+<div class="navbar-fixed-top">
+    <header class="logo">
+        <!--首页头部块-->
+        <div class="logoLeft"></div>
+        <div class="logoBg"></div>
+        <div class="logoRight"></div>
+    </header>
+
+    <div class="loginLogout">
+        <div class="logoIcon" *ngIf="hiddenBar"></div>
+        <div class="login-nav">
+            <!-- 头部面包屑 -->
+            <ul class="login-path">
+                <li>&nbsp;
+                    <i class="home"></i>&nbsp;</li>
+                <li *ngIf="parentUrl">{{parentUrl|translate}} </li>
+                <li *ngIf="childrenUrl">/ {{childrenUrl|translate}} </li>
+            </ul>
+            <!--<div class="helpLogout-btn">
+                <div class="logutBtn" title="{{'exit'|translate}}" (click)="confirmExitApp()"></div>
+                <div class="helpBtn icon-AG-Help" title="{{'help'|translate}}" [hidden]='true' (click)="help()"></div>
+            </div>-->
+            <div id="exit" class="exitt topbar_button_top" (click)="confirmExitApp()"></div>
+            <ul class="login-state" (click)="conMinApp()">
+                <li title="{{'minimize' | translate}}">
+                    <i class="ag02 ag02-minimize" style="font-size:18px;"></i>
+                </li>
+            </ul>
+            <ul class="login-state" id="link1" (mouseenter)="toggleDefault()" (mouseleave)="toggleDefault()" (click)="editPassword()">
+                <li>
+                    <span class="dx-icon dx-icon-user"></span>
+                </li>
+            </ul>
+
+
+
+
+
+
+            <dx-popover target="#link1" position="bottom" [width]="280" [(visible)]="defaultVisible">
+                <div *dxTemplate="let data = model of 'content'">
+                    <span class="user-pic">
+                        <img src="{{personId|mfPerImgPipe|async}}" alt="" width="50" height="50">
+                    </span>
+                    <span class="user-box">
+                        <span class="user-name">{{personName}}</span>
+                        <span class="user-info">{{roleType|translate}}</span>
+                    </span>
+                    <span class="user-box1">
+                        <span class="user-info">{{centerCodeName|translate}}</span>
+                    </span>
+                </div>
+            </dx-popover>
+
+            <ul class="infoIcon" id="newMessage" (click)="lookMessage()">
+                <li>
+                    <span class="dx-icon dx-icon-message">
+                        <em>{{messegeCount}}</em>
+                    </span>
+                </li>
+            </ul>
+
+
+            <!--  <ul class="infoIcon"  (click)="menuToggle()">
+                <li *ngIf="!menuSwitch">
+                    <span class="fa fa-expand">
+                    </span>
+                </li>
+                <li *ngIf="menuSwitch">
+                     <span class="fa fa-arrows-alt">
+                    </span>
+                </li>
+            </ul> -->
+            <!--消息模态框-->
+            <dx-popup class="popup messagePopup" [width]="700" [height]="600" title="{{'messageList'|translate}}" [showTitle]="true"
+                [dragEnabled]="false" [closeOnOutsideClick]="true" [(visible)]="messageTipVisible" style="padding:0;">
+                <div *dxTemplate="let data = model of 'content'" style="padding:0;">
+                    <i class="ag02 ag02-empty square-sokite" title="{{'cleanMessage'|translate}}" (click)="clearAll()" style="cursor:pointer;"></i>
+                    <div class="tips col-md-12" *ngFor="let noticeMessage of noticeMessageList;let idx=index" #notice>
+                        <div class="col-md-2 photoDiv">
+                            <img src="{{noticeMessage.senderId|mfPerImgPipe|async}}" alt="" width="50" height="50">
+                        </div>
+                        <div class="col-md-6 contentDiv">
+                            <div class="tips-word">{{noticeMessage.content|translate}}</div>
+                            <div class="tips-time">
+                                <i class="fa fa-clock-o"></i> {{noticeMessage.zoneTime | I18nDate:'long'}}</div>
+                        </div>
+                        <div class="col-md-4 btnDiv">
+                            <span title="{{'viewDetails'|translate}}" style="margin-right:15px;">
+                                <dx-button *ngIf="noticeMessage.messageType!=null" icon="fa fa-send" class="btn" text="{{''| translate}}" (onClick)="onRouter(noticeMessage,idx)">
+                                </dx-button>
+                            </span>
+                            <span title="{{'flag to have been read'|translate}}">
+                                <dx-button class="btn" icon="fa fa-close" (click)="hasRead(noticeMessage,idx)" text="{{''|translate}}"></dx-button>
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </dx-popup>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- popup弹窗给出保存提示信息 starter-->
+<dx-popup class="popup confirmPopup" [width]="300" [height]="220" title="{{'warning'|translate}}" [showTitle]="true" [dragEnabled]="false"
+    [closeOnOutsideClick]="true" [(visible)]="confirmVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div class="proInfo" style="font-size:18px;">{{'are you sure to exit'|translate}}</div>
+        <div class="btns">
+            <dx-button icon="fa fa-check" id="yes" text="{{'confirm'| translate}}" class="red-btn" (click)="exitApp()"></dx-button>
+            <dx-button icon="fa fa-close" id="no" text="{{'cancel'| translate}}" class="grey-btn" (click)="cancelExitApp()"></dx-button>
+        </div>
+        <span class="icon-AG-Help"></span>
+    </div>
+</dx-popup>
+<!-- popup弹窗给出附件列表提示信息 end-->
+
+<!--popup帮助弹框 starter-->
+<dx-popup class="popup" [width]="1300" [height]="700" [showTitle]="true" [dragEnabled]="false" [closeOnOutsideClick]="true"
+    [(visible)]="helper">
+    <div *dxTemplate="let data of 'content'">
+        <div>
+            <helper style="float:left;width:200px"></helper>
+        </div>
+        <div>
+            <mark></mark>
+        </div>
+    </div>
+</dx-popup>
+<!--popup帮助弹框 end-->
+
+
+
+<!--popup修改密码-->
+<dx-popup class="popup" [width]="600" [height]="335" [showTitle]="true" [dragEnabled]="false" [closeOnOutsideClick]="false"
+    [(visible)]="editPasswordVisible" title="{{'change password'|translate}}">
+    <div *dxTemplate="let data of 'content'">
+        <dx-validation-group>
+            <div class="col-xs-12 edit-password">
+                <div class="col-xs-3 text">{{'username' | translate}}</div>
+                <div class="col-xs-9 dxInput">
+                    <dx-text-box [disabled]="true" [(ngModel)]="userName" name="userName">
+                    </dx-text-box>
+                </div>
+            </div>
+
+            <div class="col-xs-12 edit-password">
+                <div class="col-xs-3 text">{{'old passsword' | translate}}
+                    <span>*</span>
+                </div>
+                <div class="col-xs-9 dxInput">
+                    <dx-text-box name="oldPassword" [(ngModel)]="newUser.oldPassword" mode="password" placeholder="{{'old passsword'| translate}}">
+                        <dx-validator>
+                            <dxi-validation-rule type="required" message="{{'passsword is require'| translate}}"></dxi-validation-rule>
+                        </dx-validator>
+                    </dx-text-box>
+                </div>
+            </div>
+
+            <div class="col-xs-12 edit-password">
+                <div class="col-xs-3 text">{{'new password' | translate}}
+                    <span>*</span>
+                </div>
+                <div class="col-xs-9 dxInput">
+                    <dx-text-box [(ngModel)]="newUser.newPassword" name="newPassword" mode="password" placeholder="{{'new password'| translate}}">
+                        <dx-validator>
+                            <dxi-validation-rule type="required" message="{{'new password is require'| translate}}"></dxi-validation-rule>
+                        </dx-validator>
+                    </dx-text-box>
+                </div>
+            </div>
+
+            <div class="dx-field col-xs-12 edit-password">
+                <div class="col-xs-2 text"></div>
+                <div class="col-xs-10 auto-btn">
+                    <dx-button class="form-rest grey-btn" icon="fa fa-close" text="{{'cancel'|translate}}" (click)="cancel($event)">
+                    </dx-button>
+                    <dx-button class="form-submit red-btn" icon="fa fa-check" text="{{'confirm'|translate}}" (click)="sureEditPassword($event)">
+                    </dx-button>
+                </div>
+            </div>
+        </dx-validation-group>
+    </div>
+</dx-popup>

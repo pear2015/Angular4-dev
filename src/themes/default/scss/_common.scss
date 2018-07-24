@@ -1,0 +1,22 @@
+html, body {
+    overflow: hidden;
+    background: $background-color;
+    font-family:"Microsoft YaHei UI", 'Arial', '微软雅黑';
+}
+
+.layout {
+	position: absolute;
+}
+
+.clearfix:before, .clearfix:after {
+	display: table;
+	content: " ";
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+a:focus {
+	outline: none;
+}

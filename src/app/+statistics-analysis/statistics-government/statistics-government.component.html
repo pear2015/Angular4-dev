@@ -1,0 +1,207 @@
+<div class="chartsContainer" (window:resize)="onResize($event)">
+    <!--(window:resize)="onResize($event)"-->
+    <!--统计条件选择按钮 start-->
+    <div class="btnGroup">
+        <button class="btn btn-outline-primary c-btn-reset" [class.active]='isCountByDay' (click)="countByDay()">
+            <i class="fa fa-calendar"></i>
+                   {{'dayly-statistics'|translate}}
+        </button>
+
+        <button class="btn btn-outline-primary c-btn-reset" [class.active]='isCountByMonth' (click)="countByMonth()">
+            <i class="fa fa-calendar"></i>
+                {{'monthly-statistics'|translate}}
+        </button>
+
+        <button class="btn btn-outline-primary c-btn-reset" [class.active]='isCountByYears' (click)="countByYear()">
+
+            <i class="fa fa-calendar"></i>
+            {{'yearly-statistics'|translate}}
+        </button>
+
+        <button class="btn btn-outline-primary c-btn-reset" [class.active]='isCountByCustom' (click)="countByCustomTime()">
+            <i class="fa fa-clock-o"></i>
+                   {{'customTime'|translate}}
+        </button>
+
+        <div class="btn-group tab-group" style="float:right;">
+            <!--政府申请和时间-->
+            <button class="btn" id="governmentAndTime" [class.thisI]='isGovernmentAndTime' (click)="governmentNameAndTime()" title="{{'governmentAndTime'|translate}}">
+                <span class="img-bg">
+            <i class="fa fa-bank"></i>
+                </span>
+          </button>
+            <!--政府名称和时间-->
+            <button class="btn" id="governmentNameAndTime" [class.thisI]='isGovernmentNameAndTime' (click)="governmentAndTime()" title=" {{'governmentNameAndTime'|translate}}">
+               <span class="img-bg color-1"> <i class="fa fa-flag"></i></span>
+           </button>
+            <!--政府名称和办理用途-->
+            <button class="btn" id="governmentAndPurpose" [class.thisI]='isGovernmentAndPurpose' (click)="governmentAndPurpose()" title="{{'governmentAndPurpose'|translate}}">
+               <span class="img-bg color-2"> <i class="fa fa-dedent"></i></span>
+           </button>
+            <!--政府名称和办理结果-->
+            <button class="btn" id="governmentAndResult" [class.thisI]='isGovernmentAndResult' (click)="governmentAndResult()" title=" {{'governmentAndResult'|translate}}">
+                <span class="img-bg color-3"> <i class="fa fa-align-left"></i></span>
+           </button>
+            <!--办理结果和办理用途-->
+            <button class="btn" id="resultAndPurpose" [class.thisI]='isResultAndPurpose' (click)="resultAndPurpose()" title=" {{'resultAndPurpose'|translate}}">
+                <span class="img-bg color-4"><i class="fa fa-file-text-o"></i></span>
+            </button>
+        </div>
+    </div>
+    <div class="searchModel" [hidden]="isCondition">
+        <div class="searchBox" style="float:right;">
+            <div class="selectGroup" [hidden]="isConditionFirst">
+                <label style="width:150px;">{{'governmentName'|translate}}：</label>
+                <dx-text-box class="selectBox" [width]='400' [(ngModel)]="governmentName"></dx-text-box>
+            </div>
+            <div class="selectGroup" [hidden]="isPurpose">
+                <label style="width:150px;">{{'governmentPurpose'|translate}}：</label>
+                <dx-select-box class="selectBox" [width]='400' [(ngModel)]="applyPurpose" displayExpr="name" valueExpr="applyPurposeId" [searchEnabled]="true"
+                    [dataSource]="purposeList"></dx-select-box>
+            </div>
+            <div class="selectGroup" [hidden]="isResult">
+                <label style="width:150px;">{{'governmentResult'|translate}}：</label>
+                <dx-select-box class="selectBox" [width]='400' [(ngModel)]="applyResult" displayExpr="name" valueExpr="value" [searchEnabled]="true"
+                    [dataSource]="resultAll"></dx-select-box>
+            </div>
+            <!--<div class="btn">
+            <dx-button class="btn-outline-primary c-btn-reset" icon="fa fa-search" text="{{'search'|translate}}" (click)="getCondition()"></dx-button>
+            <button class="btn btn-outline-primary c-btn-reset" (click)="getCondition()">
+                    <i class="fa fa-search"></i>
+                    {{'search'|translate}}
+                </button>
+
+        </div>-->
+            <!--<dx-button class="btn-outline-primary c-btn-reset" icon="fa fa-refresh" text="{{'reset'|translate}}" type="normal" (click)="refreshData()"></dx-button>-->
+
+            <button class="btn red-btn c-btn-reset" (click)="getCondition()" style="margin-left:12px;" [hidden]="isSearchbtn">
+                    <i class="fa fa-search"></i>
+                    {{'search'|translate}}
+                </button>
+
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <!--统计图  start-->
+    <div class="chartsBox">
+        <div class="chartBox chartBoxHeight">
+
+            <h1 class="title  text-center">{{'government-statistics-table'|translate}}</h1>
+            <dx-pivot-grid class="dataList" [allowSortingBySummary]="true" [allowSorting]="true" [allowFiltering]="true" [allowExpandAll]="true"
+                [showBorders]="true" [dataSource]="dataSource" [showColumnGrandTotals]="true" [showRowGrandTotals]="true" [height]="300">
+                <dxo-export [enabled]="true" fileName="{{'government-statistics-table'|translate}}"></dxo-export>
+                <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
+                <dxo-scrolling [mode]="virtual"></dxo-scrolling>
+                <dxo-texts total="{0} {{'subtotal' | translate}}" [grandTotal]="grandTotal" [noData]="noData"></dxo-texts>
+            </dx-pivot-grid>
+               <div class="chartHeight">
+            <div class="chart chartWidth" #governmentStatisticsChartDiv></div>
+        </div>
+        </div>
+
+        
+    </div>
+    <!--统计图  end-->
+</div>
+
+<!--自定义时间弹窗 start-->
+<dx-popup class="popup customTimePopup" [width]="500" [height]="370" title="{{'customTime'|translate}}" [showTitle]="true"
+    [dragEnabled]="false" [closeOnOutsideClick]="true" [shading]="true" [(visible)]="customTimeVisible">
+    <div *dxTemplate="let data of 'content'">
+        <form>
+            <dx-select-box (onSelectionChanged)="selectedIndexOfDateType($event)" name="statisticsByDate" valueExpr="id" displayExpr="name"
+                [dataSource]="statisticsByDate"></dx-select-box>
+            <div class="row" [hidden]="yearStatistics">
+                <div>
+                    <label class="col-md-2">{{'beginTime'|translate}}:</label>
+                    <div class="col-md-4 input">
+                        <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [(ngModel)]="yearSearchBeginTime" maxZoomLevel="decade"
+                            [disabled]="yearStatistics" [(max)]="yearSearchEndTime?yearSearchEndTime:nowForYear" (onValueChanged)="timeChanged($event)"
+                            type="date" name="yearSearchBeginTime">
+                        </dx-date-box>
+                    </div>
+                    <label class="col-md-2">{{'to'|translate}}:</label>
+                    <div class="col-md-4 input">
+                        <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [(ngModel)]="yearSearchEndTime" maxZoomLevel="decade" [disabled]="yearStatistics"
+                            [max]="nowForYear" [(min)]="yearSearchBeginTime" type="date" (onValueChanged)="timeChanged($event)"
+                            name="yearSearchEndTime">
+                        </dx-date-box>
+                    </div>
+                </div>
+            </div>
+            <div class="row" [hidden]="monthStatistics">
+                <div>
+                    <label class="col-md-2">{{'beginTime'|translate}}:</label>
+                    <div class="col-md-4 input">
+                        <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [(ngModel)]="monthSearchBeginTime" maxZoomLevel="year"
+                            [disabled]="monthStatistics" [(min)]="minForStartMonth" [(max)]="monthSearchEndTime?monthSearchEndTime:nowForMonth"
+                            (onValueChanged)="startMonthChanged($event)" type="date" name="monthSearchBeginTime">
+                        </dx-date-box>
+                    </div>
+                    <label class="col-md-2">{{'to'|translate}}:</label>
+                    <div class="col-md-4 input">
+                        <dx-date-box #dateBox [showClearButton]="true" [acceptCustomValue]="false" [(ngModel)]="monthSearchEndTime" maxZoomLevel="year"
+                            [disabled]="monthStatistics" [max]="maxForEndMonth" [(min)]="monthSearchBeginTime?monthSearchBeginTime:firstMonthOfYear"
+                            type="date" (onValueChanged)="endMonthChanged($event)" name="monthSearchEndTime">
+                        </dx-date-box>
+                    </div>
+                </div>
+            </div>
+            <div class="row" [hidden]="dayStatistics">
+                <div>
+                    <label class="col-md-2">{{'beginTime'|translate}}:</label>
+                    <div class="col-md-4 input">
+                        <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [(ngModel)]="daySearchBeginTime" maxZoomLevel="month" [disabled]="dayStatistics"
+                            [min]="firstDayOfMonth" [(max)]="daySearchEndTime?daySearchEndTime:now" type="date" (onValueChanged)="timeChanged($event)"
+                            name="daySearchBeginTime">
+                        </dx-date-box>
+                    </div>
+                    <label class="col-md-2">{{'to'|translate}}:</label>
+                    <div class="col-md-4 input">
+                        <dx-date-box [showClearButton]="true" [acceptCustomValue]="false" [(ngModel)]="daySearchEndTime" maxZoomLevel="month" [disabled]="dayStatistics"
+                            [max]="now" [(min)]="daySearchBeginTime?daySearchBeginTime:firstDayOfMonth" type="date" (onValueChanged)="timeChanged($event)"
+                            name="daySearchEndTime">
+                        </dx-date-box>
+                    </div>
+                </div>
+            </div>
+            <div class="btn">
+                <dx-button icon="fa fa-search" class="red-btn" id="searchButton" text="{{'search'|translate}}" (click)="searchByCustomTime()"
+                    [(disabled)]="searchBtn"></dx-button>
+            </div>
+        </form>
+    </div>
+</dx-popup>
+<!--自定义时间弹窗 end-->
+
+<!--政府申请和时间-->
+<!--<dx-tooltip target="#governmentAndTime" position="top" [(visible)]="governmentAndTimeVisible">
+    <div *dxTemplate="let data = data of 'content'">
+        {{'governmentAndTime'|translate}}
+    </div>
+</dx-tooltip>-->
+<!--政府名称和时间-->
+<!--<dx-tooltip target="#governmentNameAndTime" position="top" [(visible)]="governmentNameAndTimeVisible">
+    <div *dxTemplate="let data = data of 'content'">
+        {{'governmentNameAndTime'|translate}}
+    </div>
+</dx-tooltip>-->
+<!--政府名称和办理用途-->
+<!--<dx-tooltip target="#governmentAndPurpose" position="top" [(visible)]="governmentAndPurposeVisible">
+    <div *dxTemplate="let data = data of 'content'">
+        {{'governmentAndPurpose'|translate}}
+    </div>
+</dx-tooltip>-->
+<!--政府名称和办理结果-->
+<!--<dx-tooltip target="#governmentAndResult" position="top" [(visible)]="governmentAndResultVisible">
+    <div *dxTemplate="let data = data of 'content'">
+        {{'governmentAndResult'|translate}}
+    </div>
+</dx-tooltip>-->
+<!--办理结果和办理用途-->
+<!--<dx-tooltip target="#resultAndPurpose" position="top" [(visible)]="resultAndPurposeVisible">
+    <div *dxTemplate="let data = data of 'content'">
+        {{'resultAndPurpose'|translate}}
+    </div>
+</dx-tooltip>-->

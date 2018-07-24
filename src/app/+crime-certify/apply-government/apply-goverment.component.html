@@ -1,0 +1,387 @@
+<!--提交遮罩层start-->
+<!-- <div class="formShadow" [hidden]="showFormShadow"></div> -->
+<!--提交遮罩层end-->
+<form-wizard (nextEvent)="nextEventValidata($event)" (submitEvent)="onSubmit(applyInfoForm,$event)" (analysisEvent)="toAnalysis($event)">
+    <wizard-step [title]="['attachmentManage' | translate]">
+        <div class="attachment attachment-change-width">
+            <crms-attchment [imageFileList]="attachmentList" [onlyForApplyAnalysis]='true' [controllFlag]="attchmentControllObj" (completeUpload)="saveApplyGovermentInfo($event)"
+                (errorUpload)="uploadError($event)"></crms-attchment>
+        </div>
+    </wizard-step>
+
+    <!-- 申请信息 -->
+    <wizard-step [title]="['applyInfo' | translate]">
+        <div class="col-xs-8">
+            <div class="tabLeft notice-input-left">
+                <govement-info [applyInfo]="applyInfo" [applyPurposeList]="applyPurposeList" [priorityList]="priorityList" [isHasReason]="isReason"
+                    [isEdit]="isEdit" (clearInfo)="showConfirmPopup($event)"></govement-info>
+            </div>
+        </div>
+
+        <div class="col-xs-4 attachment-watch-wrap">
+            <div class="attachment attachment-change-width attachment-watch">
+                <crms-attchment [imageFileList]="attachmentList" [onlyForApplyAnalysis]='true' [controllFlag]="attchmentWatchObj" (completeUpload)="saveApplyGovermentInfo($event)"
+                    (errorUpload)="uploadError($event)"></crms-attchment>
+            </div>
+        </div>
+    </wizard-step>
+
+
+
+
+    <!-- 申请个人信息 "-->
+    <wizard-step [title]="['applyBasicInfo' | translate]" [showAnalysis]="showAnalysisButton" [showNext]="showNext">
+        <div class="col-xs-8">
+            <div class="tabLeft padding-top-10 notice-input-left">
+                <govementBasic-info [applyBasicInfo]="applyBasicInfo" [applyInfo]="applyInfo" [isAnalysised]="isAnalysised" [criminalInfo]="criminalInfo"
+                    (basicInfoEmit)="getapplyBasicInfo($event)" [dataCount]="dataCount" [crimeNoticeQuery]="crimeNoticeQuery"
+                    [(isEdit)]="isEdit" (clearInfo)="showConfirmPopup($event)"></govementBasic-info>
+                <h1 class="title">{{'countryOfCitizenship'|translate}}</h1>
+                <dx-validation-group>
+                    <div class="row">
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'countryOfCitizenship'| translate}}</label>
+                            <div class="dxInput">
+                                <dx-select-box [(ngModel)]="applyBasicInfo.countryOfCitizenship" (onSelectionChanged)="selectIndexOfCountryShip($event)"
+                                    valueExpr="name" displayExpr="name" [dataSource]="countryOfCitizenshipEnum " name="countryOfCitizenship"
+                                    [readOnly]="isEdit">
+                                </dx-select-box>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'provinceName'| translate}}</label>
+                            <div class="dxInput">
+                                <dx-select-box [(ngModel)]="applyBasicInfo.provinceName" [searchEnabled]="true" [(disabled)]="showCountryDetailPlace" (onSelectionChanged)="selectIndexOfProvince($event)"
+                                    valueExpr="provinceName" displayExpr="provinceName" [dataSource]="provinceList" name="provinceName"
+                                    id="provinceName" [readOnly]="isEdit"></dx-select-box>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'cityName'| translate}}</label>
+                            <div class="dxInput">
+                                <dx-select-box [(ngModel)]="applyBasicInfo.cityName" [searchEnabled]="true" [(disabled)]="showCountryDetailPlace" (onSelectionChanged)="selectIndexOfCity($event)"
+                                    valueExpr="cityName" displayExpr="cityName" [dataSource]="cityList" name="cityName" id="cityName"
+                                    [readOnly]="isEdit"></dx-select-box>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'communityName'| translate}}</label>
+                            <div class="dxInput">
+                                <dx-select-box [(ngModel)]="applyBasicInfo.communityName" [searchEnabled]="true" [(disabled)]="showCountryDetailPlace" valueExpr="communityName"
+                                    displayExpr="communityName" [dataSource]="communityList" name="communityName" id="communityName"
+                                    [readOnly]="isEdit"></dx-select-box>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <h1 class="title">{{'livingDetailAddress'| translate}}</h1>
+                    <div class="row">
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'livingCountryName'| translate}}</label>
+                            <div class="dxInput">
+                                <dx-select-box [(ngModel)]="applyBasicInfo.livingCountryName" name="livingCountryName" (onSelectionChanged)="selectIndexOfLivingCountry($event)"
+                                    valueExpr="name" displayExpr="name" [dataSource]="countryOfCitizenshipEnum" [readOnly]="isEdit">
+                                </dx-select-box>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'livingProvinceName'| translate}}</label>
+                            <div class="dxInput">
+                                <dx-select-box [(ngModel)]="applyBasicInfo.livingProvinceName" [searchEnabled]="true" [disabled]="showLivingDetailAddress"
+                                    name="livingProvinceName" (onSelectionChanged)="selectIndexOfLivingProvince($event)" valueExpr="provinceName"
+                                    displayExpr="provinceName" [dataSource]="livingProvinceList" [readOnly]="isEdit"></dx-select-box>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'livingCityName'| translate}}</label>
+                            <div class="dxInput">
+                                <dx-select-box [(ngModel)]="applyBasicInfo.livingCityName" [searchEnabled]="true" [disabled]="showLivingDetailAddress" name="livingCityName"
+                                    (onSelectionChanged)="selectIndexOfLivingCity($event)" valueExpr="cityName" displayExpr="cityName"
+                                    [dataSource]="livingCityList" [readOnly]="isEdit"></dx-select-box>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'livingCommunityName'| translate}}</label>
+                            <div class="dxInput">
+                                <dx-select-box [(ngModel)]="applyBasicInfo.livingCommunityName" [searchEnabled]="true" [disabled]="showLivingDetailAddress"
+                                    name="livingCommunityName" valueExpr="communityName" displayExpr="communityName" [dataSource]="livingCommunityList"
+                                    [readOnly]="isEdit"></dx-select-box>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="textarea-p">
+                        <label>{{'detailAddress'| translate}}</label>
+
+                        <div class="textAreaDiv">
+                            <dx-text-area class="textAreaCrime" [maxLength]="2000" [(ngModel)]="applyBasicInfo.detailAddress" name="detailAddress" id="detailAddress"
+                                valueChangeEvent="keyup" [readOnly]="isEdit">
+                                <dx-validator>
+                                    <dxi-validation-rule type="stringLength" [max]="2000" message="{{'must less than 2000 symbols'| translate}}"></dxi-validation-rule>
+                                </dx-validator>
+                            </dx-text-area>
+                            <span class="wordwrap">
+                                <var class="word">{{applyBasicInfo.detailAddress?applyBasicInfo.detailAddress.length:0}}</var>/2000</span>
+
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+
+                    <h1 class="title ">{{'otherFeature'| translate}}</h1>
+
+                    <div class="row">
+                        <div class="col-sm-12 inputBox">
+                            <label>{{'profession'| translate}}</label>
+                            <div class="dxInput">
+                                <dx-text-box [maxLength]="128" [(ngModel)]="applyBasicInfo.profession" name="profession" id="profession" [readOnly]="isEdit">
+                                    <dx-validator>
+                                        <dxi-validation-rule type="stringLength" [max]="128" message="{{'must less than 128 symbols'| translate}}"></dxi-validation-rule>
+                                    </dx-validator>
+                                </dx-text-box>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'career'| translate}}</label>
+                            <div class="dxInput">
+                                <!--<dx-text-box [maxLength]="128" [(ngModel)]="applyBasicInfo.careerId" name="career" id="career" [readOnly]="isEdit">
+                                                <dx-validator>
+                                                    <dxi-validation-rule type="stringLength" [max]="128" message="{{'must less than 128 symbols'| translate}}"></dxi-validation-rule>
+                                                </dx-validator>
+                                            </dx-text-box>-->
+                                <dx-select-box [(ngModel)]="applyBasicInfo.careerId" name="careerId" valueExpr="careerId" displayExpr="name" [dataSource]="careerList">
+                                </dx-select-box>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 inputBox">
+                            <label>{{'contractPhone'| translate}}</label>
+                            <div class="dxInput">
+                                <dx-text-box [maxLength]="10" [(ngModel)]="applyBasicInfo.contractPhone" name="contractPhone" id="contractPhone" [readOnly]="isEdit">
+                                    <dx-validator>
+                                        <dxi-validation-rule type="pattern" [pattern]="telephoneRegex" message="{{'please fill in the correct phoneNumber'| translate}}"></dxi-validation-rule>
+                                    </dx-validator>
+                                </dx-text-box>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="textarea-p">
+                        <label>{{'otherFeature'| translate}}</label>
+
+                        <div class="textAreaDiv">
+                            <dx-text-area class="textAreaCrime" [maxLength]="2000" [(ngModel)]="applyBasicInfo.otherFeature" name="otherFeature" id="otherFeature"
+                                valueChangeEvent="keyup" [readOnly]="isEdit">
+                                <dx-validator>
+                                    <dxi-validation-rule type="stringLength" [max]="2000" message="{{'must less than 2000 symbols'| translate}}"></dxi-validation-rule>
+                                </dx-validator>
+                            </dx-text-area>
+                            <span class="wordwrap">
+                                <var class="word">{{applyBasicInfo.otherFeature?applyBasicInfo.otherFeature.length:0}}</var>/2000</span>
+                        </div>
+
+                    </div>
+
+                    <div class="textarea-p">
+                        <label>{{'applyBasicInfoDescription'| translate}}</label>
+
+                        <div class="textAreaDiv">
+                            <dx-text-area class="textAreaCrime" [maxLength]="2000" [(ngModel)]="applyBasicInfo.description" name="description" id="description"
+                                valueChangeEvent="keyup" [readOnly]="isEdit">
+                                <dx-validator>
+                                    <dxi-validation-rule type="stringLength" [max]="2000" message="{{'must less than 2000 symbols'| translate}}"></dxi-validation-rule>
+                                </dx-validator>
+                            </dx-text-area>
+                            <span class="wordwrap">
+                                <var class="word">{{applyBasicInfo.description?applyBasicInfo.description.length:0}}</var>/2000</span>
+                        </div>
+                    </div>
+                </dx-validation-group>
+            </div>
+        </div>
+        <div class="col-xs-4 attachment-watch-wrap">
+            <div class="attachment attachment-change-width attachment-watch">
+                <notice-attachment [imageFileList]="attachmentList" [controllFlag]="attchmentWatchObj"></notice-attachment>
+            </div>
+        </div>
+    </wizard-step>
+
+    <!-- 待合并罪犯列表-->
+    <wizard-step [title]="['wait merging list' | translate]" [hidden]="showCrimeList">
+        <analysis-result [applyInfo]="applyInfo" [crimeNoticeQuery]="crimeNoticeQuery" [isAnalysised]="isAnalysised" [applyBasicInfo]="applyBasicInfo"
+            [dataCount]="dataCount" [criminalInfo]="criminalInfo" [rejectReason]="rejectReason" [applyRejectReasonLength]="applyRejectReasonLength"
+            [applyAndCriminalRelation]="applyAndCriminalRelation" [isCheckedDisabled]="false" [isRejected]="isRejected" [crimePersonInfo]="crimePersonInfo"
+            [hasSelectCrimePersonId]="hasSelectCrimePersonId" [isEdit]="isEdit" (crimeNoticeEmit)="getCrimeNoticeEmit($event)"></analysis-result>
+    </wizard-step>
+
+
+    <!-- 录入意见 -->
+    <wizard-step [title]="['Input comments' | translate]" [showComplete]="true" [showNext]="false" [hidden]="showCrimeList">
+        <dx-validation-group>
+            <div class="notice-option">
+                <dx-button icon="fa fa-check" text="{{'hasCriminalRecord'| translate}}" class="grey-btn" (onClick)="enterOption(1)" [ngClass]="{'green-btn':applyInfo.analysisResultId == '1'}"></dx-button>
+                <dx-button icon="fa fa-check" text="{{'noCriminalRecord'| translate}}" class="grey-btn" (onClick)="enterOption(2)" [ngClass]="{'red-btn':applyInfo.analysisResultId == '2'}"></dx-button>
+            </div>
+            <div class="notice-reject-reson" [hidden]="isRejected">
+                <div class="textarea-p margin-top0" style="padding:0 10px;">
+                    <div class="textAreaDiv" [hidden]="isRejected">
+                        <div class="textarea-p">
+                            <label>{{'auditRejectReason' | translate}}</label>
+                            <div class="textAreaDiv">
+                                <dx-text-area class="textAreaCrime" [(ngModel)]="rejectReason" name="rejectReason" id="rejectReason" valueChangeEvent="keyup"
+                                    [readOnly]="isEdit">
+                                </dx-text-area>
+                                <span class="wordwrap">
+                                    <var class="word">{{rejectReason?rejectReason.length:0}}</var>/2000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="wordwrap">
+                        <var class="word">{{rejectEnterReasonLength}}</var>/1000</span>
+                </div>
+            </div>
+
+            <div class="notice-option-description">
+                <!-- <p>说明:</p> -->
+                <div class="description-wrap">
+                    {{'agreeeEnter' | translate}}
+                    <br/> {{'if confirm not fail...' | translate}}
+                    <br/> {{'rejectEnter' | translate}}：
+                    <br/> {{'if confirm not pass...' | translate}}
+                </div>
+            </div>
+        </dx-validation-group>
+    </wizard-step>
+
+    <!-- 完成 -->
+    <wizard-step [title]="['complete' | translate]" [showPrev]="false">
+        <div class="down-img">
+            <img src="./themes/images/down.png" alt="" width="100" height="100" *ngIf="completeInfo">
+            <img src="./themes/images/fail.png" alt="" width="100" height="100" *ngIf="!completeInfo">
+        </div>
+        <div class="down-text">{{submitResult}}</div>
+        <div class="down-information">
+            <div>
+                <p>{{'applyTime' | translate }}:{{completeInfo?.applyTime | I18nDate:'long'}}</p>
+                <p>{{'enteringPersonName' | translate}}:{{completeInfo?.enteringPersonName}}</p>
+                <p>{{'analysisResult' | translate}}：{{completeInfo?.analysisResultId | applyInputStatus | translate}}</p>
+            </div>
+        </div>
+        <div class="entry-next-item">
+            <dx-button icon="fa fa-pencil" text="{{'entering next item'| translate}}" class="grey-btn" (onClick)="enterNextItem(applyInfoForm)"></dx-button>
+            <dx-button id="btn" [hidden]="!showPrint || historyFlag" icon="fa fa-print" type="default" text="{{'print certificate'| translate}}"
+                (onClick)="printCertificate()">
+            </dx-button>
+        </div>
+    </wizard-step>
+</form-wizard>
+
+
+
+
+
+
+<!--高拍仪弹框-->
+<dx-popup class="popup" [width]="880" [height]="820" title="{{'camera' | translate}}" [showTitle]="true" [dragEnabled]="false"
+    [closeOnOutsideClick]="false" [(visible)]="popupCameraVisible">
+    <div *dxTemplate="let data = model of 'content'">
+        <camera [isVisible]="popupCameraVisible" (captureEvent)="addCapture2Uploader($event)"></camera>
+    </div>
+</dx-popup>
+<!--高拍仪弹框-->
+
+<!-- 保存前验证，给出相应提示 start 说明，验证框需要放在验证组里面 -->
+
+<dx-popup class="popupValidation popup" [width]="344" [height]="" [maxHeight]="475" title="{{'pupopinformation'|translate}}"
+    [shading]="false" [showTitle]="true" [dragEnabled]="true" [closeOnOutsideClick]="true" [(visible)]="validateVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div id="toast-container-error">
+            <div *ngFor="let rules of brokenRules">
+                <div class="toast toast-error">{{rules.message}}</div>
+            </div>
+        </div>
+    </div>
+</dx-popup>
+
+<!-- 保存前验证，给出相应提示 end -->
+
+
+
+<!-- 右边图片弹窗 starter-->
+<div class="seeImagePopup">
+    <dx-popup class="popup" [width]="1300" [height]="800" [shading]="false" [position]="{my:'center',at:'center',of:window}"
+        [resizeEnabled]="false" [dragEnabled]="true" [closeOnOutsideClick]="false" [(visible)]="popupImageVisible">
+        <div *dxTemplate="let data of 'content'">
+            <carousel [(activeSlide)]="activeSlideIndex" [interval]="0">
+                <slide *ngFor="let item of imageList  let i = index">
+                    <img id="image" [src]="item" width="100%" height="600px" class="img-responsive" />
+                </slide>
+            </carousel>
+            <div class="thumbnailImg">
+                <ul class="thumbnail" style.width="{{thumbnailWidth}}">
+                    <li *ngFor="let item of imageList let j = index" (click)="thumbnailClick(j)">
+                        <img [src]="item" width="100" height="50">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </dx-popup>
+</div>
+<!-- 右边图片弹窗 end-->
+
+<!-- 保存时的loading starter-->
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [(visible)]="loadingVisible" [showIndicator]="true" [showPane]="true"
+    [shading]="false" [closeOnOutsideClick]="false" (onShown)="onShown()">
+</dx-load-panel>
+<!-- 保存时的loading end-->
+
+<mf-print [applyInfo]="certificateInfo"></mf-print>
+<!-- popup公告附件图片弹窗 starter-->
+<div class="seeImagePopup">
+    <dx-popup class="popup" [width]="1300" [height]="800" [shading]="false" [position]="{my:'center',at:'center',of:window}"
+        [resizeEnabled]="false" [dragEnabled]="true" [closeOnOutsideClick]="false" [(visible)]="popupNoticeImageVisible">
+        <div *dxTemplate="let data of 'content'">
+            <carousel [(activeSlide)]="activeSlideIndex" [interval]="0">
+                <slide *ngFor="let item of noticeImagePathList  let i = index">
+                    <img id="image" [src]="item" width="100%" height="600px" class="img-responsive" />
+                </slide>
+            </carousel>
+            <div class="thumbnailImg">
+                <ul class="thumbnail" style.width="{{thumbnailWidth}}">
+                    <li *ngFor="let item of noticeImagePathList let j = index" (click)="thumbnailClick(j)">
+                        <img [src]="item" width="100" height="50">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </dx-popup>
+</div>
+<!-- popup公告附件图片弹窗 end-->
+
+
+<!--清除按钮-->
+<dx-popup class="popup confirmPopup" [width]="300" [height]="220" title="{{'pupopinformation'|translate}}" [showTitle]="true"
+    [dragEnabled]="false" [closeOnOutsideClick]="true" [(visible)]="confirmVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div class="proInfo">{{'are you sure to clear'|translate}}</div>
+        <div class="btns">
+            <dx-button icon="fa fa-check" id="yes" text="{{'confirm'| translate}}" class="red-btn" (click)="clearThisInfo()"></dx-button>
+            <dx-button icon="fa fa-close" id="no" text="{{'cancel'| translate}}" class="grey-btn" (click)="cancelclear()"></dx-button>
+        </div>
+        <span class="icon-AG-Help"></span>
+    </div>
+</dx-popup>

@@ -1,0 +1,45 @@
+<div class="login-bg-body">
+    <!--<div class="login-bg">
+    </div>-->
+    <div class="helpLogout-btn login-home-out">
+        <!--<div class="logutBtn" title="{{'Exit'|translate}}" (click)=""></div>-->
+        <dx-button class="btn-loginout" (onClick)="confirmExitApp()" icon="./themes/images/logout.png">
+        </dx-button>
+    </div>
+    <div class="login-container">
+        <!--<h1 class="login-h1">
+            <img src="./themes/images/logo-login.png" />
+        </h1>-->
+        <div class="login-left-img"> <img src="./themes/images/login-left.png" /></div>
+        <form class="login-form" name="login" (ngSubmit)="login()" novalidate>
+            <dx-text-box class="login-dxinput" maxLength="20" [(ngModel)]="username" name="username" id="username" placeholder="{{'username'| translate}}">
+            </dx-text-box>
+            <dx-text-box required class="login-dxinput" mode="password" maxLength="20" [(ngModel)]="password" name="password" id="password"
+                placeholder="{{'password'| translate}}">
+            </dx-text-box>
+            <dx-button class="login-button" text="{{'Login' | translate}}" [useSubmitBehavior]="true" [disabled]="loginBtnDisabled">
+            </dx-button>
+        </form>
+        <div [hidden]="isNotAuth">{{errorMessage}}</div>
+        <div [hidden]="usernameNotEmpty">{{'username-be-empty'|translate}}</div>
+        <div [hidden]="passwordNotEmpty">{{'password-be-empty'|translate}}</div>
+    </div>
+    <!--<div class="login-clound-bg"></div>-->
+    <!--<div class="bottom_footer">
+        {{copyright}} Version : {{version}}
+    </div>-->
+</div>
+
+
+
+<!-- popup弹窗给出保存提示信息 starter-->
+<dx-popup class="popup confirmPopup" [width]="300" [height]="150" title="{{'pupopinformation'|translate}}" [showTitle]="false"
+    [dragEnabled]="false" [closeOnOutsideClick]="true" [(visible)]="confirmVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div class="proInfo">{{'are you sure to exit'|translate}}</div>
+        <div class="btns">
+            <dx-button id="yes" text="{{'confirm'| translate}}" class="red-btn" (click)="exitApp()"></dx-button>
+            <dx-button id="no" text="{{'cancel'| translate}}" class="grey-btn" (click)="cancelExitApp()"></dx-button>
+        </div>
+    </div>
+</dx-popup>

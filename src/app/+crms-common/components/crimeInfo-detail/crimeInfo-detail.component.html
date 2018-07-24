@@ -1,0 +1,28 @@
+
+    <div id="content">
+        <div class="crime-detial-main col-xs-9" style="margin-top:20px;">
+            <noticeInfo-read [noticeInfo]="noticeInfo"></noticeInfo-read>
+            <crimeInfo-read [crimeInfo]="crimeInfo"></crimeInfo-read>
+            <div [hidden]="personId!=null||personId!=undefined" class="preiw-annex">
+                <dx-button icon="fa fa-reply" class="grey-btn" text="{{'getBack'| translate}}" (click)="goBack()"></dx-button>
+            </div>
+        </div>
+        <!--公告附件列表 start-->
+        <div class="attachment" style="position:absolute;right:20px;top:20px !important;">
+            <crms-attchment [viewAttachmentFlag]="true" [imageFileList]="noticeImagePathList" [controllFlag]="attchmentControllObj" [onlyForApplyAnalysis]='false'>
+            </crms-attchment>
+        </div>
+        <!--公告附件列表 end-->
+        <div class="notice-list-button" [hidden]="noticeInfoList && noticeInfoList.length == 1">
+            <div class="button-pre" id="button-pre"><i class="fa fa-chevron-up" (click)="noticeListPrev()" [hidden]="noticeInfoList && noticeInfoList.length < 4"></i></div>
+            <div class="notice-list-main">
+                <ul>
+                    <li *ngFor="let item of noticeInfoList, let i = index" (click)="noticeForId(item.noticeId,i)" class="button-list" [ngClass]="{'active':i==num}">
+                        <div class="notice-time">{{item.noticeCreateTime |I18nDate}}</div>
+                        <div><i class="fa fa-clone"></i></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="button-pre" id="button-next"><i class="fa fa-chevron-down" (click)="noticeListNext()" [hidden]="noticeInfoList && noticeInfoList.length < 4"></i></div>
+        </div>
+    </div>

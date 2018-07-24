@@ -1,0 +1,137 @@
+{
+  "version": "1.4.9-rc+build.18032315",
+  "apiBaseUrl": "http://172.18.24.250:18020/crms-server/",
+  "OrganizationUrl": "http://172.18.24.139:8080/system-server/",
+  "storeFileUrl": "http://172.18.24.250:18020/crms-server/api/v1/crms/file/store",
+  "getFileUrl": "http://172.18.24.250:18020/crms-server/api/v1/crms/file/get",
+  "logSvrUrl": "http://172.18.24.140:8080/logaudit/api/v1/logs/operation",
+  "getlogSvrUrl": "http://172.18.24.140:8080/logaudit/api/v1/logs/operationlog",
+  "socketConnectUrl": "http://172.18.24.250:18024/",
+  "socketApiBaseUrl": "http://172.18.24.250:18023/socket-server/",
+  "copyright": "Copyright 2016 - 2017 © gsafety.com",
+  "loadingDuration": 600,
+  "isEnableAuth": true,
+  "expiration-minute": 60,
+  "imageFormat": [
+    "png",
+    "jpg",
+    "jpeg",
+    "bmp"
+  ],
+  "socketEvent": [
+    "operatorEvent",
+    "analystEvent",
+    "auditorEvent",
+    "filerEvent"
+  ],
+  "lang": "pt-PT",
+  "imageSize": 5,
+  "imageCount": 5,
+  "countryId": 1,
+  "gauthBaseUrl": "https://172.18.24.140:8089/gauth/",
+  "clientId": "65c2f5d66ba3d25515bcl9aq1",
+  "clientSecret": "4780e2f973c282131b1ep3wo1",
+  "userName": "manager2",
+  "password": "123456",
+  "scope": "super,userManage,personal",
+  "urls": [{
+    "name": "getUserInfo",
+    "url": "clients/{0}/user_info?access_token={1}"
+  }, {
+    "name": "getAccessSystem",
+    "url": "user/clients?access_token={0}"
+  }, {
+    "name": "getMenu",
+    "url": "clients/{0}/roles/{1}/menu_nodes?access_token={2}"
+  }, {
+    "name": "getCriminalInfo",
+    "url": "/api/v1/statistics/crimeInfo/get/dateType/region/{0}"
+  }, {
+    "name": "getCriminalType",
+    "url": "/api/v1/statistics/crimeInfo/get/dateType/crimeType/{0}"
+  }, {
+    "name": "getCourtInfo",
+    "url": "/api/v1/statistics/crimeNotice/get/dateType/court/{0}"
+  }, {
+    "name": "getSystemUse",
+    "url": "/api/v1/statistics/sysUsage/get/dateType/region/{0}"
+  }],
+  "idnumberRegex": "^[0-9]{9}[A-Z]{2}[0-9]{3}$",
+  "telephoneRegex": "^\\d+\\-?\\d+$",
+  "otherCertificateTypeRegex": "^\\d*[A-Za-z]*[0-9A-Za-z]*$",
+  "NationalCenterDirector": "./themes/images/nationalCenterDirector.png",
+  "userNameRegex": "^[0-9A-Za-z]+\\.*\\_*[0-9A-Za-z]+$",
+  "ocrFillBackRulesObj": [{
+    "key": "Nome",
+    "mapToAttributes": "firstName",
+    "rule": "Nome.*",
+    "keyOfAfterReplace": "Nome",
+    "belongModel": "crimePsesonInfo"
+  },{
+    "key": "Profissão",
+    "mapToAttributes": "profession",
+    "rule": "Profissão.*",
+    "keyOfAfterReplace": "Profissão",
+    "belongModel": "crimePsesonInfo"
+  },{
+    "key": "Local de emissão",
+    "mapToAttributes": "credentialsIssuePlace",
+    "rule": "Local\\s*de\\s*emissão.*",
+    "keyOfAfterReplace": "Local\\s*de\\s*emissão",
+    "belongModel": "crimePsesonInfo"
+  }, {
+    "key": "Nome do pai",
+    "mapToAttributes": "fatherFirstName",
+    "rule": "Nome\\s*do\\s*pai.*",
+    "keyOfAfterReplace": "Nome\\s*do\\s*pai",
+    "belongModel": "crimePsesonInfo"
+  },{
+    "key": "Sobrenome do pai",
+    "mapToAttributes": "fatherLastName",
+    "rule": "Sobrenome\\s*do\\s*pai.*",
+    "keyOfAfterReplace": "Sobrenome\\s*do\\s*pai",
+    "belongModel": "crimePsesonInfo"
+  },{
+    "key": "Nome da mãe",
+    "mapToAttributes": "motherFirstName",
+    "rule": "Nome\\s*da\\s*mãe.*",
+    "keyOfAfterReplace": "Nome\\s*da\\s*mãe",
+    "belongModel": "crimePsesonInfo"
+  }, {
+    "key": "Sobrenome da mãe",
+    "mapToAttributes": "motherLastName",
+    "rule": "Sobrenome\\s*da\\s*mãe.*",
+    "keyOfAfterReplace": "Sobrenome\\s*da\\s*mãe",
+    "belongModel": "crimePsesonInfo"
+  }, {
+    "key": "Bases do julgamento",
+    "mapToAttributes": "crimeResult",
+    "rule": "Bases\\s*do\\s*julgamento.*",
+    "keyOfAfterReplace": "Bases\\s*do\\s*julgamento",
+    "belongModel": "crimeInfo"
+  },{
+    "key": "Descrição",
+    "mapToAttributes": "crimeDescription",
+    "rule": "Descrição.*",
+    "keyOfAfterReplace": "Descrição",
+    "belongModel": "crimeInfo"
+  }, {
+    "key": "Nota",
+    "mapToAttributes": "note",
+    "rule": "Nota.*",
+    "keyOfAfterReplace": "Nota",
+    "belongModel": "noticeInfo"
+  }, {
+    "key": "Descrição",
+    "mapToAttributes": "noticeDescription",
+    "rule": "Descrição.*",
+    "keyOfAfterReplace": "Descrição",
+    "belongModel": "noticeInfo"
+  }, {
+    "key": "Nº do boletim",
+    "mapToAttributes": "noticeNumber",
+    "rule": "Nº\\s*do\\s*boletim.*",
+    "keyOfAfterReplace": "Nº\\s*do\\s*boletim",
+    "belongModel": "noticeInfo"
+  }]
+}

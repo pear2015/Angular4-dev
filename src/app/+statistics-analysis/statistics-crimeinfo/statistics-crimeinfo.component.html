@@ -1,0 +1,68 @@
+<!-- 犯罪信息统计和犯罪类型分析-->
+<div class="chartsContainer" (window:resize)="onResize($event)">
+    <div class="btnGroup">
+
+
+        <crms-statistics-dimension (statisticsByCustomTimeClicked)="statisticsByCustomTime($event)" (statisticsByYearClicked)="statisticsByYearClicked($event)"
+            (statisticsByMonthClicked)="statisticsByMonthClicked($event)" (statisticsByTodayClicked)="statisticsByTodayClicked($event)">
+        </crms-statistics-dimension>
+        <div class="btn-group tab-group" style="float:right;">
+            <button #regionAndType class="btn" [class.thisI]="box1" title="{{'crimetype-crimeregion'|translate}}" (click)="regionXAixsSwitch()">
+            <span class="img-bg">
+            <i class="fa fa-flag"></i>
+            </span>
+            </button>
+            <button #timeAndType class="btn" [class.thisI]="box2" title="{{'crimetype-crimetime'|translate}}" (click)="typeXAixsSwitch()">
+             <span class="img-bg color-1">
+            <i class="fa fa-tasks"></i>
+             </span>
+            </button>
+            <button #timeAndRegion class="btn" [class.thisI]="box3" title="{{'crimetime-crimeregion'|translate}}" (click)="dateXAixsSwitch()">
+             <span class="img-bg color-2">
+            <i class="fa fa-file-text-o"></i>
+             </span>
+            </button>
+        </div>
+    </div>
+    <div class="searchModel">
+        <div class="searchBox" style="float:right;">
+            <p class="selectGroup" *ngIf="crimeRegionVisible==true">
+                <label style="width:150px;">{{'crimeRegion'| translate}}</label>
+                <dx-select-box class="selectBox" [(ngModel)]="defaultProvinceId" [dataSource]="provinceList" valueExpr="provinceId" displayExpr="provinceName"
+                   [searchEnabled]="true"></dx-select-box>
+            </p>
+
+            <p class="selectGroup" *ngIf="crimeTypeVisible==true">
+                <label>{{'crimeType'|translate}}</label>
+                <dx-select-box class="selectBox" [(ngModel)]="defaultCrimeTypeId"
+                    [dataSource]="crimeTypeList" displayExpr="crimeTypeName" valueExpr="crimeTypeId" [searchEnabled]="true">
+                </dx-select-box>
+            </p>
+            <button class="btn red-btn c-btn-reset" (click)="search()" style="margin-left:12px;">
+                    <i class="fa fa-search"></i>
+                    {{'search'|translate}}
+                </button>
+        </div>
+
+    </div>
+
+
+    <div class="clearfix"></div>
+    <div class="chartsBox">
+        <div class="chartBox chartBoxHeight">
+            <h1 class="title text-center">{{'crimeInfo-statistics-table'|translate}}</h1>
+            <dx-pivot-grid class="dataList" [allowSortingBySummary]="true" [allowSorting]="true" [allowFiltering]="true" [allowExpandAll]="true"
+                [showBorders]="true" [dataSource]="dataSource" [showColumnGrandTotals]="true" [showRowGrandTotals]="true" [height]="300">
+
+                <dxo-export [enabled]="true" fileName="{{'crimeInfo-statistics-table'|translate}}"></dxo-export>
+                <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
+                <!--<dxo-scrolling [mode]="virtual"></dxo-scrolling>-->
+                <dxo-texts total="{0}" [grandTotal]="grandTotal"></dxo-texts>
+            </dx-pivot-grid>
+            <div class="chartHeight">
+               <div class="chart chartWidth" #chartDiv></div>
+            </div>
+        </div>
+        
+    </div>
+</div>

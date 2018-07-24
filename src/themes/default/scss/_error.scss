@@ -1,0 +1,66 @@
+.error {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 101;
+    margin-top: 0px;
+}
+
+.error-center {
+    width: 100%;
+    height: 90%;
+    background-color: #fff;
+    position: relative;
+}
+
+.error-center-absolute {
+    position: absolute;
+    left: 20%;
+    top: 18%;
+    height: auto;
+    width: 80%;
+    margin-top: -30px;
+    margin-left: -30px;
+}
+
+
+/* 异常界面样式 */
+
+.err-image {
+    float: left;
+    width: auto;
+    height: auto;
+}
+
+.err-details {
+    float: left;
+    width: 50%;
+    height: auto;
+    margin-top: 8%;
+    margin-left: 8%;
+}
+
+.err-bottom {
+    height: 20%;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    background: #fff;
+}
+
+.err-bottom-hide {
+    display: block;
+    cursor: pointer;
+    float: right;
+    color: blue;
+    margin-right: 100px;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.collapse-content {
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+    height: 300px;
+}

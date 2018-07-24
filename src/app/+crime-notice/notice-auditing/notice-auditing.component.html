@@ -1,0 +1,20 @@
+<!--审核中公告开始 -->
+<div class="list-common-width">
+    <div class="common-title">{{title| translate}}</div>
+</div>
+<div class="list-common-content">
+    <div>
+        <dx-button icon="fa fa-send" (click)="watchNoticeDetail()" text="{{'viewDetails' | translate}}" class="grey-btn" [disabled]="isWatchDetail"></dx-button>
+        <dx-button class="refresh-btn grey-btn" icon="fa fa-refresh" (click)="refreshList()" text="{{'refresh' | translate}}"></dx-button>
+    </div>
+    <div class="space-15">
+        <notice-inquire [noticeList]="noticeList" [searchInfoParam]="searchInfoParam" [isShowApportionTime]="false" [dataCount]="totalCount" (getNoticeIdEmit)="getNoticeId($event)"
+            (searchInfoParamEmit)="getSearchInfoParamEmit($event)" [title]="title"></notice-inquire>
+    </div>
+</div>
+<!--审核中公告结束 -->
+<!-- 查询时的loading starter-->
+<dx-load-panel #submitLoadPanel shadingColor="rgba(0,0,0,0.4)" [position]="{my:'center',at:'center', of: '#gridContainer' }"
+    [(visible)]="LoadingPanelVisible" [showIndicator]="true" [showPane]="true" [shading]="false" [closeOnOutsideClick]="false">
+</dx-load-panel>
+<!-- 查询时的loading end-->

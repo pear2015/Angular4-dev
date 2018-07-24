@@ -1,0 +1,168 @@
+<!--<mf-loading></mf-loading>-->
+<div class="chartsContainer" (window:resize)="onResize($event)">
+    <div class="btnGroup">
+
+        <crms-statistics-dimension (statisticsByYearClicked)="countByYear()" (statisticsByMonthClicked)="countByMonth()" (statisticsByTodayClicked)="countByDay()"
+            (statisticsByCustomTimeClicked)="countByCustomTime($event)"></crms-statistics-dimension>
+
+        <!--<button class="btn btn-outline-primary c-btn-reset" [class.active]='isCountByYear' (click)="countByYear()">
+            <i class="fa fa-calendar"></i>
+            {{'yearly-statistics'|translate}}
+        </button>
+        <button class="btn btn-outline-primary c-btn-reset" [class.active]='isCountByMonth' (click)="countByMonth()">
+            <i class="fa fa-calendar"></i>
+            {{'monthly-statistics'|translate}}
+        </button>
+        <button class="btn btn-outline-primary c-btn-reset" [class.active]='isCountByday' (click)="countByDay()">
+            <i class="fa fa-calendar"></i>
+            {{'daily-statistics'|translate}}
+        </button>
+
+        <button class="btn btn-success c-btn-reset" [class.active]='isCountByCustom' (click)="customTimePopup()">
+            <i class="fa fa-clock-o"></i>
+            {{'customTime'|translate}}
+        </button>-->
+        <div class="btn-group tab-group">
+            <button class="btn" [class.thisI]="dimensionFlag === 'typeAndCenter' " (click)="typeAndCenterDimension('typeAndCenter')"
+                title="{{'applyType-center' | translate}}">
+                <span class="img-bg">
+                 <i class="fa fa-globe"></i>
+                </span>
+            <!-- 申请类型和所在地维度图标 -->
+            </button>
+
+            <button class="btn" [class.thisI]="dimensionFlag === 'typeAndPurpose'" (click)="typeAndPurposeDimension('typeAndPurpose')"
+                title="{{'applyType-purpose' | translate}}">
+                <span class="img-bg color-1">
+                <i class="fa fa-qrcode"></i>
+                </span>
+            <!-- 申请类型和申请目的维度图标 -->
+            </button>
+
+            <button class="btn" [class.thisI]="dimensionFlag === 'purposeAndCenter'" (click)="purposeAndCenterDimension('purposeAndCenter')"
+                title="{{'applyPurpose-center' | translate}}">
+                <span class="img-bg color-2">
+                <i class="fa fa-plane"></i>
+                </span>
+            <!-- 申请目的和采集点维度图标 -->
+            </button>
+
+            <button class="btn" [class.thisI]="dimensionFlag === 'timeAndApplyResult'" (click)="timeAndApplyResultDimension('timeAndApplyResult')"
+                title="{{'avgTime-applyResult' | translate}}">
+                <span class="img-bg color-3">
+                <i class="fa fa-flag"></i>
+                </span>
+            <!-- 平均时长和申请结果维度图标-->
+            </button>
+
+            <button class="btn" [class.thisI]="dimensionFlag === 'timeAndAuditResult'" (click)="timeAndAuditResultDimension('timeAndAuditResult')"
+                title="{{'avgTime-auditResult' | translate}}">
+                <span class="img-bg color-4">
+                <i class="fa fa-bookmark"></i>
+                </span>
+            <!-- 平均时长和审核结果维度图标-->
+            </button>
+
+        </div>
+    </div>
+    <div class="searchModel">
+        <div class="searchBox" style="float:right;">
+            <div class="selectGroup" [hidden]="applyTypeVisible">
+                <label style="width:150px;">{{'applyTypeName'| translate}}</label>
+                <dx-select-box class="selectBox" [(ngModel)]="businessQueryInfo.applyTypeId" [dataSource]="applyTypeEnum" valueExpr="value"
+                    displayExpr="name" itemTemplate="itemTemplate">
+                    <div *dxTemplate="let fieldItem of 'itemTemplate'">
+                        <div title="{{fieldItem.name}}" class="search-long-title">{{fieldItem.name}}</div>
+                   </div>
+                </dx-select-box>
+            </div>
+
+            <div class=" selectGroup" [hidden]="applyPurposeVisible">
+                <label style="width:200px;">{{'applyPurpose'| translate}}</label>
+                <dx-select-box class="selectBox" [(ngModel)]="businessQueryInfo.applyPurposeId" [dataSource]="applyPurposeList" valueExpr="applyPurposeId" itemTemplate="itemTemplate"
+                    displayExpr="name">
+                    <div *dxTemplate="let fieldItem of 'itemTemplate'">
+                        <div title="{{fieldItem.name}}" class="search-long-title">{{fieldItem.name}}</div>
+                   </div>
+                </dx-select-box>
+            </div>
+
+            <div class=" selectGroup" [hidden]="CenterVisible">
+                <label style="width:200px;">{{'applyCenterName'| translate}}</label>
+                <dx-select-box class="selectWidth" [(ngModel)]="businessQueryInfo.centerCode" [dataSource]="centerCodeList" valueExpr="stationCode" itemTemplate="itemTemplate"
+                    displayExpr="stationName" [searchEnabled]="true">
+                    <div *dxTemplate="let fieldItem of 'itemTemplate'">
+                        <div title="{{fieldItem.stationName}}" class="search-long-title">{{fieldItem.stationName}}</div>
+                   </div>
+                </dx-select-box>
+            </div>
+
+            <div class=" selectGroup" [hidden]="AverageTimeVisible">
+                <label style="width:200px;">{{'averageTime'| translate}}</label>
+                <dx-select-box class="selectBox" [(ngModel)]="businessQueryInfo.averageTime" [dataSource]="averageTimeEnum" valueExpr="value" itemTemplate="itemTemplate"
+                    displayExpr="name" [searchEnabled]="true">
+                    <div *dxTemplate="let fieldItem of 'itemTemplate'">
+                        <div title="{{fieldItem.name}}" class="search-long-title">{{fieldItem.name}}</div>
+                   </div>
+                </dx-select-box>
+            </div>
+
+            <div class=" selectGroup" [hidden]="applyResultVisible">
+                <label style="width:200px;">{{'governmentResult'| translate}}</label>
+                <dx-select-box class="selectBox" [(ngModel)]="businessQueryInfo.applyResultId" [dataSource]="applyResultEnum" valueExpr="value" itemTemplate="itemTemplate"
+                    displayExpr="name" [searchEnabled]="true">
+                    <div *dxTemplate="let fieldItem of 'itemTemplate'">
+                        <div title="{{fieldItem.name}}" class="search-long-title">{{fieldItem.name}}</div>
+                   </div>
+                </dx-select-box>
+            </div>
+
+            <div class=" selectGroup" [hidden]="auditResultVisible">
+                <label style="width:200px;">{{'business-result'| translate}}</label>
+                <dx-select-box class="selectBox" [(ngModel)]="businessQueryInfo.auditResultId" [dataSource]="auditResultEnum" valueExpr="value" itemTemplate="itemTemplate"
+                    displayExpr="name" [searchEnabled]="true">
+                    <div *dxTemplate="let fieldItem of 'itemTemplate'">
+                        <div title="{{fieldItem.name}}" class="search-long-title">{{fieldItem.name}}</div>
+                   </div>
+                </dx-select-box>
+            </div>
+
+
+            <button class="btn red-btn c-btn-reset" (click)="search()" [hidden]="applyTypeVisible && CenterVisible && applyPurposeVisible
+                    && AverageTimeVisible && applyResultVisible && auditResultVisible" style="margin-left:12px;">
+                    <i class="fa fa-search"></i>
+                    {{'search'|translate}}
+                </button>
+
+            <!--<button class="btn btn-outline-primary c-btn-reset" (click)="resetSearchForm()" [hidden]="applyTypeVisible && CenterVisible && applyPurposeVisible
+                    && AverageTimeVisible && applyResultVisible && auditResultVisible">
+                    <i class="fa fa-refresh"></i>
+                    {{'reset'|translate}}
+                </button>-->
+
+        </div>
+    </div>
+
+
+
+    <div class="clearfix"></div>
+    <!--<div style="height:34px">
+    </div>-->
+    <!--<mf-type-selector class="c-btn-float-right" (onSelected)="onSelected($event)"></mf-type-selector>-->
+    <div class="chartsBox">
+        <!--<mf-error></mf-error>-->
+        <div class="chartBox chartBoxHeight">
+            <h1 class="title text-center">{{'business-statistics-table'|translate}}</h1>
+            <dx-pivot-grid class="dataList" [allowSortingBySummary]="true" [allowSorting]="true" [allowFiltering]="true" [allowExpandAll]="true"
+                [showBorders]="true" [dataSource]="dataSource" [showColumnGrandTotals]="true" [showRowGrandTotals]="true" [height]="300">
+                <dxo-export [enabled]="true" fileName="{{'business-statistics-table'|translate}}"></dxo-export>
+                <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
+                <dxo-scrolling [mode]="virtual"></dxo-scrolling>
+                <dxo-texts total="{0}" [grandTotal]="grandTotal"></dxo-texts>
+            </dx-pivot-grid>
+            <div class="chartHeight">
+               <div class="chart chartWidth" #businessStatisticsChartDiv></div>
+            </div>
+        </div>
+    </div>
+</div>

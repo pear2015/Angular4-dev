@@ -1,0 +1,37 @@
+<div class="wizard-card">
+    <div class="card-header">
+        <ul class="nav nav-justified">
+            <li class="nav-item" *ngFor="let step of steps;let i = index" [ngClass]="{'active': step.isActive, 'enabled': !step.isDisabled, 'disabled': step.isDisabled, 'completed': isCompleted}">
+                <div class="notice-entry-top">
+                    <div class="commom-width">
+                        <div class="entry-order">
+                            <div class="number" *ngIf="!(activeStepIndex > i)">{{i+1}}</div>
+                            <div class="number" *ngIf="activeStepIndex > i" style=" border:solid 1px #ef6052">
+                                <i class="fa fa-check" style="color:#ef6052;"></i>
+                            </div>
+                            <p [innerHtml]="step.title"></p>
+                        </div>
+                        <div class="three-cicle">
+                            <i class="fa fa-circle"></i>
+                            <i class="fa fa-circle"></i>
+                            <i class="fa fa-circle"></i>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="card-block">
+        <ng-content></ng-content>
+    </div>
+    <div class="card-footer" [hidden]="isCompleted">
+        <button type="button" class="btn btn-secondary" (click)="previous()" [hidden]="!hasPrevStep || !activeStep.showPrev">{{'previous' | translate}}</button>
+        <button type="button" class="btn btn-secondary next" (click)="nextEmit(activeStepIndex)" [disabled]="!activeStep.isValid" [hidden]="!hasNextStep || !activeStep.showNext">{{'next' | translate}}</button>
+        <!-- <button type="button" class="btn btn-secondary" (click)="complete()" [disabled]="!activeStep.isValid" [hidden]="hasNextStep">完成</button> -->
+         <dx-button type="default"  class="red-btn" [disabled]="!activeStep.isValid" [hidden]="!activeStep.showComplete"  text="{{'complete'| translate}}" (onClick)="submitEmit($event)"></dx-button>
+
+         <dx-button type="button"  class="red-btn"  [disabled]="!activeStep.isValid" [hidden]="!activeStep.showAnalysis"  text="{{'analysis'| translate}}" (onClick)="analysisEmit($event)"></dx-button>
+       <!--  <dx-button id="btn" [hidden]="activeStepIndex!=2" class="next" text="{{'下一步'| translate}}" (onClick)="analysisEmit($event)"></dx-button> -->
+    </div>
+</div>

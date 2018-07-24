@@ -1,0 +1,58 @@
+<div>
+    <accordion [closeOthers] = "oneAtTime">
+        <accordion-group #group>
+            <div accordion-heading>
+                <span>犯罪公告管理</span>
+                <i class="pull-right float-xs-right glyphicon" [ngClass]="{'glyphicon-plus': group?.isOpen,'glyphicon-minus': !group?.isOpen}"></i>
+            </div>
+            <ul>
+                <li (click)="push(1)">公告录入</li>
+                <li (click)="push(2)">公告查询</li>
+            </ul>
+        </accordion-group>
+
+        <accordion-group #group>
+            <div accordion-heading>
+                <span>犯罪证明申请管理</span>
+                <i class="pull-right float-xs-right glyphicon" [ngClass]="{'glyphicon-plus': group?.isOpen,'glyphicon-minus': !group?.isOpen}"></i>
+            </div>
+            <ul>
+                <li (click)="push(3)">个人申请</li>
+                <li (click)="push(4)">政府申请</li>
+            </ul>
+        </accordion-group>
+
+        <accordion-group #group>
+            <div accordion-heading>
+                <span>犯罪证明分析管理</span>
+                <i class="pull-right float-xs-right glyphicon" [ngClass]="{'glyphicon-plus': group?.isOpen,'glyphicon-minus': !group?.isOpen}"></i>
+            </div>
+            <ul>
+                <li (click)="push(5)">个人申请分析</li>
+            </ul>
+        </accordion-group>
+
+        <accordion-group #group>
+            <div accordion-heading>
+                <span>犯罪证明审核管理</span>
+                <i class="pull-right float-xs-right glyphicon" [ngClass]="{'glyphicon-plus': group?.isOpen,'glyphicon-minus': !group?.isOpen}"></i>
+            </div>
+            <ul>
+                <li (click)="push(6)">申请审核</li>
+            </ul>
+        </accordion-group>
+
+        <accordion-group #group>
+            <div accordion-heading>
+                <span>统计分析</span>
+                <i class="pull-right float-xs-right glyphicon" [ngClass]="{'glyphicon-plus': group?.isOpen,'glyphicon-minus': !group?.isOpen}"></i>
+            </div>
+            <ul>
+                <li (click)="push(7)">工作量统计</li>
+                <li (click)="push(8)">个人申请统计</li>
+                <li (click)="push(9)">政府申请统计</li>
+                <li (click)="push(10)">犯罪信息统计</li>
+            </ul>
+        </accordion-group>
+    </accordion>
+</div>

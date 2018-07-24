@@ -1,0 +1,90 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?dt2vzd');
+  src:  url('../fonts/icomoon.eot?dt2vzd#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?dt2vzd') format('truetype'),
+    url('../fonts/icomoon.woff?dt2vzd') format('woff'),
+    url('../fonts/icomoon.svg?dt2vzd#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-AG-Help:before {
+  content: "\e900";
+  color: #fff;
+}
+.icon-AG-Log-Audit-Management:before {
+  content: "\e901";
+  color: #fff;
+}
+.icon-AG-Crime-Verification-management:before {
+  content: "\e902";
+  color: #fff;
+}
+.icon-AG-Business-Statistics:before {
+  content: "\e903";
+  color: #fff;
+}
+.icon-AG-Government-Application-Statistics:before {
+  content: "\e904";
+  color: #fff;
+}
+.icon-AG-Individual-Application-Statistics:before {
+  content: "\e905";
+  color: #fff;
+}
+.icon-AG-Statistical-Analysis:before {
+  content: "\e906";
+  color: #fff;
+}
+.icon-AG-Criminal-Proof:before {
+  content: "\e907";
+  color: #fff;
+}
+.icon-AG-Apply-For-Re-Analysis:before {
+  content: "\e908";
+  color: #fff;
+}
+.icon-AG-Government-Has-Applied:before {
+  content: "\e909";
+  color: #fff;
+}
+.icon-AG-Government-Application:before {
+  content: "\e90a";
+  color: #fff;
+}
+.icon-AG-Individual-Application-Analysis:before {
+  content: "\e90b";
+  color: #fff;
+}
+.icon-AG-Application-Information-Management:before {
+  content: "\e90c";
+  color: #fff;
+}
+.icon-AG-Criminal-Notice-Management:before {
+  content: "\e90d";
+  color: #fff;
+}
+.icon-AG-Criminal-Information-Management:before {
+  content: "\e90e";
+  color: #fff;
+}
+.icon-AG-Analysis-And-Management-Of-Crime-Proof:before {
+  content: "\e90f";
+  color: #fff;
+}

@@ -1,0 +1,57 @@
+<h1 class="title margin-top0"> {{'crimeNotice'|translate}}</h1>
+
+<!-- 公告基本信息 starr-->
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label class="">{{'noticeNumber'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{noticeInfo.noticeNumber}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label class="">{{'noticeCreateTime'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{noticeInfo.noticeCreateTime | I18nDate}}</span>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label class="">{{'courtName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{noticeInfo.courtName}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label class="">{{'priority'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{noticeInfo.priorityName}}</span>
+        </div>
+    </div>
+</div>
+
+
+<div class="textarea-p">
+    <label style=" margin-left:0 ">{{'noticeDescription'| translate}}</label>
+    <div class="textAreaDiv" style=" margin-right:0 ">
+        <span class="readInfo">{{noticeInfo.noticeDescription}}</span>
+    </div>
+</div>
+
+
+
+<div class="textarea-p">
+    <label style=" margin-left:0 ">{{'noticeNote'| translate}}</label>
+    <div class="textAreaDiv" style=" margin-right:0 ">
+        <span class="readInfo">{{noticeInfo.note}}</span>
+    </div>
+</div>
+
+
+
+<!-- 公告基本信息 end-->

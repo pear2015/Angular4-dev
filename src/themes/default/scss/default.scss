@@ -1,0 +1,47 @@
+//@import 'node_modules/@progress/kendo-theme-bootstrap/scss/all';
+@import 'variables';
+@import 'common';
+@import 'icons';
+@import 'homepage';
+@import 'layout';
+@import 'content';
+@import 'filterlist';
+@import 'typeselector';
+@import 'synctime';
+@import 'loading';
+@import 'error';
+@import 'login';
+@import 'dropdown';
+@import 'dxspa';
+@import 'dxcommon';
+@import 'dxlight';
+//@import 'dxdark';
+@import 'level';
+// @import 'styles';
+@import 'customer';
+@import 'crms';
+@import 'statistics';
+@import 'toast';
+@import 'prism';
+@import 'history';
+@import 'AG-icon';
+@import 'crime-inquire';
+@import 'new-all-style';
+.c-container {
+    @extend %full-width;
+    @extend %full-height;
+    margin: $common-space $common-space $common-space $common-space;
+}
+
+.c-btn-float-left {
+    height: $btn-group-height;
+    float: left;
+}
+
+
+.c-btn-float-right {
+    height: $btn-group-height;
+    float: right;
+}
+
+

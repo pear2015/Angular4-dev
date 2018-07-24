@@ -1,0 +1,109 @@
+<!--公告附件列表 start-->
+
+<div class="attachment-list" *ngIf="viewAttachmentFlag">
+    <h1 class="attachment-title">{{'attachmentManage'|translate}}</h1>
+    <div *ngFor="let fileItem of imageFileList;let i = index" class="fileWrapper">
+        <div class="col-md-2 imgDiv">
+            <img [(src)]="fileItem.filePathContent" alt="">
+        </div>
+        <div class="col-md-7 fileNameDiv" title="{{fileItem.fileName}}">
+            {{fileItem.fileName}}
+        </div>
+        <div class="col-md-2 buttonDiv">
+            <button type="button" (click)="ocrRecognize(fileItem.filePathContent)" title="{{'Click to OCR' | translate}}" *ngIf="controllFlag.ocrRecognize">
+            <i class="fa fa-search"></i>
+        </button>
+            <button id="preview" type="button" (click)="seeAllImage(i)" *ngIf="controllFlag.preview" title="{{'imagePreview' | translate}}">
+            <i class="fa fa-eye"></i>
+        </button>
+            <button id="removeSingle" type="button" (click)="removeSingle(i)" title="{{'click to remove single attachment'|translate}}"
+                *ngIf="controllFlag.removeSingle">
+            <i class="fa fa-trash-o"></i>
+        </button>
+        </div>
+    </div>
+</div>
+
+<!-- 附件预览模式 -->
+<div class="preview-attachment-list fileWrapper" *ngIf="!viewAttachmentFlag">
+    <carousel [activeSlide]="0" [interval]="0">
+        <slide *ngFor="let item of imageFileList  let i = index">
+            <div class="attachment-list-title">
+                <div class="col-md-10 fileNameDiv" title="{{item.fileName}}">{{item.fileName}}</div>
+                <div class="col-md-2 buttonDiv">
+                    <button type="button" (click)="ocrRecognize(item.filePathContent)" title="{{'Click to OCR' | translate}}" *ngIf="controllFlag.ocrRecognize">
+                            <i class="fa fa-search"></i>
+                        </button>
+
+                    <button id="removeSingle" type="button" (click)="removeSingle(i)" title="{{'click to remove single attachment'|translate}}"
+                        *ngIf="controllFlag.removeSingle">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                </div>
+            </div>
+            <div class="attachment-list-img">
+                <img id="image" [src]="item.filePathContent" width="100%" height="100%" class="img-responsive" />
+            </div>
+        </slide>
+    </carousel>
+</div>
+
+
+<div class="upload col-md-12" *ngIf="controllFlag.uploadFile">
+    <span class="fileInputSpan" [class.btnActive]='isWillUpload' (mousedown)="willUpload()" (mouseup)="activeUpload()" (click)="popupCamera()">
+        <span id="fileInput">
+            <i class="fa fa-plus"></i>
+        </span>
+    </span>
+</div>
+
+<div class="upload col-md-12 file-none" *ngIf="nofileFlag">
+    <i class="fa fa-file"></i>
+    <span>No files</span>
+</div>
+<!--公告附件列表 end-->
+
+<!--高拍仪弹框-->
+<dx-popup class="popup" [width]="580" [height]="890" title="{{'camera' | translate}}" [showTitle]="true" [dragEnabled]="false"
+    [closeOnOutsideClick]="false" [(visible)]="popupCameraVisible">
+    <div *dxTemplate="let data = model of 'content'">
+        <camera [isVisible]="popupCameraVisible" (captureEvent)="addCapture2Uploader($event)"></camera>
+    </div>
+</dx-popup>
+<!--高拍仪弹框-->
+
+<!-- 图片预览 starter-->
+<div class="seeImagePopup">
+    <dx-popup class="popup" title="{{'imagePreview'|translate}}" [width]="595" [height]="902" [shading]="false" [position]="{my:'center',at:'center',of:window}"
+        [resizeEnabled]="false" [dragEnabled]="true" [closeOnOutsideClick]="false"  [(visible)]="popupImageVisible">
+        <div *dxTemplate="let data of 'content'">
+            <carousel [(activeSlide)]="activeSlideIndex" [interval]="0">
+                <slide *ngFor="let item of imageFileList  let i = index">
+                    <img id="image" [src]="item.filePathContent" width="100%" height="100%" class="img-responsive" />
+                </slide>
+            </carousel>
+            <div class="thumbnailImg" style="width:595px;">
+<ul class="thumbnail" style.width="{{thumbnailWidth}}">
+    <li *ngFor="let item of imageFileList let j = index" (click)="thumbnailClick(j)">
+        <img [src]="item.filePathContent" width="45" height="60">
+    </li>
+</ul>
+</div>
+</div>
+</dx-popup>
+</div>
+<!-- 图片预览 end-->
+<!-- 保存时的loading starter-->
+<dx-load-panel #loadPanel shadingColor="rgba(0,0,0,0.4)" [(visible)]="loadingVisible" [showIndicator]="true" [showPane]="true"
+    [shading]="true" [closeOnOutsideClick]="false">
+</dx-load-panel>
+<!-- 保存时的loading end-->
+
+<!--ocr弹窗-->
+<dx-popup class="popup" [width]="900" [height]="550" title="{{'identifyMessage'|translate}}" [showTitle]="true" [(visible)]="ocrTextVisible"
+    [shading]="false">
+    <div *dxTemplate="let data of 'content'">
+        <dx-text-area width="840" height="440" [(ngModel)]="ocrText"></dx-text-area>
+    </div>
+</dx-popup>
+<!--ocr-->

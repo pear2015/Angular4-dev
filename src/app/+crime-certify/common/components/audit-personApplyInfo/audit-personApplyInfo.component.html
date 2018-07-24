@@ -1,0 +1,100 @@
+<h1 class="title margin-top0">{{'applyInfo'|translate}}</h1>
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'applyTypeName' | translate}}</label>
+        <div class="dxInput">
+            <dx-text-box class="readInfo" [(ngModel)]="applyInfo.applyTypeName" name="applyTypeName" disabled="true"></dx-text-box>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'applyTime' | translate}}</label>
+        <div class="dxInput">
+            <dx-text-box class="readInfo" [(ngModel)]="applyInfo.applyTimeshow" name="applyTimeshow" disabled="true"></dx-text-box>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'applyPersonType'| translate}}</label>
+        <div class="dxInput">
+              <div class="dxInput">
+            <dx-text-box class="readInfo" disabled="true" [(ngModel)]="applyInfo.applyPersonType" name="applyPersonType" disabled="true"></dx-text-box>
+        </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'applyCenterName'| translate}}</label>
+        <div class="dxInput">
+            <dx-text-box class="readInfo" disabled="true" [(ngModel)]="applyInfo.applyCenterName" name="applyCenterName" disabled="true"></dx-text-box>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 inputBox" [hidden]="!applyInfo.agentIdType">
+        <label>{{'agentIdType'| translate}}</label>
+        <div class="dxInput">
+             <div class="dxInput">
+            <dx-text-box class="readInfo" disabled="true" [(ngModel)]="applyInfo.agentIdTypeName" name="agentIdTypeName" disabled="true"></dx-text-box>
+        </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox" [hidden]="!applyInfo.agentIdType">
+        <label>{{'agentIdNumber'| translate}}</label>
+        <div class="dxInput">
+            <dx-text-box class="readInfo" [(ngModel)]="applyInfo.agentIdNumber" name="agentIdNumber" disabled="true"></dx-text-box>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'applyPurpose'| translate}}</label>
+        <div class="dxInput">
+            <dx-text-box class="readInfo" [(ngModel)]="applyInfo.applyPurposeName" name="applyPurposeName" disabled="true">
+            </dx-text-box>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'priority'| translate}}</label>
+        <div class="dxInput">
+            <dx-text-box class="readInfo" [(ngModel)]="applyInfo.priorityName" name="priorityName" disabled="true">
+            </dx-text-box>
+        </div>
+    </div>
+</div>
+
+<div class="textarea-p" [hidden]="showOtherPurposeReason">
+    <label>{{'applyOtherPurposeReason' | translate}}</label>
+    <div class="textAreaDiv">
+        <dx-text-area class="textAreaCrime" [(ngModel)]="applyInfo.otherPurposeReason" name="otherPurposeReason" [readOnly]="true"></dx-text-area>
+        <!--<span class="wordwrap"><var class="word">{{applyInfo.otherPurposeReason.length}}</var>/2000</span>-->
+    </div>
+</div>
+
+<div class="textarea-p">
+    <label style="margin-left:0;">{{'applyDescription' | translate}}</label>
+
+    <div class="textAreaDiv" style="margin-right:0;">
+        <dx-text-area class="readInfo textAreaCrime " [(ngModel)]="applyInfo.applyDescription" name="applyDescription" [readOnly]="true">
+        </dx-text-area>
+        <!--<span class="wordwrap"><var class="word" >{{applyInfo.applyDescription.length}}</var>/2000</span>-->
+    </div>
+
+</div>
+
+<div class="textarea-p">
+    <label style="margin-left:0;">{{'noticeNote' | translate}}</label>
+    <div class="textAreaDiv" style="margin-right:0;">
+        <dx-text-area class="readInfo textAreaCrime" [(ngModel)]="applyInfo.note" name="note" [readOnly]="true">
+        </dx-text-area>
+        <!--<span class="wordwrap"><var class="word" >{{applyInfo.note.length}}</var>/2000</span>-->
+    </div>
+</div>

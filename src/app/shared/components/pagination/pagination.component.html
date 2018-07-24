@@ -1,0 +1,16 @@
+<div class="common-pagination">
+  <pagination
+  [totalItems] = "totalCount"
+  [(ngModel)]="numPage"
+  [maxSize]= "5"
+  class=""
+  [boundaryLinks]="true"
+  firstText ="<img src = './themes/images/page-fp.png'>"
+  lastText ="<img src = './themes/images/page-ep.png'>"
+  nextText = "<img src = './themes/images/page-next.png'>"
+  previousText = "<img src = './themes/images/page-last.png'>"
+  [itemsPerPage]="itemsPerPage"
+  (pageChanged) = "pageChanged($event)"
+  >
+  </pagination>
+</div>

@@ -1,0 +1,87 @@
+<h1 class="title margin-top0">{{'applyInfo' | translate}}</h1>
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'govermentProcessNumber'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.govermentProcess}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'govermentInfoName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.govermentInfo}}</span>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'applyPurpose'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.applyPurposeName}}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 inputBox">
+        <label>{{'applyCenterName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.applyCenterName}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="textarea-p" [hidden]="showOtherPurposeReason">
+    <label>{{'applyOtherPurposeReason' | translate}}</label>
+    <div class="textAreaDiv">
+        <span class="readInfo">{{applyInfo.otherPurposeReason}}
+        </span>
+        <!--<span class="wordwrap"><var class="word" >{{applyOtherPurposeReasonLength}}</var>/2000{{}}</span>-->
+    </div>
+</div>
+
+
+<div class="row">
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'provinceName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.provinceName}}</span>
+        </div>
+    </div>
+
+
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'cityName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.cityName}}</span>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-6 inputBox">
+        <label>{{'communityName'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.communityName}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6 inputBox">
+        <label>{{'priority'| translate}}</label>
+        <div class="dxInput">
+            <span class="readInfo">{{applyInfo.priorityName}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="textarea-p">
+    <label style=" margin-left:0;">{{'applyNote'| translate}}</label>
+    <div class="textAreaDiv"  style=" margin-right:0;">
+        <span class="readInfo">{{applyInfo.note}}</span>
+        <!--<span class="wordwrap"><var class="word" >{{applynoteDescriptionLength}}</var>/2000{{}}</span>-->
+    </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="list-common-width">
+    <div class="common-title">{{'ApplyHistoryRecordInquire' | translate}}</div>
+</div>
+<div class="list-common-content">
+    <div>
+        <dx-button icon="fa fa-send" id="searchButton" class="inquire-btn grey-btn"  text="{{'watch' | translate}}" (click)="seeApplyInformation()"
+            [disabled]="!applyObj"></dx-button>
+        <dx-button icon="fa fa-history" class="grey-btn" (click)="watchHistoryRecord()" id="" text="{{'record History' | translate}}"
+            [disabled]="!applyObj"></dx-button>
+            <div class="pull-right refresh-btn" *ngIf="formAnimate =='hidden'" title="{{'show the search form' | translate}}">
+                <dx-button icon="fa fa-search" class="grey-btn search-btn" (click)="showForm(formNum)" text="{{'Advanced Search' | translate}}"></dx-button>
+            </div>
+
+            <div class="pull-right refresh-btn" *ngIf="formAnimate =='show'" title="{{'hidden the search form' | translate}}">
+                <dx-button icon="fa fa-search" class="grey-btn search-btn" (click)="showForm(formNum)" text="{{'Advanced Search' | translate}}"></dx-button>
+            </div>
+        <dx-button class="refresh-btn grey-btn" icon="fa fa-refresh" (click)="refreshList()" text="{{'refresh' | translate}}"></dx-button>
+    </div>
+
+
+    <!-- 搜索表单 -->
+    <div class="form-layer" id="form-layer" [@formAnimation]="formAnimate">
+        <mf-form [(formObjEmit)]="formObjEmit" (formSubmitEvent)="getFormObjChange($event)"></mf-form>
+    </div>
+    <div class="history-list space-15">
+        <dx-data-grid id="gridContainer" [dataSource]="ApplyInfoData" (onSelectionChanged)="selectRecordHandle($event)" [sorting]='{mode:"none"}'>
+            <dxo-selection mode="single"></dxo-selection>
+
+            <dxi-column dataField="applyInfo.applyTypeName" caption="{{'applyTypeName' | translate}}" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="applyInfo.deliveryReceiptNumbr" caption="{{'deliveryReceiptNumbr' | translate}}" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="name" caption="{{'name' | translate}}" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="applyInfo.applyPurposeName" caption="{{'applyPurpose' | translate}}" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="applyInfo.priorityName" caption="{{'priority' | translate}}" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="applyInfo.applyCenterName" caption="{{'applyCenterName' | translate}}" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="applyInfo.applyTime" caption="{{'applyTime' | translate}}" dataType="date" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="applyInfo.enteringPersonName" caption="{{'enteringPersonName' | translate}}" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="applyInfo.applyStatusName" caption="{{'applyStatusName' | translate}}" [allowSorting]="false"></dxi-column>
+
+        </dx-data-grid>
+        <div class="pull-right pagin-space">
+            <app-pagination [(pageObjEmit)]="pageObj" [(totalCount)]="totalCount" (pageObjChange)="getpageObjChange($event)"></app-pagination>
+        </div>
+    </div>
+
+<!--     <i class="fa toggle-form" [ngClass]="{'fa-chevron-left toggle-form-left':formAnimate ==='hidden','fa-chevron-right toggle-form-left':formAnimate ==='show'}"
+        (click)="showForm(formNum)"></i> -->
+
+<!--     <div class="form-layer" id="form-layer" [@formAnimation]="formAnimate">
+        <mf-form [(formObjEmit)]="formObjEmit" (formSubmitEvent)="getFormObjChange($event)"></mf-form>
+    </div> -->
+
+
+</div>
+<mf-history [handleHistoryList]="historyRecordList"></mf-history>
+
+
+<!-- 隐藏搜索表单前，给出相应提示 start -->
+<dx-popup class="popup confirmPopup" [width]="300" [height]="220" title="{{'pupopinformation'|translate}}" [showTitle]="true"
+    [showCloseButton]="false" [dragEnabled]="false" [closeOnOutsideClick]="false" [(visible)]="confirmVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div class="proInfo">{{'Are you sure show and reset search form'| translate}}</div>
+        <div class="btns">
+            <dx-button icon="fa fa-check" id="yes" text="{{'confirm'| translate}}" type="success" (onClick)="srueHiddenForm()"></dx-button>
+            <dx-button icon="fa fa-close" id="no" text="{{'cancel'| translate}}" type="danger" (onClick)="cancelPounp()"></dx-button>
+        </div>
+        <span class="icon-AG-Help"></span>
+    </div>
+</dx-popup>

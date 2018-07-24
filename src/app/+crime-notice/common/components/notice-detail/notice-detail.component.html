@@ -1,0 +1,40 @@
+<!--基本描述信息start -->
+ <noticeAudit-processInfo [noticeInfo]="noticeInfo">
+       <dx-button icon="fa fa-reply" class="grey-btn" text="{{'getBack'| translate}}" (onClick)="goBack()" [disabled]="LoadingPanelVisible"></dx-button>
+ </noticeAudit-processInfo>
+<!--基本描述信息end -->
+
+<!--进度条start -->
+<div class="detail-progress">
+    <mf-progress [dataSource]='noticeStatus' [activeIndex]='noticeInfo?.status-1'>
+    </mf-progress>
+    <div class="detail-tab">
+        <span [class.noticeBook1]="noticeBox" (click)="showNotice()">{{'noticeInfo'| translate}}</span>
+        <span [class.noticeUser1]="personBox" (click)="showPerson()">{{'personDetail'| translate}}</span>
+    </div>
+</div>
+<!--进度条end -->
+
+<!--公告信息 公告基本信息 -->
+<div class="detail-content">
+    <div class="col-xs-8">
+        <!-- 基本信息 -->
+        <div class="tabLeft notice-input-left" [class.noticeBox]="noticeBox" [class.personBox1]="personBox">
+
+            <noticeInfo-read [noticeInfo]="noticeInfo"></noticeInfo-read>
+            <div class="clearfix"></div>
+            <crimeInfo-read [crimeInfo]="crimeInfo"></crimeInfo-read>
+
+        </div>
+        <!-- 个人信息 -->
+        <div class="tabLeft padding-top-10 notice-input-left" [class.personBox]="personBox" [class.noticeBox1]="noticeBox">
+            <personInfo-read [crimePersonInfo]="crimePersonInfo"></personInfo-read>
+        </div>
+    </div>
+    <div class="col-xs-4 attachment-watch-wrap">
+        <div class="attachment attachment-change-width">
+            <crms-attchment [imageFileList]="attachmentList" [controllFlag]="attchmentControllObj" [onlyForApplyAnalysis]='false'></crms-attchment>
+        </div>
+    </div>
+</div>
+<!--申请信息 申请基本信息 -->

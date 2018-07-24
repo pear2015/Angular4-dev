@@ -1,0 +1,664 @@
+/* 内容区域布局 start */
+
+%full-height {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+%full-width {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.c-background {
+  background: $white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+}
+
+
+/** 页面去掉顶部的一句话总结, html修改完成后删除 **/
+
+.c-summary {
+  display: none
+}
+
+.c-container {
+  @extend %full-width;
+  @extend %full-height;
+  margin: $common-space $common-space $common-space $common-space;
+}
+
+.c-full {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.c-cake {
+  width: 49%;
+  display: inline-block
+}
+
+.c-operation {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.c-content {
+  margin-bottom: 5px;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.c-left {
+  @extend %full-height;
+  left: 0;
+  width: 70%;
+}
+
+.c-right {
+  @extend %full-height;
+  right: 0;
+  width: calc(30% - #{$common-space});
+}
+
+
+/*三分屏*/
+
+.c-3-top {
+  @extend %full-width;
+  top: 0;
+  height: calc(100% - #{$common-space} - #{$btn-group-height});
+}
+
+.c-3-left {
+  margin-top: $common-space;
+  float: left;
+  width: calc((100% - 2 * #{$common-space}) / 3);
+  height: 100%;
+  display: block;
+}
+
+.c-3-middle {
+  margin-top: $common-space;
+  margin-left: $common-space;
+  float: left;
+  height: 100%;
+  width: calc((100% - 2 * #{$common-space}) / 3);
+  /*width: calc(33% - #{$common-space});*/
+  display: block;
+}
+
+.c-3-right {
+  margin-top: $common-space;
+  margin-left: $common-space;
+  float: left;
+  height: 100%;
+  width: calc((100% - 2 * #{$common-space}) / 3);
+  /*width: calc(34% - #{$common-space});*/
+  display: block;
+}
+
+.c-3-internal-top {
+  /*@extend %full-height;*/
+  top: 0;
+  height: calc(80% - #{$common-space / 2});
+}
+
+.c-3-internal-bottom {
+  /*@extend %full-height;*/
+  bottom: 0;
+  height: calc(20% - #{$common-space / 2});
+}
+
+
+/*三分屏 end*/
+
+.c-1-content-area {
+  @extend %full-width;
+  margin-top: $common-space;
+  height: calc(100% - #{$common-space} - #{$btn-group-height});
+}
+
+.c-top {
+  @extend %full-width;
+  top: 0;
+  height: calc(55% - #{$common-space / 2});
+}
+
+.c-bottom {
+  @extend %full-width;
+  bottom: 0;
+  height: calc(45% - #{$common-space / 2});
+}
+
+
+/*平均分配的上下结构*/
+
+.c-same-top {
+  /*@extend %full-width;*/
+  top: 0;
+  height: calc(50% - #{$common-space / 2});
+}
+
+.c-same-bottom {
+  /*@extend %full-width;*/
+  bottom: 0;
+  height: calc(50% - #{$common-space / 2});
+}
+
+.c-same-top-relative {
+  // height: calc(50% - #{$common-space / 2});
+  height: auto;
+}
+
+.c-same-bottom-relative {
+  margin-top: $common-space;
+  margin-top: 20px;
+  height: calc(50% - #{$common-space / 2});
+}
+
+.c-7-top-relative {
+  height: calc(70% - #{$common-space / 2});
+}
+
+.c-3-bottom-relative {
+  margin-top: $common-space;
+  height: calc(30% - #{$common-space / 2});
+}
+
+.c-6-top-relative {
+  height: calc(60% - #{$common-space / 2});
+}
+
+.c-4-bottom-relative {
+  margin-top: $common-space;
+  height: calc(40% - #{$common-space / 2});
+}
+
+
+/*平均分配的上下结构 end*/
+
+.c-internal-left {
+  height: 100%;
+  width: calc(50% - #{$common-space / 2});
+  float: left
+}
+
+.c-internal-right {
+  height: 100%;
+  width: calc(50% - #{$common-space / 2});
+  float: right
+}
+
+.c-internal-right-1 {
+  height: 100%;
+  width: calc(10% - #{$common-space / 2});
+  float: left
+}
+
+.c-internal-right-3 {
+  height: 100%;
+  width: calc(30% - #{$common-space / 2});
+  float: right
+}
+
+.c-internal-right-6 {
+  height: 100%;
+  width: calc(60% - #{$common-space / 2});
+  float: right
+}
+
+.c-internal-left-2 {
+  height: 100%;
+  display: block;
+  width: calc(30% - #{$common-space / 3});
+  float: left;
+  padding: 15px;
+}
+
+.c-internal-left-4 {
+  height: 100%;
+  width: calc(40% - #{$common-space / 3});
+  float: left
+}
+
+.c-internal-left-7 {
+  height: 100%;
+  width: calc(70% - #{$common-space / 2});
+  float: left
+}
+
+.c-internal-left-8 {
+  height: 100%;
+  width: calc(80% - #{$common-space / 2});
+  float: left
+}
+
+.c-top-content-area {
+  padding-top: $common-space;
+  padding-top: 0;
+  margin: 0 12px;
+  height: calc(100% - #{$btn-group-height});
+}
+
+.c-top-btn-group {
+  height: $btn-group-height;
+  
+  .btn{
+    border-radius: 4px;
+    outline: none;
+  }
+  .btn.btn-outline-primary.c-btn-reset{
+    outline: none;
+  }
+  .btn.btn-success.c-btn-reset{
+    outline: none;
+  }
+  
+}
+
+.c-top-btn-group-height {
+  height: 42px;
+}
+
+.c-btn-float-right {
+  height: $btn-group-height;
+  float: right;
+}
+
+.c-btn-float-left {
+  height: $btn-group-height;
+  float: left;
+}
+
+.c-internal-content {
+  width: calc(100% - #{$common-space / 2});
+  height: 90%;
+  display: block;
+  margin: 5px;
+  padding: 5px;
+}
+
+.c-textarea-content {
+  width: calc(100% - #{$common-space / 1});
+  height: 90%;
+  display: block;
+  margin: 5px;
+  margin-bottom: 10px;
+  border-style: dashed;
+  resize: none;
+}
+
+
+/* ---- TODO ---- */
+
+.c-btn-reset {
+  font-size: 14px;
+  height: $btn-group-height;
+  border-radius: 0px;
+}
+
+.c-btn-dropdown {
+  position: relative;
+  right: 5px;
+}
+
+.c-btn-primary-p {
+  position: relative;
+  right: 5px;
+}
+
+.c-dropdown-position {
+  position: absolute;
+  top: 50px;
+  left: 120px;
+  background: #333;
+}
+
+.c-dropdown-item-txt {
+  color: #fff;
+}
+.dropdown-item-horizontal :focus, .dropdown-item-horizontal :hover {
+ display: inline-block!important; 
+}
+.c-dropdown-color {
+  background: #222;
+}
+
+.c-dropdown-position-f-1 {
+  float: left;
+  top: 50px;
+  left: 14px;
+  background: #333;
+}
+
+.c-dropdown-position-f-2 {
+  float: left;
+  top: 50px;
+  left: 145px;
+  background: #333;
+}
+
+.c-dropdown-position-f-3 {
+  float: left;
+  top: 50px;
+  left: 255px;
+  background: #333;
+}
+
+.c-types-btn-group {
+  float: right;
+  list-style: none;
+  padding: 0;
+  margin: 2px 14px;
+  &>li {
+    float: left;
+    margin-left: 10px;
+  }
+}
+
+
+/* 内容区域布局 end */
+
+
+/* 自定义loading效果  */
+
+.spinner {
+  /*margin: 100px auto;*/
+  width: 50px;
+  height: 60px;
+  left: 35%;
+  top: 250px;
+  text-align: center;
+  font-size: 10px;
+  position: relative;
+  z-index: 10;
+}
+
+.spinner>div {
+  background-color: #67CF22;
+  height: 100%;
+  width: 6px;
+  display: inline-block;
+  -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+  animation: stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+.spinner .rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+
+@-webkit-keyframes stretchdelay {
+  0%,
+  40%,
+  100% {
+    -webkit-transform: scaleY(0.4)
+  }
+  20% {
+    -webkit-transform: scaleY(1.0)
+  }
+}
+
+@keyframes stretchdelay {
+  0%,
+  40%,
+  100% {
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }
+  20% {
+    transform: scaleY(1.0);
+    -webkit-transform: scaleY(1.0);
+  }
+}
+
+
+/* 自定义loading效果 end  */
+
+
+/* 自定义文字显示格式 */
+
+.p-title {
+  display: inline-block;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+.p-title-font {
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+.wordcloud-content {
+  padding-top: $common-space;
+  height: calc(100% - 32px);
+}
+
+.chart-title {
+  position: absolute;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 0 5px;
+  padding-top: 3px;
+  z-index: 100;
+}
+
+.chart-title-help {
+  color: #d8271c;
+  cursor: pointer;
+}
+
+.chart-divider {
+  position: relative;
+  top: 30px;
+  border-bottom: 1px solid #ebebeb;
+  height: 1px;
+}
+
+.popover {
+  background-color: #333;
+  opacity: 0.85;
+  color: #fff;
+}
+
+.popover.popover-top::after {
+  border-top-color: #333;
+}
+
+.popover.popover-bottom::after {
+  border-bottom-color: #333;
+}
+
+.popover.popover-right::after {
+  border-right-color: #333;
+}
+
+.popover.popover-left::after {
+  border-left-color: #333;
+}
+
+
+/* 警情内在关联性 start*/
+
+.c-title-top {
+  margin-top: 10px
+}
+
+
+/* 警情内在关联性 end */
+
+
+/* 资源利用优化 start*/
+
+.c-button-position-zy {
+  position: relative;
+  left: 8px;
+  top: 8px;
+}
+
+.c-buttongrp-pad {
+  padding-top: 8px;
+  padding-left: 8px;
+}
+
+
+/* 资源利用优化 end */
+
+
+/* 社会效益有背景色按钮样式 start*/
+
+.btn-outline-primary-s {
+  color: #bdbdbd;
+  background-color: #404a59;
+  border-color: #bdbdbd;
+  &:hover {
+    color: #fff;
+    background-color: #c02b19;
+    border-color: #c02b19;
+  }
+  &.active {
+    color: #fff;
+    background-color: #e04835;
+    border-color: #e04835;
+  }
+}
+
+
+/* 社会效益有背景色按钮样式 end*/
+
+
+/* 中心接警量对比提示框样式 start*/
+
+.c-alert-position {
+  position: absolute;
+  left: 40%;
+  top: 26%;
+}
+
+
+/* 中心接警量对比提示框样式 end*/
+
+
+/* 配置项样式 start*/
+
+.card.customClass,
+.card.customClass .card-header {
+  background: royalblue;
+  color: #fff;
+}
+
+.panel.customClass .panel-body {
+  background: whitesmoke;
+  color: black;
+}
+
+
+/* 配置项样式 end*/
+
+
+/* 配置注意事项样式 start*/
+
+.notice-display {
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-left: 15px;
+  margin-top: 15px;
+  height: 100%;
+}
+
+.notice-section {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-left: 10px;
+}
+
+
+/* 配置注意事项样式 end*/
+
+
+/* 修改BSP的样式 start*/
+
+.dropdown-menu {
+  background: #fff;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .5);
+  border: none;
+  min-width: 94px;
+  li {
+    padding: 0;
+    color: #222;
+    float: none;
+    .dropdown-submenu {
+      width: auto;
+      background: transparent;
+      float: none;
+      padding: 0;
+      overflow: hidden;
+      .dropdown-item-horizontal {
+        margin: 0;
+        float: none;
+        padding: 0 1.5rem;
+        font-size: 14px;
+        line-height: 30px;
+      }
+    }
+  }
+  .dropdown-item-country {
+    color: #0275d8;
+    font-weight: normal;
+    padding: 0 1.5rem;
+  }
+}
+
+.btn-outline-primary{
+  background-color: #ffffff;
+  border-color: #e0e0e0;
+  color: #646464;
+  &:hover {
+    color: #fff;
+    background-color: #c02b19;
+    border-color: #c02b19;
+  }
+  &.active {
+    color: #fff;
+    background-color: #e04835;
+    border-color: #e04835;
+  }
+  &.focus{    
+    color: #fff;
+    background-color: #c02b19;
+    border-color: #c02b19;
+  }
+}
+.btn-outline-primary:active:hover, .btn-outline-primary:active:focus, .btn-outline-primary:active.focus, .btn-outline-primary.active:hover, .btn-outline-primary.active:focus, .btn-outline-primary.active.focus,
+.open > .btn-outline-primary.dropdown-toggle:hover,
+.open > .btn-outline-primary.dropdown-toggle:focus,
+.open > .btn-outline-primary.dropdown-toggle.focus {
+  color: #fff;
+  background-color: #c02b19;
+  border-color: #c02b19;
+}
+
+/* 修改BSP的样式 end*/
