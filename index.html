@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 500px;
+            height: 500px;
+            border: 1px solid red;
+            position: relative;
+        }
+
+        .plot {
+            border-radius: 100%;
+            /* width: 10px; */
+            /* height: 10px; */
+            border: 1px solid green;
+            background: pink;
+            position: absolute;
+            left: 245px;
+            top: 245px;
+            translate: translateX(50px);
+            
+            transform-origin: -15px -15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+    </div>
+</body>
+<script>
+    const plotCount = 8;
+    let container = document.getElementsByClassName('container')[0];
+    let initWidth = 6;
+    for (let i = 0; i < plotCount; i++) {
+        let div = document.createElement('div');
+        div.style.width = `${initWidth + i}px`;
+        div.style.height = `${initWidth + i}px`;
+        div.className = 'plot';
+        // div.style.transform = `translateX(20px) rotate(${i * 360 / plotCount}deg)`;
+        let index = i;
+        setInterval(() => {
+            index ++;
+            div.style.transform = `translateX(10px) rotate(${index * 360 / plotCount}deg)`;
+        }, 200)
+        container.append(div);
+    }
+
+
+</script>
+
+</html>
